@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57"
+                id="B2bSaleInvoiceRegisteredPageDef" Package="SalePage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+    <iterator Binds="B2bSaleInvoiceRegisteredVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="B2bSaleInvoiceRegisteredVO1Iterator"/>
+    <searchRegion Binds="B2bSaleInvoiceRegisteredVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="B2bSaleInvoiceRegisteredVO1Query"/>
+  </executables>
+  <bindings>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_Customer" id="Customer"/>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="B2bSaleInvoiceRegisteredVO1Iterator" id="B2bSaleInvoiceRegisteredVO1">
+      <nodeDefinition DefName="model.sale.views.B2bSaleInvoiceRegisteredVO" Name="B2bSaleInvoiceRegisteredVO10">
+        <AttrNames>
+          <Item Value="UnitCode"/>
+          <Item Value="GstRegNo"/>
+          <Item Value="InvcNo"/>
+          <Item Value="InvcDt"/>
+          <Item Value="InvoiceValue"/>
+          <Item Value="CustCode"/>
+          <Item Value="ConsigneeName"/>
+          <Item Value="Distination"/>
+          <Item Value="Address"/>
+          <Item Value="CustCityCode"/>
+          <Item Value="StateCode"/>
+          <Item Value="ReverseCharge"/>
+          <Item Value="ApplicableOfTaxRate"/>
+          <Item Value="InvoiceType"/>
+          <Item Value="ECommerceGstin"/>
+          <Item Value="GstDesc"/>
+          <Item Value="TaxableValue"/>
+          <Item Value="CessAmt"/>
+          <Item Value="Igst"/>
+          <Item Value="Sgst"/>
+          <Item Value="Cgst"/>
+          <Item Value="InvoiceLineTotal"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="callB2bSaleInvoiceRegistered" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callB2bSaleInvoiceRegistered" IsViewObjectMethod="false"
+                  DataControl="AppModuleDataControl" InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="CUSTOMER" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

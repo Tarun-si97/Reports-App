@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Party Balance" id="ph1">
+    <af:spacer width="10" height="10" id="s1"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="#{bindings.UnitCode.label}"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:180px;"
+                              labelStyle="width:105px">
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2">
+          <af:selectOneChoice value="#{bindings.GlType.inputValue}" label="Gl Type"
+                              required="#{bindings.GlType.hints.mandatory}" shortDesc="#{bindings.GlType.hints.tooltip}"
+                              id="soc2" contentStyle="width:180px;" labelStyle="width:105px">
+            <f:selectItems value="#{bindings.GlType.items}" id="si2"/>
+            <f:validator binding="#{bindings.GlType.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3">
+          <af:selectOneChoice value="#{bindings.FinYear.inputValue}" label="Finance Year"
+                              required="#{bindings.FinYear.hints.mandatory}"
+                              shortDesc="#{bindings.FinYear.hints.tooltip}" id="soc3">
+            <f:selectItems value="#{bindings.FinYear.items}" id="si3"/>
+            <f:validator binding="#{bindings.FinYear.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
+                        required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id2" contentStyle="width:160px;" labelStyle="width:105px">
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date"
+                        required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id3" contentStyle="width:160px;"
+                        labelStyle="width:105px">
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b1" actionListener="#{ReportFactoryBeanNew.OnClickFind}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s2"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t2">
+        <af:button text="Export To Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="Party Balance.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.PartyBalancesVO11.collectionModel}" var="row"
+              rows="#{bindings.PartyBalancesVO11.rangeSize}"
+              emptyText="#{bindings.PartyBalancesVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.PartyBalancesVO11.collectionModel.selectedRow}"
+              selectionListener="#{bindings.PartyBalancesVO11.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.PartyBalancesVO11.rangeSize}"
+              filterModel="#{bindings.PartyBalancesVO1Query.queryDescriptor}" filterVisible="true"
+              queryListener="#{bindings.PartyBalancesVO1Query.processQuery}" varStatus="vs" id="t1">
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.Unit.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.PartyBalancesVO11.hints.Unit.label}" id="c1">
+        <af:outputText value="#{row.Unit}" shortDesc="#{bindings.PartyBalancesVO11.hints.Unit.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.SubCode.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.PartyBalancesVO11.hints.SubCode.label}" id="c2">
+        <af:outputText value="#{row.SubCode}" shortDesc="#{bindings.PartyBalancesVO11.hints.SubCode.tooltip}" id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.Name.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.PartyBalancesVO11.hints.Name.label}" id="c3">
+        <af:outputText value="#{row.Name}" shortDesc="#{bindings.PartyBalancesVO11.hints.Name.tooltip}" id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.OpDr.name}" filterable="true" sortable="true"
+                 headerText="Opening Debit" id="c4">
+        <af:outputText value="#{row.OpDr}" shortDesc="#{bindings.PartyBalancesVO11.hints.OpDr.tooltip}" id="ot4">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.PartyBalancesVO11.hints.OpDr.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.OpCr.name}" filterable="true" sortable="true"
+                 headerText="Opening Credit" id="c5">
+        <af:outputText value="#{row.OpCr}" shortDesc="#{bindings.PartyBalancesVO11.hints.OpCr.tooltip}" id="ot5">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.PartyBalancesVO11.hints.OpCr.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.TranDr.name}" filterable="true" sortable="true"
+                 headerText="Transaction Debit" id="c6">
+        <af:outputText value="#{row.TranDr}" shortDesc="#{bindings.PartyBalancesVO11.hints.TranDr.tooltip}" id="ot6">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.PartyBalancesVO11.hints.TranDr.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.TranCr.name}" filterable="true" sortable="true"
+                 headerText="Transaction Credit" id="c7">
+        <af:outputText value="#{row.TranCr}" shortDesc="#{bindings.PartyBalancesVO11.hints.TranCr.tooltip}" id="ot7">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.PartyBalancesVO11.hints.TranCr.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.SapCode.name}" filterable="true" sortable="true"
+                 headerText="Sap Code" id="c8">
+        <af:outputText value="#{row.SapCode}" shortDesc="#{bindings.PartyBalancesVO11.hints.SapCode.tooltip}" id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.ClDr.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.PartyBalancesVO11.hints.ClDr.label}" id="c9">
+        <af:outputText value="#{row.ClDr}" shortDesc="#{bindings.PartyBalancesVO11.hints.ClDr.tooltip}" id="ot9">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.PartyBalancesVO11.hints.ClDr.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.ClCr.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.PartyBalancesVO11.hints.ClCr.label}" id="c10">
+        <af:outputText value="#{row.ClCr}" shortDesc="#{bindings.PartyBalancesVO11.hints.ClCr.tooltip}" id="ot10">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.PartyBalancesVO11.hints.ClCr.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.Sessionid.name}" filterable="true" sortable="true"
+                 headerText="Session Id" id="c11">
+        <af:outputText value="#{row.Sessionid}" shortDesc="#{bindings.PartyBalancesVO11.hints.Sessionid.tooltip}"
+                       id="ot11"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.EntDt.name}" filterable="true" sortable="true"
+                 headerText="Entry Date" id="c12">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.PartyBalancesVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EntDt.value}"
+                        id="id1">
+            <af:convertDateTime pattern="#{bindings.PartyBalancesVO11.hints.EntDt.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.EntDt}" shortDesc="#{bindings.PartyBalancesVO11.hints.EntDt.tooltip}" id="ot12">
+          <af:convertDateTime pattern="#{bindings.PartyBalancesVO11.hints.EntDt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.GlCd.name}" filterable="true" sortable="true"
+                 headerText="GL Code" id="c13">
+        <af:outputText value="#{row.GlCd}" shortDesc="#{bindings.PartyBalancesVO11.hints.GlCd.tooltip}" id="ot13"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.GlDesc.name}" filterable="true" sortable="true"
+                 headerText="GL Description" id="c19">
+        <af:outputText value="#{row.GlDesc}" shortDesc="#{bindings.PartyBalancesVO11.hints.GlDesc.tooltip}" id="ot19"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.GstRegNo.name}" filterable="true" sortable="true"
+                 headerText="GST Reg. No" id="c14">
+        <af:outputText value="#{row.GstRegNo}" shortDesc="#{bindings.PartyBalancesVO11.hints.GstRegNo.tooltip}"
+                       id="ot14"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.ContactPerson.name}" filterable="true" sortable="true"
+                 headerText="Contact Person" id="c15">
+        <af:outputText value="#{row.ContactPerson}"
+                       shortDesc="#{bindings.PartyBalancesVO11.hints.ContactPerson.tooltip}" id="ot15"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.Address1.name}" filterable="true" sortable="true"
+                 headerText="Address" id="c16">
+        <af:outputText value="#{row.Address1}" shortDesc="#{bindings.PartyBalancesVO11.hints.Address1.tooltip}"
+                       id="ot16"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.Phones.name}" filterable="true" sortable="true"
+                 headerText="Contact No." id="c17">
+        <af:outputText value="#{row.Phones}" shortDesc="#{bindings.PartyBalancesVO11.hints.Phones.tooltip}" id="ot17"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.ChannelType.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.PartyBalancesVO11.hints.ChannelType.label}" id="c18">
+        <af:outputText value="#{row.ChannelType}" shortDesc="#{bindings.PartyBalancesVO11.hints.ChannelType.tooltip}"
+                       id="ot18"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</jsp:root>

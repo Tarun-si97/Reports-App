@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <f:view>
+        <af:document title="test.jspx" id="d1">
+            <af:form id="f1">
+                <f:subview id="A1">
+                    <!--<af:region value="#{bindings.B2CSaleInvoiceUnRegisteredTF1.regionModel}" id="r1"/>-->
+                    <!--<af:region value="#{bindings.GeneralLedgerTF2.regionModel}" id="r2"/>-->
+                    <!--<af:region value="#{bindings.PartyBalanceTF1.regionModel}" id="r3"/>-->
+                    <!--<af:region value="#{bindings.SubLedgerTF1.regionModel}" id="r4"/>-->
+                    <!--<af:region value="#{bindings.StockLedgerTF1.regionModel}" id="r5"/>-->
+                    <!--<af:region value="#{bindings.StockStatusTF2.regionModel}" id="r6"/>-->
+                    <!--<af:region value="#{bindings.PendingFinishGoodsWiseTF1.regionModel}" id="r7"/>-->
+                    <!--<af:region value="#{bindings.WIPStock2.regionModel}" id="r8"/>-->
+                    <af:region value="#{bindings.b2bsaleinvoiceregisteredTF2.regionModel}" id="r9"/>
+                    <!--<af:region value="#{bindings.SaleRegisterDetailTF2.regionModel}" id="r10"/>-->
+                </f:subview>
+            </af:form>
+        </af:document>
+    </f:view>
+</jsp:root>

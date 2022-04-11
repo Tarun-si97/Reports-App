@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="SubLedgerPageDef"
+                Package="FinancePage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+    <iterator Binds="SubLedgerVO1" RangeSize="25" DataControl="AppModuleDataControl" id="SubLedgerVO1Iterator"/>
+    <searchRegion Binds="SubLedgerVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="SubLedgerVO1Query"/>
+  </executables>
+  <bindings>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="callSubLedgerproc" RequiresUpdateModel="true" Action="invokeMethod" MethodName="callSubLedgerproc"
+                  IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="LV_GLCD" NDType="java.lang.String"/>
+      <NamedData NDName="LV_SID" NDType="java.lang.String"/>
+      <NamedData NDName="LV_YEAR" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+    </methodAction>
+    <tree IterBinding="SubLedgerVO1Iterator" id="SubLedgerVO1">
+      <nodeDefinition DefName="model.finance.views.SubLedgerTrialVO" Name="SubLedgerVO10">
+        <AttrNames>
+          <Item Value="SubCode"/>
+          <Item Value="Name"/>
+          <Item Value="OpDr"/>
+          <Item Value="OpCr"/>
+          <Item Value="TranDr"/>
+          <Item Value="TranCr"/>
+          <Item Value="ClDr"/>
+          <Item Value="ClCr"/>
+          <Item Value="Sessionid"/>
+          <Item Value="Unit"/>
+          <Item Value="EntDt"/>
+          <Item Value="GlCd"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_GlCode" id="GlCode"/>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_FinYear" id="FinYear" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+  </bindings>
+</pageDefinition>

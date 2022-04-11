@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="WIPStockVO"
+  Version="12.2.1.11.57"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="model.production.views.WIPStockVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="P40_FROM_DT"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <Variable
+    Name="P40_TO_DT"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <Variable
+    Name="P40_UNIT"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P40_LOC"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[With WIP_STOCK_STL   
+AS   
+(Select PSL.Unit_Cd, PSL.Item_Cd, NVL(PSL.Proc_Cd ,'.') Proc_Cd, Min(NVL(PSL.Proc_Seq, 0)) Proc_Seq, PSL.LOC_CD   
+      , Nvl((Select Sum(Decode(PS.TRAN_TYPE, 'R', PS.Qty, -1*PS.Qty))    
+           From PRODN_SHOP_LEDGER PS   
+          Where TRUNC(PS.ENTRY_DT) < Trunc(TO_DATE(:P40_FROM_DT, 'DD-MM-YY'))   
+            And PSL.Unit_Cd = PS.Unit_Cd   
+            And PSL.Item_Cd = PS.Item_Cd   
+            And NVL(PSL.Proc_Cd ,'.') = NVL(PS.Proc_Cd,'.')   
+            --And NVL(PSL.Proc_Seq, 0) = NVL(PS.Proc_Seq, 0)   
+            And PSL.LOC_CD = PS.LOC_CD), 0) Opening_Bal   
+     , Nvl((Select Sum(Decode(PS.TRAN_TYPE, 'R', PS.Qty, 0))    
+           From PRODN_SHOP_LEDGER PS   
+          Where TRUNC(PS.ENTRY_DT) Between Trunc(TO_DATE(:P40_FROM_DT, 'DD-MM-YY'))  AND Trunc(TO_DATE(:P40_TO_DT, 'DD-MM-YY'))   
+            And PSL.Unit_Cd = PS.Unit_Cd   
+            And PSL.Item_Cd = PS.Item_Cd   
+            And NVL(PSL.Proc_Cd ,'.') = NVL(PS.Proc_Cd,'.')   
+            --And NVL(PSL.Proc_Seq, 0) = NVL(PS.Proc_Seq, 0)   
+            And PSL.LOC_CD = PS.LOC_CD), 0) Recp_Stock   
+     , Nvl((Select Sum(Decode(PS.TRAN_TYPE, 'I', PS.Qty, 0))    
+           From PRODN_SHOP_LEDGER PS   
+          Where TRUNC(PS.ENTRY_DT) Between Trunc(TO_DATE(:P40_FROM_DT, 'DD-MM-YY'))  AND Trunc(TO_DATE(:P40_TO_DT, 'DD-MM-YY'))   
+            And PSL.Unit_Cd = PS.Unit_Cd   
+            And PSL.Item_Cd = PS.Item_Cd   
+            And NVL(PSL.Proc_Cd ,'.') = NVL(PS.Proc_Cd,'.')   
+            --And NVL(PSL.Proc_Seq, 0) = NVL(PS.Proc_Seq, 0)   
+            And PSL.LOC_CD = PS.LOC_CD), 0) Issue_Qty   
+      , Nvl((Select Sum(Decode(PS.TRAN_TYPE, 'R', PS.Qty, -1*PS.Qty))    
+           From PRODN_SHOP_LEDGER PS   
+          Where TRUNC(PS.ENTRY_DT) <= Trunc(TO_DATE(:P40_TO_DT, 'DD-MM-YY'))   
+            And PSL.Unit_Cd = PS.Unit_Cd   
+            And PSL.Item_Cd = PS.Item_Cd   
+            And NVL(PSL.Proc_Cd ,'.') = NVL(PS.Proc_Cd,'.')   
+            --And NVL(PSL.Proc_Seq, 0) = NVL(PS.Proc_Seq, 0)   
+            And PSL.LOC_CD = PS.LOC_CD), 0) Closing_Bal   
+   From PRODN_SHOP_LEDGER PSL   
+  Where TRUNC(ENTRY_DT) <= Trunc(TO_DATE(:P40_TO_DT, 'DD-MM-YY'))   
+  Group BY PSL.Unit_Cd, PSL.Item_Cd, NVL(PSL.Proc_Cd ,'.'), PSL.LOC_CD)   
+Select WL.Unit_Cd, AIm.Group_Code, Aim.Item_group, Aim.SUB_GRP_CD, Aim.SUB_GRP_DESC   
+     , WL.Item_Cd, Aim.Item_Desc, Aim.Item_Uom, Aim.Default_LOC   
+     , WL.Proc_Cd, WL.LOC_CD Stock_LOC_CD   
+     , WL.Opening_Bal, WL.Recp_Stock, WL.Issue_Qty   
+     , WL.Opening_Bal + WL.Recp_Stock - WL.Issue_Qty Closing_Bal   
+     , (Select L.SHORT_DESC From LOCATION L Where WL.LOC_CD =L.LOCAT_CODE) LOC_NAME   
+  From WIP_STOCK_STL WL   
+Join VW_ALL_ITEM_MAS AIM   
+   on WL.ITEM_CD = AIM.ITEM_CD   
+  And WL.UNIT_CD = AIM.UNIT_CD   
+Where WL.Unit_Cd= NVL(:P40_UNIT,WL.Unit_Cd)   
+  AND WL.LOC_CD like '%'||:P40_LOC]]></SQLQuery>
+  <ViewAttribute
+    Name="UnitCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UNIT_CD"
+    Expression="UNIT_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GroupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="6"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GROUP_CODE"
+    Expression="GROUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemGroup"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_GROUP"
+    Expression="ITEM_GROUP"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SubGrpCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SUB_GRP_CD"
+    Expression="SUB_GRP_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SubGrpDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SUB_GRP_DESC"
+    Expression="SUB_GRP_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_CD"
+    Expression="ITEM_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="120"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_DESC"
+    Expression="ITEM_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="120"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemUom"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_UOM"
+    Expression="ITEM_UOM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DefaultLoc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DEFAULT_LOC"
+    Expression="DEFAULT_LOC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProcCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PROC_CD"
+    Expression="PROC_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StockLocCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STOCK_LOC_CD"
+    Expression="STOCK_LOC_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OpeningBal"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="OPENING_BAL"
+    Expression="OPENING_BAL"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="RecpStock"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="RECP_STOCK"
+    Expression="RECP_STOCK"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="IssueQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="ISSUE_QTY"
+    Expression="ISSUE_QTY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ClosingBal"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="CLOSING_BAL"
+    Expression="CLOSING_BAL"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="LocName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LOC_NAME"
+    Expression="LOC_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

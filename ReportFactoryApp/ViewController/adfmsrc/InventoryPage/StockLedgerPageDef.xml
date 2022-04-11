@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="StockLedgerPageDef"
+                Package="InventoryPage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="StockLedgerVO1" RangeSize="25" DataControl="AppModuleDataControl" id="StockLedgerVO1Iterator"/>
+    <searchRegion Binds="StockLedgerVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="StockLedgerVO1Query"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="StockLedgerVO1Iterator" id="StockLedgerVO1">
+      <nodeDefinition DefName="model.inventory.views.StockLedgerVO" Name="StockLedgerVO10">
+        <AttrNames>
+          <Item Value="UnitCd"/>
+          <Item Value="ItemCd"/>
+          <Item Value="ItemDesc"/>
+          <Item Value="GroupCode"/>
+          <Item Value="SubGroupCode"/>
+          <Item Value="TranType"/>
+          <Item Value="Uom"/>
+          <Item Value="DocNo"/>
+          <Item Value="TranDt"/>
+          <Item Value="TranSeq"/>
+          <Item Value="RecQty"/>
+          <Item Value="RecRate"/>
+          <Item Value="RecValue"/>
+          <Item Value="IssQty"/>
+          <Item Value="BalQty"/>
+          <Item Value="Rate"/>
+          <Item Value="Value"/>
+          <Item Value="Form31No"/>
+          <Item Value="EntryType"/>
+          <Item Value="LocFrom"/>
+          <Item Value="LocTo"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_GroupCd" id="GroupCd"/>
+    <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_SubGroupCd" id="SubGroupCd"/>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="StockLedger3" RequiresUpdateModel="true" Action="invokeMethod" MethodName="StockLedger3"
+                  IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="LV_ITEM_CD" NDType="java.lang.String"/>
+      <NamedData NDName="LV_SID" NDType="java.lang.String"/>
+      <NamedData NDName="LV_LOC" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+      <NamedData NDName="LV_GROUP_CD" NDType="java.lang.String"/>
+      <NamedData NDName="LV_SUB_GROUP_CD" NDType="java.lang.String"/>
+    </methodAction>
+    <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_LOC" id="LOC"/>
+    <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_ItemCd" id="ItemCd"/>
+  </bindings>
+</pageDefinition>

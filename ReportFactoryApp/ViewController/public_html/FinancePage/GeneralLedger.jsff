@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="General Ledger" id="ph1">
+    <f:facet name="context"/>
+    <f:facet name="toolbar"/>
+    <f:facet name="menuBar"/>
+    <f:facet name="legend"/>
+    <f:facet name="info"/>
+    <af:spacer width="10" height="10" id="s1"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:180px;"
+                              labelStyle="width:100px">
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2">
+          <af:inputComboboxListOfValues id="glCodeId" popupTitle="Search and Select: #{bindings.GlCode.hints.label}"
+                                        value="#{bindings.GlCode.inputValue}" label="Gl Code"
+                                        model="#{bindings.GlCode.listOfValuesModel}"
+                                        required="#{bindings.GlCode.hints.mandatory}"
+                                        columns="#{bindings.GlCode.hints.displayWidth}"
+                                        shortDesc="#{bindings.GlCode.hints.tooltip}" contentStyle="width:180px;"
+                                        labelStyle="width:100px">
+            <f:validator binding="#{bindings.GlCode.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3">
+          <af:selectOneChoice value="#{bindings.FinYear.inputValue}" label="Finance Year"
+                              required="#{bindings.FinYear.hints.mandatory}"
+                              shortDesc="#{bindings.FinYear.hints.tooltip}" id="soc2" contentStyle="width:180px;">
+            <f:selectItems value="#{bindings.FinYear.items}" id="si2"/>
+            <f:validator binding="#{bindings.FinYear.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id2" label="From Date" contentStyle="width:160px;" labelStyle="width:100px">
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" required="#{bindings.toDate.hints.mandatory}"
+                        columns="#{bindings.toDate.hints.displayWidth}" shortDesc="#{bindings.toDate.hints.tooltip}"
+                        id="id3" label="To Date" contentStyle="width:180px;" labelStyle="width:98px">
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b1" styleClass="width:170px;"
+                     actionListener="#{GeneralLedgerbean.OnClickButton}"
+                     disabled="#{!bindings.callGenLedgerproc.enabled}" inlineStyle="text-align:center;"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s2"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t2">
+        <af:button text="Export To Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="General Ledger.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.GeneralLedgerVO1.collectionModel}" var="row"
+              rows="#{bindings.GeneralLedgerVO1.rangeSize}"
+              emptyText="#{bindings.GeneralLedgerVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.GeneralLedgerVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.GeneralLedgerVO1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.GeneralLedgerVO1.rangeSize}"
+              filterModel="#{bindings.GeneralLedgerVO1Query.queryDescriptor}" filterVisible="false"
+              queryListener="#{bindings.GeneralLedgerVO1Query.processQuery}" varStatus="vs" id="t1">
+      <af:column sortProperty="#{bindings.GeneralLedgerVO1.hints.GlCode.name}" filterable="true" sortable="true"
+                 headerText="Gl Code" id="c1">
+        <af:outputText value="#{row.GlCode}" shortDesc="#{bindings.GeneralLedgerVO1.hints.GlCode.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GeneralLedgerVO1.hints.SlNo.name}" filterable="true" sortable="true"
+                 headerText="SlNo" id="c2">
+        <af:outputText value="#{row.SlNo}" shortDesc="#{bindings.GeneralLedgerVO1.hints.SlNo.tooltip}" id="ot2">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.GeneralLedgerVO1.hints.SlNo.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GeneralLedgerVO1.hints.VouDate.name}" filterable="true" sortable="true"
+                 headerText="Voucher Date" id="c3">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.GeneralLedgerVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.VouDate.value}"
+                        id="id1">
+            <af:convertDateTime pattern="#{bindings.GeneralLedgerVO1.hints.VouDate.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.VouDate}" shortDesc="#{bindings.GeneralLedgerVO1.hints.VouDate.tooltip}" id="ot3">
+          <af:convertDateTime pattern="#{bindings.GeneralLedgerVO1.hints.VouDate.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GeneralLedgerVO1.hints.VouNo.name}" filterable="true" sortable="true"
+                 headerText="Voucher Number" id="c4">
+        <af:outputText value="#{row.VouNo}" shortDesc="#{bindings.GeneralLedgerVO1.hints.VouNo.tooltip}" id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GeneralLedgerVO1.hints.Narration.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.GeneralLedgerVO1.hints.Narration.label}" id="c5">
+        <af:outputText value="#{row.Narration}" shortDesc="#{bindings.GeneralLedgerVO1.hints.Narration.tooltip}"
+                       id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GeneralLedgerVO1.hints.Name.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.GeneralLedgerVO1.hints.Name.label}" id="c6">
+        <af:outputText value="#{row.Name}" shortDesc="#{bindings.GeneralLedgerVO1.hints.Name.tooltip}" id="ot6"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GeneralLedgerVO1.hints.Debit.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.GeneralLedgerVO1.hints.Debit.label}" id="c7">
+        <af:outputText value="#{row.Debit}" shortDesc="#{bindings.GeneralLedgerVO1.hints.Debit.tooltip}" id="ot7">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.GeneralLedgerVO1.hints.Debit.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GeneralLedgerVO1.hints.Credit.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.GeneralLedgerVO1.hints.Credit.label}" id="c8">
+        <af:outputText value="#{row.Credit}" shortDesc="#{bindings.GeneralLedgerVO1.hints.Credit.tooltip}" id="ot8">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.GeneralLedgerVO1.hints.Credit.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GeneralLedgerVO1.hints.Balance.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.GeneralLedgerVO1.hints.Balance.label}" id="c9">
+        <af:outputText value="#{row.Balance}" shortDesc="#{bindings.GeneralLedgerVO1.hints.Balance.tooltip}" id="ot9">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.GeneralLedgerVO1.hints.Balance.format}"/>
+        </af:outputText>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+  <!--oracle-jdev-comment:preferred-managed-bean-name:GeneralLedgerbean-->
+</jsp:root>

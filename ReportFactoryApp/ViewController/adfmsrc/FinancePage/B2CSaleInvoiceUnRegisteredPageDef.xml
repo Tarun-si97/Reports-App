@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57"
+                id="B2CSaleInvoiceUnRegisteredPageDef" Package="FinancePage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="B2CSaleInvoiceUnRegisteredVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="B2CSaleInvoiceUnRegisteredVO1Iterator"/>
+    <searchRegion Binds="B2CSaleInvoiceUnRegisteredVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="B2CSaleInvoiceUnRegisteredVO1Query"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="B2CSaleInvoiceUnRegisteredVO1Iterator" id="B2CSaleInvoiceUnRegisteredVO1">
+      <nodeDefinition DefName="model.finance.views.B2CSaleInvoiceUnRegisteredVO" Name="B2CSaleInvoiceUnRegisteredVO10">
+        <AttrNames>
+          <Item Value="UnitCode"/>
+          <Item Value="StateCode"/>
+          <Item Value="GstName"/>
+          <Item Value="Timestamp"/>
+          <Item Value="Amount"/>
+          <Item Value="CessAmt"/>
+          <Item Value="ReverseCharge"/>
+          <Item Value="ApplicableOfTaxRate"/>
+          <Item Value="InvoiceType"/>
+          <Item Value="ECommerceGstin"/>
+          <Item Value="Type"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="B2CSaleInvoiceUnRegistered" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="B2CSaleInvoiceUnRegistered" IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+    </methodAction>
+    <tree IterBinding="B2CSaleInvoiceUnRegisteredVO1Iterator" id="B2CSaleInvoiceUnRegisteredVO11">
+      <nodeDefinition DefName="model.finance.views.B2CSaleInvoiceUnRegisteredVO" Name="B2CSaleInvoiceUnRegisteredVO110">
+        <AttrNames>
+          <Item Value="UnitCode"/>
+          <Item Value="StateCode"/>
+          <Item Value="GstName"/>
+          <Item Value="Timestamp"/>
+          <Item Value="Amount"/>
+          <Item Value="CessAmt"/>
+          <Item Value="ReverseCharge"/>
+          <Item Value="ApplicableOfTaxRate"/>
+          <Item Value="InvoiceType"/>
+          <Item Value="ECommerceGstin"/>
+          <Item Value="Type"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="PartyBalancePageDef"
+                Package="FinancePage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+    <iterator Binds="PartyBalancesVO1" RangeSize="25" DataControl="AppModuleDataControl" id="PartyBalancesVO1Iterator"/>
+    <searchRegion Binds="PartyBalancesVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="PartyBalancesVO1Query"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="callPartBalProc" RequiresUpdateModel="true" Action="invokeMethod" MethodName="callPartBalProc"
+                  IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="LV_GL_TYPE" NDType="java.lang.String"/>
+      <NamedData NDName="LV_SID" NDType="java.lang.String"/>
+      <NamedData NDName="LV_YEAR" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+    </methodAction>
+    <methodAction id="getData" RequiresUpdateModel="true" Action="invokeMethod" MethodName="getData"
+                  IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider"/>
+    <tree IterBinding="PartyBalancesVO1Iterator" id="PartyBalancesVO1">
+      <nodeDefinition DefName="model.finance.views.PartyBalancesVO" Name="PartyBalancesVO10">
+        <AttrNames>
+          <Item Value="Unit"/>
+          <Item Value="SubCode"/>
+          <Item Value="Name"/>
+          <Item Value="OpDr"/>
+          <Item Value="OpCr"/>
+          <Item Value="TranDr"/>
+          <Item Value="TranCr"/>
+          <Item Value="ClDr"/>
+          <Item Value="ClCr"/>
+          <Item Value="Sessionid"/>
+          <Item Value="EntDt"/>
+          <Item Value="GlCd"/>
+          <Item Value="GstRegNo"/>
+          <Item Value="ContactPerson"/>
+          <Item Value="Address1"/>
+          <Item Value="Phones"/>
+          <Item Value="ChannelType"/>
+          <Item Value="GlDesc"/>
+          <Item Value="SapCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_GlCode" id="GlCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <tree IterBinding="PartyBalancesVO1Iterator" id="PartyBalancesVO11">
+      <nodeDefinition DefName="model.finance.views.PartyBalancesVO" Name="PartyBalancesVO110">
+        <AttrNames>
+          <Item Value="Unit"/>
+          <Item Value="SubCode"/>
+          <Item Value="Name"/>
+          <Item Value="OpDr"/>
+          <Item Value="OpCr"/>
+          <Item Value="TranDr"/>
+          <Item Value="TranCr"/>
+          <Item Value="SapCode"/>
+          <Item Value="ClDr"/>
+          <Item Value="ClCr"/>
+          <Item Value="Sessionid"/>
+          <Item Value="EntDt"/>
+          <Item Value="GlCd"/>
+          <Item Value="GstRegNo"/>
+          <Item Value="ContactPerson"/>
+          <Item Value="Address1"/>
+          <Item Value="Phones"/>
+          <Item Value="ChannelType"/>
+          <Item Value="GlDesc"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <list IterBinding="DummyVVO1Iterator" id="GlType" DTSupportsMRU="true" SelectItemValueMode="ListObject"
+          StaticList="true" NullValueFlag="start">
+      <AttrNames>
+        <Item Value="GlType"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="Select"/>
+        <Item Value="Creditor"/>
+        <Item Value="Debtor"/>
+      </ValueList>
+    </list>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_FinYear" id="FinYear" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+  </bindings>
+</pageDefinition>

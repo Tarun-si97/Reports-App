@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="StockLedgerVO"
+  Version="12.2.1.11.57"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="model.inventory.views.StockLedgerVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="bindSession"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="p70_unit"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P70_ITEM"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P70_FR_Date"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <Variable
+    Name="P70_TO_Date"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <Variable
+    Name="P70_GROUP_CODE"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P70_SUB_GROUP"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[SELECT DISTINCT TRAN_TYPE,ITEM_CD,ITEM_DESC,GROUP_CODE,SUB_GROUP_CODE,UOM,         
+DOC_NO,TRAN_DT,TRAN_SEQ,REC_QTY,REC_RATE, Rec_value,ISS_QTY,BAL_QTY,UNIT_CD, Rate, round((BAL_QTY*Rate),3) VALUE          
+, (SELECT DISTINCT MEANING FROM SEC_CONTROL_VALUES WHERE CONTROL_CODE = (SELECT DISTINCT FORM_31_NO  FROM srv_heads         
+where SRV_NO = A.DOC_NO )) FORM_31_NO         
+,(SELECT DISTINCT MEANING FROM SEC_CONTROL_VALUES WHERE CONTROL_TYPE = 'ENTRY_TYPE' AND CONTROL_CODE = (SELECT DISTINCT ENTRY_TYPE  FROM srv_heads         
+where SRV_NO = A.DOC_NO )) ENTRY_TYPE,         
+(SELECT LONG_DESC FROM LOCATION WHERE LOCAT_CODE=(SELECT ISS_FROM FROM STOCK_LEDGER WHERE STORE_E_NO=A.DOC_NO AND ITEM_CD=A.ITEM_CD AND ROWNUM=1))LOC_FROM,         
+(SELECT LONG_DESC FROM LOCATION WHERE LOCAT_CODE=(SELECT ISS_TO FROM STOCK_LEDGER WHERE STORE_E_NO=A.DOC_NO AND ITEM_CD=A.ITEM_CD AND ROWNUM=1))LOC_TO         
+FROM (         
+SELECT TRAN_TYPE,ITEM_CD,(SELECT ITEM_DESC FROM ITEM_STOCK WHERE ITEM_CD=STOCK_VAL_WAV.ITEM_CD) ITEM_DESC,         
+(SELECT GRP FROM (SELECT PROD_GROUP GRP FROM PRODUCT WHERE CODE = STOCK_VAL_WAV.ITEM_CD         
+UNION ALL SELECT GROUP_CODE GRP FROM PART_MASTER WHERE PART_CODE = STOCK_VAL_WAV.ITEM_CD)) GROUP_CODE,         
+(SELECT GRP FROM (SELECT PROD_SUB_GROUP GRP FROM PRODUCT WHERE CODE = STOCK_VAL_WAV.ITEM_CD         
+UNION ALL SELECT SUB_GRP_CD GRP FROM PART_MASTER WHERE PART_CODE = STOCK_VAL_WAV.ITEM_CD)) SUB_GROUP_CODE,         
+(SELECT REC_UOM FROM ITEM_STOCK WHERE ITEM_CD=STOCK_VAL_WAV.ITEM_CD) UOM,         
+DOC_NO,TRAN_DT,TRAN_SEQ,REC_QTY,REC_RATE,nvl(REC_QTY,0)*nvl(REC_RATE,0) Rec_value,ISS_QTY,BAL_QTY,UNIT_CD,round(BAL_RATE,2) Rate         
+    FROM STOCK_VAL_WAV         
+WHERE unit_cd=:p70_unit and SESSION_ID=:bindSession       
+and ITEM_CD like :P70_ITEM||'%'        
+AND TRUNC(TRAN_DT) BETWEEN :P70_FR_Date AND :P70_TO_Date     
+--AND (TRAN_DT >=:P70_FR_Date)         
+--AND (TRAN_DT <=:P70_TO_Date)         
+order by ITEM_CD,TRAN_DT,TRAN_SEQ asc) A         
+WHERE GROUP_CODE LIKE :P70_GROUP_CODE||'%'          
+AND SUB_GROUP_CODE LIKE :P70_SUB_GROUP||'%'         
+ORDER BY TRAN_DT,ITEM_CD,TRAN_SEQ]]></SQLQuery>
+  <ViewAttribute
+    Name="TranType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="TRAN_TYPE"
+    Expression="TRAN_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_CD"
+    Expression="ITEM_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="120"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_DESC"
+    Expression="ITEM_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="120"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GroupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="6"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GROUP_CODE"
+    Expression="GROUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SubGroupCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SUB_GROUP_CODE"
+    Expression="SUB_GROUP_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Uom"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="6"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UOM"
+    Expression="UOM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DocNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DOC_NO"
+    Expression="DOC_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TranDt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="TRAN_DT"
+    Expression="TRAN_DT"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="TranSeq"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="TRAN_SEQ"
+    Expression="TRAN_SEQ"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="RecQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="REC_QTY"
+    Expression="REC_QTY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="RecRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="REC_RATE"
+    Expression="REC_RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="RecValue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="REC_VALUE"
+    Expression="REC_VALUE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="IssQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="ISS_QTY"
+    Expression="ISS_QTY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="BalQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="BAL_QTY"
+    Expression="BAL_QTY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="UnitCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UNIT_CD"
+    Expression="UNIT_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Rate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="RATE"
+    Expression="RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Value"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="VALUE"
+    Expression="VALUE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Form31No"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="FORM_31_NO"
+    Expression="FORM_31_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="EntryType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="80"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ENTRY_TYPE"
+    Expression="ENTRY_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="80"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LocFrom"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LOC_FROM"
+    Expression="LOC_FROM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LocTo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LOC_TO"
+    Expression="LOC_TO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="NoName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="NoName1"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

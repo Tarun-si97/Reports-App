@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="StockStatusPageDef"
+                Package="InventoryPage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="StockStatusVO1" RangeSize="25" DataControl="AppModuleDataControl" id="StockStatusVO1Iterator"/>
+    <searchRegion Binds="StockStatusVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="StockStatusVO1Query"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="StockStatusVO1Iterator" id="StockStatusVO1">
+      <nodeDefinition DefName="model.inventory.views.StockStatusVO" Name="StockStatusVO10">
+        <AttrNames>
+          <Item Value="UnitCd"/>
+          <Item Value="LocCd"/>
+          <Item Value="ShortDesc"/>
+          <Item Value="LongDesc"/>
+          <Item Value="ItemGroup"/>
+          <Item Value="ItemSubGroup"/>
+          <Item Value="ItemCd"/>
+          <Item Value="ItemDesc"/>
+          <Item Value="ProcCd"/>
+          <Item Value="OpnStk"/>
+          <Item Value="RecQty"/>
+          <Item Value="IssQty"/>
+          <Item Value="ClosStock"/>
+          <Item Value="HoWk"/>
+          <Item Value="CriticalItem"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_ItemCd" id="ItemCd"/>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_FinYear" id="FinYear" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <methodAction id="StockStatus" RequiresUpdateModel="true" Action="invokeMethod" MethodName="StockStatus"
+                  IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="LV_ITEM_CD" NDType="java.lang.String"/>
+      <NamedData NDName="LV_FIN_YEAR" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

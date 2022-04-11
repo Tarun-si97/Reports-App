@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="testPageDef"
+                Package="bspl.reportfactory.view.pageDefs">
+  <parameters/>
+  <executables>
+    <taskFlow id="StockStatusTF1" taskFlowId="/WEB-INF/InventoryTaskflow/StockStatusTF.xml#StockStatusTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="WIPStock1" taskFlowId="/WEB-INF/production/WIPStockTF.xml#WIPStock" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="SaleRegisterDetailTF1"
+              taskFlowId="/WEB-INF/SaleTaskFlow/SaleRegisterDetailTF.xml#SaleRegisterDetailTF" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="GeneralLedgerTF1" taskFlowId="/WEB-INF/FinanceTaskflow/GeneralLedgerTF.xml#GeneralLedgerTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="b2bsaleinvoiceregisteredTF1"
+              taskFlowId="/WEB-INF/SaleTaskFlow/b2bsaleinvoiceregisteredTF.xml#b2bsaleinvoiceregisteredTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="B2CSaleInvoiceUnRegisteredTF1"
+              taskFlowId="/WEB-INF/FinanceTaskflow/B2CSaleInvoiceUnRegisteredTF.xml#B2CSaleInvoiceUnRegisteredTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="GeneralLedgerTF2" taskFlowId="/WEB-INF/FinanceTaskflow/GeneralLedgerTF.xml#GeneralLedgerTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="PartyBalanceTF1" taskFlowId="/WEB-INF/FinanceTaskflow/PartyBalanceTF.xml#PartyBalanceTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="SubLedgerTF1" taskFlowId="/WEB-INF/FinanceTaskflow/SubLedgerTrialTF.xml#SubLedgerTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="StockLedgerTF1" taskFlowId="/WEB-INF/InventoryTaskflow/StockLedgerTF.xml#StockLedgerTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="StockStatusTF2" taskFlowId="/WEB-INF/InventoryTaskflow/StockStatusTF.xml#StockStatusTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="PendingFinishGoodsWiseTF1"
+              taskFlowId="/WEB-INF/production/PendingFinishGoodsBatchWiseTF.xml#PendingFinishGoodsWiseTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="WIPStock2" taskFlowId="/WEB-INF/production/WIPStockTF.xml#WIPStock" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="b2bsaleinvoiceregisteredTF2"
+              taskFlowId="/WEB-INF/SaleTaskFlow/b2bsaleinvoiceregisteredTF.xml#b2bsaleinvoiceregisteredTF"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="SaleRegisterDetailTF2"
+              taskFlowId="/WEB-INF/SaleTaskFlow/SaleRegisterDetailTF.xml#SaleRegisterDetailTF" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+  </executables>
+  <bindings/>
+</pageDefinition>

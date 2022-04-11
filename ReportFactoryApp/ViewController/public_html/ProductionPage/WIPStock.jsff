@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+  <af:panelHeader text="WIP Stock" id="ph1">
+    <af:spacer width="10" height="10" id="s2"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" autoSubmit="true" contentStyle="width:180px;"
+                      labelStyle="width:100px">
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2">
+          <af:inputComboboxListOfValues id="locWipId" popupTitle="Search and Select: #{bindings.LocWip.hints.label}"
+                                        value="#{bindings.LocWip.inputValue}" label="Location"
+                                        model="#{bindings.LocWip.listOfValuesModel}"
+                                        required="#{bindings.LocWip.hints.mandatory}"
+                                        columns="#{bindings.LocWip.hints.displayWidth}"
+                                        shortDesc="#{bindings.LocWip.hints.tooltip}" contentStyle="width:180px;"
+                      labelStyle="width:100px">
+            <f:validator binding="#{bindings.LocWip.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3"/>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
+                        required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id1" contentStyle="width:155px;"
+                      labelStyle="width:100px">
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date"
+                        required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id2" contentStyle="width:178px;"
+                      labelStyle="width:100px">
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b1" disabled="#{!bindings.callWIPStock.enabled}"
+                     actionListener="#{WIPStock.OnClickButton}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s1"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t2">
+        <af:button text="Export To Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="Wip Stock.xlsx"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.WIPStockVO1.collectionModel}" var="row" rows="#{bindings.WIPStockVO1.rangeSize}"
+              emptyText="#{bindings.WIPStockVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.WIPStockVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.WIPStockVO1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.WIPStockVO1.rangeSize}" filterModel="#{bindings.WIPStockVO1Query.queryDescriptor}"
+              filterVisible="false" queryListener="#{bindings.WIPStockVO1Query.processQuery}" varStatus="vs" id="t1"
+              styleClass="AFStretchWidth">
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.UnitCd.name}" filterable="true" sortable="true"
+                 headerText="Unit Code" id="c1">
+        <af:outputText value="#{row.UnitCd}" shortDesc="#{bindings.WIPStockVO1.hints.UnitCd.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.GroupCode.name}" filterable="true" sortable="true"
+                 headerText="Group Code" id="c2">
+        <af:outputText value="#{row.GroupCode}" shortDesc="#{bindings.WIPStockVO1.hints.GroupCode.tooltip}" id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.ItemGroup.name}" filterable="true" sortable="true"
+                 headerText="Item Group" id="c3">
+        <af:outputText value="#{row.ItemGroup}" shortDesc="#{bindings.WIPStockVO1.hints.ItemGroup.tooltip}" id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.SubGrpCd.name}" filterable="true" sortable="true"
+                 headerText="Sub Group Code" id="c4">
+        <af:outputText value="#{row.SubGrpCd}" shortDesc="#{bindings.WIPStockVO1.hints.SubGrpCd.tooltip}" id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.SubGrpDesc.name}" filterable="true" sortable="true"
+                 headerText="Sub Group Description" id="c5">
+        <af:outputText value="#{row.SubGrpDesc}" shortDesc="#{bindings.WIPStockVO1.hints.SubGrpDesc.tooltip}" id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.ItemCd.name}" filterable="true" sortable="true"
+                 headerText="Item Code" id="c6">
+        <af:outputText value="#{row.ItemCd}" shortDesc="#{bindings.WIPStockVO1.hints.ItemCd.tooltip}" id="ot6"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.ItemDesc.name}" filterable="true" sortable="true"
+                 headerText="Item Desc" id="c7">
+        <af:outputText value="#{row.ItemDesc}" shortDesc="#{bindings.WIPStockVO1.hints.ItemDesc.tooltip}" id="ot7"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.ItemUom.name}" filterable="true" sortable="true"
+                 headerText="Item Uom" id="c8">
+        <af:outputText value="#{row.ItemUom}" shortDesc="#{bindings.WIPStockVO1.hints.ItemUom.tooltip}" id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.DefaultLoc.name}" filterable="true" sortable="true"
+                 headerText="Default Location" id="c9">
+        <af:outputText value="#{row.DefaultLoc}" shortDesc="#{bindings.WIPStockVO1.hints.DefaultLoc.tooltip}" id="ot9"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.ProcCd.name}" filterable="true" sortable="true"
+                 headerText="Process Code" id="c10">
+        <af:outputText value="#{row.ProcCd}" shortDesc="#{bindings.WIPStockVO1.hints.ProcCd.tooltip}" id="ot10"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.StockLocCd.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.WIPStockVO1.hints.StockLocCd.label}" id="c11">
+        <af:outputText value="#{row.StockLocCd}" shortDesc="#{bindings.WIPStockVO1.hints.StockLocCd.tooltip}"
+                       id="ot11"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.OpeningBal.name}" filterable="true" sortable="true"
+                 headerText="Opening Balance" id="c12">
+        <af:outputText value="#{row.OpeningBal}" shortDesc="#{bindings.WIPStockVO1.hints.OpeningBal.tooltip}" id="ot12">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.WIPStockVO1.hints.OpeningBal.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.RecpStock.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.WIPStockVO1.hints.RecpStock.label}" id="c13">
+        <af:outputText value="#{row.RecpStock}" shortDesc="#{bindings.WIPStockVO1.hints.RecpStock.tooltip}" id="ot13">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.WIPStockVO1.hints.RecpStock.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.IssueQty.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.WIPStockVO1.hints.IssueQty.label}" id="c14">
+        <af:outputText value="#{row.IssueQty}" shortDesc="#{bindings.WIPStockVO1.hints.IssueQty.tooltip}" id="ot14">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.WIPStockVO1.hints.IssueQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.ClosingBal.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.WIPStockVO1.hints.ClosingBal.label}" id="c15">
+        <af:outputText value="#{row.ClosingBal}" shortDesc="#{bindings.WIPStockVO1.hints.ClosingBal.tooltip}" id="ot15">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.WIPStockVO1.hints.ClosingBal.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.WIPStockVO1.hints.LocName.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.WIPStockVO1.hints.LocName.label}" id="c16">
+        <af:outputText value="#{row.LocName}" shortDesc="#{bindings.WIPStockVO1.hints.LocName.tooltip}" id="ot16"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</jsp:root>

@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Stock Status" id="ph1">
+    <af:spacer width="10" height="10" id="s1"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="50%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit name"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="Width:180px"
+                              labelStyle="Width:100px">
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="50%" marginEnd="5px" id="gc2">
+          <af:selectOneChoice value="#{bindings.FinYear.inputValue}" label="Finance Year"
+                              required="#{bindings.FinYear.hints.mandatory}"
+                              shortDesc="#{bindings.FinYear.hints.tooltip}" id="soc2">
+            <f:selectItems value="#{bindings.FinYear.items}" id="si2"/>
+            <f:validator binding="#{bindings.FinYear.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="50%" id="gc3">
+          <af:inputComboboxListOfValues id="itemCdId" popupTitle="Search and Select: #{bindings.ItemCd.hints.label}"
+                                        value="#{bindings.ItemCd.inputValue}" label="Item Code"
+                                        model="#{bindings.ItemCd.listOfValuesModel}"
+                                        required="#{bindings.ItemCd.hints.mandatory}"
+                                        columns="#{bindings.ItemCd.hints.displayWidth}"
+                                        shortDesc="#{bindings.ItemCd.hints.tooltip}" contentStyle="Width:160px"
+                              labelStyle="Width:100px">
+            <f:validator binding="#{bindings.ItemCd.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="50%" marginEnd="5px" id="gc4">
+          <af:button text="Execute" id="b1" actionListener="#{StockStatusBean.onClickButton}"
+                     disabled="#{!bindings.StockStatus.enabled}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s2"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar"/>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.StockStatusVO1.collectionModel}" var="row" rows="#{bindings.StockStatusVO1.rangeSize}"
+              emptyText="#{bindings.StockStatusVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.StockStatusVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.StockStatusVO1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.StockStatusVO1.rangeSize}"
+              filterModel="#{bindings.StockStatusVO1Query.queryDescriptor}" filterVisible="true"
+              queryListener="#{bindings.StockStatusVO1Query.processQuery}" varStatus="vs" id="t1">
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.UnitCd.name}" filterable="true" sortable="true"
+                 headerText="Unit Code" id="c1">
+        <af:outputText value="#{row.UnitCd}" shortDesc="#{bindings.StockStatusVO1.hints.UnitCd.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.LocCd.name}" filterable="true" sortable="true"
+                 headerText="Location Code" id="c2">
+        <af:outputText value="#{row.LocCd}" shortDesc="#{bindings.StockStatusVO1.hints.LocCd.tooltip}" id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.ShortDesc.name}" filterable="true" sortable="true"
+                 headerText="Short Description" id="c3">
+        <af:outputText value="#{row.ShortDesc}" shortDesc="#{bindings.StockStatusVO1.hints.ShortDesc.tooltip}"
+                       id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.LongDesc.name}" filterable="true" sortable="true"
+                 headerText="Long Description" id="c4">
+        <af:outputText value="#{row.LongDesc}" shortDesc="#{bindings.StockStatusVO1.hints.LongDesc.tooltip}" id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.ItemGroup.name}" filterable="true" sortable="true"
+                 headerText="Item Group" id="c5">
+        <af:outputText value="#{row.ItemGroup}" shortDesc="#{bindings.StockStatusVO1.hints.ItemGroup.tooltip}"
+                       id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.ItemSubGroup.name}" filterable="true" sortable="true"
+                 headerText="Item Sub Group" id="c6">
+        <af:outputText value="#{row.ItemSubGroup}" shortDesc="#{bindings.StockStatusVO1.hints.ItemSubGroup.tooltip}"
+                       id="ot6"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.ItemCd.name}" filterable="true" sortable="true"
+                 headerText="Item Code" id="c7">
+        <af:outputText value="#{row.ItemCd}" shortDesc="#{bindings.StockStatusVO1.hints.ItemCd.tooltip}" id="ot7"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.ItemDesc.name}" filterable="true" sortable="true"
+                 headerText="Item Description" id="c8">
+        <af:outputText value="#{row.ItemDesc}" shortDesc="#{bindings.StockStatusVO1.hints.ItemDesc.tooltip}" id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.ProcCd.name}" filterable="true" sortable="true"
+                 headerText="Process Code" id="c9">
+        <af:outputText value="#{row.ProcCd}" shortDesc="#{bindings.StockStatusVO1.hints.ProcCd.tooltip}" id="ot9"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.OpnStk.name}" filterable="true" sortable="true"
+                 headerText="Open Stock" id="c10">
+        <af:outputText value="#{row.OpnStk}" shortDesc="#{bindings.StockStatusVO1.hints.OpnStk.tooltip}" id="ot10">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.StockStatusVO1.hints.OpnStk.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.RecQty.name}" filterable="true" sortable="true"
+                 headerText="Receive Qty" id="c11">
+        <af:outputText value="#{row.RecQty}" shortDesc="#{bindings.StockStatusVO1.hints.RecQty.tooltip}" id="ot11">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.StockStatusVO1.hints.RecQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.IssQty.name}" filterable="true" sortable="true"
+                 headerText="Issue Qty" id="c12">
+        <af:outputText value="#{row.IssQty}" shortDesc="#{bindings.StockStatusVO1.hints.IssQty.tooltip}" id="ot12">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.StockStatusVO1.hints.IssQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.ClosStock.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.StockStatusVO1.hints.ClosStock.label}" id="c13">
+        <af:outputText value="#{row.ClosStock}" shortDesc="#{bindings.StockStatusVO1.hints.ClosStock.tooltip}"
+                       id="ot13">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.StockStatusVO1.hints.ClosStock.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.HoWk.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.StockStatusVO1.hints.HoWk.label}" id="c14">
+        <af:outputText value="#{row.HoWk}" shortDesc="#{bindings.StockStatusVO1.hints.HoWk.tooltip}" id="ot14"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.StockStatusVO1.hints.CriticalItem.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.StockStatusVO1.hints.CriticalItem.label}" id="c15">
+        <af:outputText value="#{row.CriticalItem}" shortDesc="#{bindings.StockStatusVO1.hints.CriticalItem.tooltip}"
+                       id="ot15"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</jsp:root>

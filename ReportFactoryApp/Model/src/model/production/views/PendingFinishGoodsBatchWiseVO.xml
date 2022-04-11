@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PendingFinishGoodsBatchWiseVO"
+  Version="12.2.1.11.57"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="model.production.views.PendingFinishGoodsBatchWiseVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="p36_unit_code"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[SELECT  d.PROD_CD PRODUCT_CODE, d.BATCH_NO, d.MFG_DT, to_char(d.EXP_DT, 'dd/mm/rrrr') EXP_DT, d.PEND_QTY, d.EXP_DT1,TO_date(d.EXP_DT, 'dd/mm/rrrr')-trunc(sysdate) Days_remaining, d.UNIT_CD, d.prod_name 
+,(SELECT CONVER_FACT FROM item_packing_uom WHERE ITEM_CD=  d.prod_cd 
+AND UNIT_CD=:p36_unit_code)CONVER_FACT1 
+,round((d.PEND_QTY/(SELECT CONVER_FACT FROM item_packing_uom WHERE ITEM_CD=  d.prod_cd 
+AND UNIT_CD=:p36_unit_code)) ,2)total_qty 
+,( SELECT UNIT_OF_MEASUREMENT FROM PRODUCT WHERE CODE = D.PROD_CD ) UOM 
+,(SELECT DISTINCT CURR_MRP FROM REPL_PROD_RATE WHERE PROD_CD = D.PROD_CD AND ROWNUM <= 1 ) RATE,d.mrp MRP 
+,loc_cd,case when (TO_date(EXP_DT, 'dd/mm/rr')- trunc(sysdate)) < 90 then 
+(TO_date(EXP_DT, 'dd/mm/rr')- trunc(sysdate)) else NULL end NEAR_TO_EXPIRY , 
+(select distinct mrp from assy_prodn_batch where PRODUCT_CODE=d.PROD_CD and d.unit_cd=UNIT_CODE and 
+d.BATCH_NO=BATCH_NO) Batch_MRP, --P.PROD_GROUP , P.PROD_SUB_GROUP , 
+(select PROD_GROUP from  product where CODE=d.PROD_CD  
+union all 
+select GROUP_CODE from part_master where PART_CODE=d.PROD_CD ) PROD_GROUP, 
+(select PROD_SUB_GROUP from  product where CODE=d.PROD_CD  
+union all  
+select SUB_GRP_CD from part_master where PART_CODE=d.PROD_CD)PROD_SUB_GROUP, 
+(select PRODUCT_TYP from terms.product  
+where CODE=d.PROD_CD  
+union all  
+select GROUP_CODE from part_master where PART_CODE=d.PROD_CD )prod_type 
+FROM PEND_BATCH_NO_FOR_DISP D --left join item_packing_uom iu on  
+--(d.PROD_CD=iu.ITEM_CD and d.unit_cd=iu.unit_cd)  
+WHERE ( d.UNIT_CD =:p36_unit_code OR 'ALL' =:p36_unit_code)  
+--left join product P on (CODE=d.PROD_CD and UNIT_CODE=:p36_unit_code) 
+AND d.prod_cd >='1511000001' 
+AND (to_date(d.EXP_DT, 'dd/mm/rr') >= TRUNC(SYSDATE) or d.EXP_dt is null) 
+ORDER BY d.prod_cd ASC]]></SQLQuery>
+  <ViewAttribute
+    Name="ProductCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PRODUCT_CODE"
+    Expression="PRODUCT_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BatchNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="BATCH_NO"
+    Expression="BATCH_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MfgDt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="17"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="MFG_DT"
+    Expression="MFG_DT"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="17"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ExpDt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="EXP_DT"
+    Expression="EXP_DT"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PendQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="PEND_QTY"
+    Expression="PEND_QTY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ExpDt1"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="17"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="EXP_DT1"
+    Expression="EXP_DT1"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="17"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DaysRemaining"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="DAYS_REMAINING"
+    Expression="DAYS_REMAINING"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="UnitCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UNIT_CD"
+    Expression="UNIT_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProdName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="120"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PROD_NAME"
+    Expression="PROD_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="120"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ConverFact1"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="CONVER_FACT1"
+    Expression="CONVER_FACT1"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="TotalQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="TOTAL_QTY"
+    Expression="TOTAL_QTY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Uom"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UOM"
+    Expression="UOM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Rate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="RATE"
+    Expression="RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Mrp"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="MRP"
+    Expression="MRP"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="LocCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LOC_CD"
+    Expression="LOC_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="NearToExpiry"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="NEAR_TO_EXPIRY"
+    Expression="NEAR_TO_EXPIRY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="BatchMrp"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="BATCH_MRP"
+    Expression="BATCH_MRP"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ProdGroup"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="6"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PROD_GROUP"
+    Expression="PROD_GROUP"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProdSubGroup"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PROD_SUB_GROUP"
+    Expression="PROD_SUB_GROUP"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProdType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PROD_TYPE"
+    Expression="PROD_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="NoName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

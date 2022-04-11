@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="B2C Sale Invoice Un-Registered" id="ph1">
+    <af:spacer width="10" height="10" id="s1"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Code"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:180px;"
+                      labelStyle="width:100px">
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2"/>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3"/>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
+                        required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id1" contentStyle="width:160px;"
+                      labelStyle="width:100px">
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date "
+                        required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id2">
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b1" actionListener="#{B2CSaleInvoiceUnRegisteredBean.onClickButton}"
+                     disabled="#{!bindings.B2CSaleInvoiceUnRegistered.enabled}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s2"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t2">
+        <af:button text="Export To Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t1"
+                                             filename="B2C Sale Invoice Un-Registered.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.B2CSaleInvoiceUnRegisteredVO11.collectionModel}" var="row"
+              rows="#{bindings.B2CSaleInvoiceUnRegisteredVO11.rangeSize}"
+              emptyText="#{bindings.B2CSaleInvoiceUnRegisteredVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0"
+              selectedRowKeys="#{bindings.B2CSaleInvoiceUnRegisteredVO11.collectionModel.selectedRow}"
+              selectionListener="#{bindings.B2CSaleInvoiceUnRegisteredVO11.collectionModel.makeCurrent}"
+              rowSelection="single" fetchSize="#{bindings.B2CSaleInvoiceUnRegisteredVO11.rangeSize}"
+              filterModel="#{bindings.B2CSaleInvoiceUnRegisteredVO1Query.queryDescriptor}" filterVisible="true"
+              queryListener="#{bindings.B2CSaleInvoiceUnRegisteredVO1Query.processQuery}" varStatus="vs" id="t1">
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.UnitCode.name}" filterable="true"
+                 sortable="true" headerText="Unit Code" id="c1">
+        <af:outputText value="#{row.UnitCode}"
+                       shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.UnitCode.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.StateCode.name}" filterable="true"
+                 sortable="true" headerText="State Code" id="c2">
+        <af:outputText value="#{row.StateCode}"
+                       shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.StateCode.tooltip}" id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.GstName.name}" filterable="true"
+                 sortable="true" headerText="GST Name" id="c3">
+        <af:outputText value="#{row.GstName}"
+                       shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.GstName.tooltip}" id="ot3">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.GstName.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.Timestamp.name}" filterable="true"
+                 sortable="true" headerText="Time Stamp" id="c4">
+        <af:outputText value="#{row.Timestamp}"
+                       shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.Timestamp.tooltip}" id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.Amount.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.Amount.label}" id="c5">
+        <af:outputText value="#{row.Amount}" shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.Amount.tooltip}"
+                       id="ot5">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.Amount.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.CessAmt.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.CessAmt.label}" id="c6">
+        <af:outputText value="#{row.CessAmt}"
+                       shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.CessAmt.tooltip}" id="ot6">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.CessAmt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.ReverseCharge.name}" filterable="true"
+                 sortable="true" headerText="Reverse Charge"
+                 id="c7">
+        <af:outputText value="#{row.ReverseCharge}"
+                       shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.ReverseCharge.tooltip}" id="ot7"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.ApplicableOfTaxRate.name}"
+                 filterable="true" sortable="true"
+                 headerText="Applicable of Tax Rate" id="c8">
+        <af:outputText value="#{row.ApplicableOfTaxRate}"
+                       shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.ApplicableOfTaxRate.tooltip}"
+                       id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.InvoiceType.name}" filterable="true"
+                 sortable="true" headerText="Invoice Type"
+                 id="c9">
+        <af:outputText value="#{row.InvoiceType}"
+                       shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.InvoiceType.tooltip}" id="ot9"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.ECommerceGstin.name}" filterable="true"
+                 sortable="true" headerText="E commerse gstin"
+                 id="c10">
+        <af:outputText value="#{row.ECommerceGstin}"
+                       shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.ECommerceGstin.tooltip}" id="ot10"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.Type.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.Type.label}" id="c11">
+        <af:outputText value="#{row.Type}" shortDesc="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.Type.tooltip}"
+                       id="ot11"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</jsp:root>

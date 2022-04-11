@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="PendingFinishGoodsWisePageDef"
+                Package="ProductionPage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+    <iterator Binds="PendingFinishGoodsBatchWiseVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="PendingFinishGoodsBatchWiseVO1Iterator"/>
+    <searchRegion Binds="PendingFinishGoodsBatchWiseVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PendingFinishGoodsBatchWiseVO11Query"/>
+  </executables>
+  <bindings>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <tree IterBinding="PendingFinishGoodsBatchWiseVO1Iterator" id="PendingFinishGoodsBatchWiseVO1">
+      <nodeDefinition DefName="model.production.views.PendingFinishGoodsBatchWiseVO"
+                      Name="PendingFinishGoodsBatchWiseVO10">
+        <AttrNames>
+          <Item Value="ProductCode"/>
+          <Item Value="BatchNo"/>
+          <Item Value="MfgDt"/>
+          <Item Value="ExpDt"/>
+          <Item Value="PendQty"/>
+          <Item Value="ExpDt1"/>
+          <Item Value="DaysRemaining"/>
+          <Item Value="UnitCd"/>
+          <Item Value="ProdName"/>
+          <Item Value="ConverFact1"/>
+          <Item Value="TotalQty"/>
+          <Item Value="Uom"/>
+          <Item Value="Rate"/>
+          <Item Value="Mrp"/>
+          <Item Value="LocCd"/>
+          <Item Value="NearToExpiry"/>
+          <Item Value="BatchMrp"/>
+          <Item Value="ProdGroup"/>
+          <Item Value="ProdSubGroup"/>
+          <Item Value="ProdType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="getPendingFinishGoodsBatchWise" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="getPendingFinishGoodsBatchWise" IsViewObjectMethod="false"
+                  DataControl="AppModuleDataControl" InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="PendingFinishGoodsBatchWiseVO1Iterator" id="PendingFinishGoodsBatchWiseVO11">
+      <nodeDefinition DefName="model.production.views.PendingFinishGoodsBatchWiseVO"
+                      Name="PendingFinishGoodsBatchWiseVO110">
+        <AttrNames>
+          <Item Value="UnitCd"/>
+          <Item Value="ProductCode"/>
+          <Item Value="ProdName"/>
+          <Item Value="BatchNo"/>
+          <Item Value="MfgDt"/>
+          <Item Value="ExpDt"/>
+          <Item Value="PendQty"/>
+          <Item Value="ExpDt1"/>
+          <Item Value="DaysRemaining"/>
+          <Item Value="ConverFact1"/>
+          <Item Value="TotalQty"/>
+          <Item Value="Uom"/>
+          <Item Value="Rate"/>
+          <Item Value="Mrp"/>
+          <Item Value="LocCd"/>
+          <Item Value="NearToExpiry"/>
+          <Item Value="BatchMrp"/>
+          <Item Value="ProdGroup"/>
+          <Item Value="ProdSubGroup"/>
+          <Item Value="ProdType"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="StockStatusVO"
+  Version="12.2.1.11.57"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="model.inventory.views.StockStatusVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="P14_ITEM"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P14_UNIT"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P14_FIN_YEAR"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[WITH CURR_STOCK AS       
+( SELECT   UNIT_CD, LOC_CD, ITEM_CD, PROC_CD, SUM (OPN_STK) OPN_STK,       
+            SUM (REC_QTY) REC_QTY, SUM (ISS_QTY) ISS_QTY,       
+              (NVL (SUM (OPN_STK), 0) + NVL (SUM (REC_QTY), 0))       
+            - NVL (SUM (ISS_QTY), 0) CLOS_STOCK       
+       FROM (SELECT UNIT_CD, LOC_CD, ITEM_STOCK_ITEM_CD ITEM_CD, PROC_CD, OPN_STK, 0 REC_QTY, 0 ISS_QTY       
+               FROM MNTH_BAL       
+              WHERE FIN_YEAR = :P14_FIN_YEAR       
+--                       (SELECT fin_year_code       
+--                          FROM fin_year       
+--                         WHERE TO_DATE (SYSDATE) BETWEEN fin_year_from       
+--                                                     AND fin_year_to)       
+             UNION ALL       
+             SELECT   UNIT_CD, NVL (REC_FROM, ISS_FROM) LOC_CD, ITEM_CD,       
+                      PROC_CD, 0, SUM (REC_QTY) REC_QTY, SUM (ISS_QTY) ISS_QTY       
+                 FROM STOCK_LEDGER                       
+                WHERE TRUNC(STORE_E_DT) BETWEEN (SELECT FIN_YEAR_FROM FROM FIN_YEAR WHERE FIN_YEAR_CODE = :P14_FIN_YEAR)       
+                  AND (SELECT FIN_YEAR_TO FROM FIN_YEAR WHERE FIN_YEAR_CODE = :P14_FIN_YEAR)       
+--                TO_DATE (store_e_dt) >= (SELECT fin_year_from FROM fin_year       
+--                                          WHERE TO_DATE (SYSDATE) BETWEEN fin_year_from AND fin_year_to)       
+--                AND TO_DATE (store_e_dt) <= TO_DATE (SYSDATE)       
+             GROUP BY UNIT_CD, ITEM_CD, PROC_CD, NVL (REC_FROM, ISS_FROM))       
+   GROUP BY UNIT_CD, ITEM_CD, PROC_CD, LOC_CD       
+   )       
+SELECT  A.UNIT_CD, A.LOC_CD, B.SHORT_DESC, B.LONG_DESC,C.ITEM_GROUP,        
+        C.ITEM_SUB_GROUP, A.ITEM_CD, C.ITEM_DESC,A.PROC_CD,        
+        A.OPN_STK, A.REC_QTY, A.ISS_QTY, A.CLOS_STOCK,HO_WK,       
+        (SELECT CRITICAL_YN FROM ITEM_MASTER WHERE ITEM_CODE=A.ITEM_CD) CRITICAL_ITEM       
+  FROM CURR_STOCK A,       
+       LOCATION B,       
+       ITEM_STOCK_VIEW C       
+WHERE A.LOC_CD = B.LOCAT_CODE        
+   AND A.ITEM_CD = C.ITEM_CD       
+   AND A.UNIT_CD LIKE :P14_UNIT||'%'       
+   AND (A.ITEM_CD = :P14_ITEM OR '%' = :P14_ITEM)       
+ORDER BY 1,2,4,5,6]]></SQLQuery>
+  <ViewAttribute
+    Name="UnitCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UNIT_CD"
+    Expression="UNIT_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LocCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="6"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LOC_CD"
+    Expression="LOC_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="6"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ShortDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="SHORT_DESC"
+    Expression="SHORT_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="LongDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="LONG_DESC"
+    Expression="LONG_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemGroup"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_GROUP"
+    Expression="ITEM_GROUP"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemSubGroup"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="120"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_SUB_GROUP"
+    Expression="ITEM_SUB_GROUP"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="120"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_CD"
+    Expression="ITEM_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="120"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_DESC"
+    Expression="ITEM_DESC"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="120"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProcCd"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PROC_CD"
+    Expression="PROC_CD"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="OpnStk"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="OPN_STK"
+    Expression="OPN_STK"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="RecQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="REC_QTY"
+    Expression="REC_QTY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="IssQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="ISS_QTY"
+    Expression="ISS_QTY"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ClosStock"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="CLOS_STOCK"
+    Expression="CLOS_STOCK"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="HoWk"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="HO_WK"
+    Expression="HO_WK"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="CriticalItem"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CRITICAL_ITEM"
+    Expression="CRITICAL_ITEM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

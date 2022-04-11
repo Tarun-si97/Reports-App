@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="SaleRegisterDetailPageDef"
+                Package="SalePage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="SaleregisterDetailVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="SaleregisterDetailVO1Iterator"/>
+    <searchRegion Binds="SaleregisterDetailVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="SaleregisterDetailVO1Query"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="SaleregisterDetailVO1Iterator" id="SaleregisterDetailVO1">
+      <nodeDefinition DefName="model.sale.views.SaleregisterDetailVO" Name="SaleregisterDetailVO10">
+        <AttrNames>
+          <Item Value="InvNo"/>
+          <Item Value="InvDate"/>
+          <Item Value="CustCode"/>
+          <Item Value="InvHeadType"/>
+          <Item Value="StockType"/>
+          <Item Value="GrossAmount"/>
+          <Item Value="NetAmount"/>
+          <Item Value="OtherTax"/>
+          <Item Value="DisAmt"/>
+          <Item Value="TcsAmt"/>
+          <Item Value="OtherAmount"/>
+          <Item Value="Name"/>
+          <Item Value="Qty"/>
+          <Item Value="UnitCode"/>
+          <Item Value="Destination"/>
+          <Item Value="ProdCode"/>
+          <Item Value="Uom"/>
+          <Item Value="ProdName"/>
+          <Item Value="CldSize"/>
+          <Item Value="SaleQtyInCld"/>
+          <Item Value="Price"/>
+          <Item Value="ExcPer"/>
+          <Item Value="Amount"/>
+          <Item Value="Sgst"/>
+          <Item Value="Cgst"/>
+          <Item Value="Igst"/>
+          <Item Value="GstCode"/>
+          <Item Value="TaxName"/>
+          <Item Value="SaleNoteNo"/>
+          <Item Value="SaleNoteDt"/>
+          <Item Value="ConsigName"/>
+          <Item Value="GrNo"/>
+          <Item Value="GrDt"/>
+          <Item Value="Transpoter"/>
+          <Item Value="LcNo"/>
+          <Item Value="LcDt"/>
+          <Item Value="LcBank"/>
+          <Item Value="SaleNoteType"/>
+          <Item Value="SaleNoteValidity"/>
+          <Item Value="VehicleNo"/>
+          <Item Value="PayDueDt"/>
+          <Item Value="CustPoNo"/>
+          <Item Value="PoDt"/>
+          <Item Value="DgftLicNo"/>
+          <Item Value="DgftLicDt"/>
+          <Item Value="DgftLicQty"/>
+          <Item Value="AdvAuthNo"/>
+          <Item Value="AdvAuthDt"/>
+          <Item Value="AdvAuthQty"/>
+          <Item Value="SaleNoteQuantity"/>
+          <Item Value="Plantho"/>
+          <Item Value="EwayNo"/>
+          <Item Value="EwayDate"/>
+          <Item Value="GstnNo"/>
+          <Item Value="IgstRate"/>
+          <Item Value="SgstRate"/>
+          <Item Value="CgstRate"/>
+          <Item Value="HsnNo"/>
+          <Item Value="PlaceOfSupply"/>
+          <Item Value="PlaceOfSupplyStcd"/>
+          <Item Value="RebitRate"/>
+          <Item Value="RebitAmt"/>
+          <Item Value="DueDays"/>
+          <Item Value="VouNo"/>
+          <Item Value="VouDt"/>
+          <Item Value="AmountFc"/>
+          <Item Value="PlaceOfReceipt"/>
+          <Item Value="ExcRate"/>
+          <Item Value="ShipingNo"/>
+          <Item Value="TradDis"/>
+          <Item Value="TradAmt"/>
+          <Item Value="CashDisPer"/>
+          <Item Value="ServComm"/>
+          <Item Value="SerCommRate"/>
+          <Item Value="CessPer"/>
+          <Item Value="CessAmt"/>
+          <Item Value="InsNo"/>
+          <Item Value="InsType"/>
+          <Item Value="InsCompany"/>
+          <Item Value="HsnNo4"/>
+          <Item Value="DriverName"/>
+          <Item Value="ProdGroupCode"/>
+          <Item Value="ProdGroupName"/>
+          <Item Value="SubGroupCode"/>
+          <Item Value="SubGroupName"/>
+          <Item Value="BatchNo"/>
+          <Item Value="Mrp"/>
+          <Item Value="MfgDt"/>
+          <Item Value="ExpDt"/>
+          <Item Value="State"/>
+          <Item Value="ChangeType"/>
+          <Item Value="TaxableAmount"/>
+          <Item Value="Address"/>
+          <Item Value="GrossAmt"/>
+          <Item Value="Discount"/>
+          <Item Value="TaxableValAftrDis"/>
+          <Item Value="GrossWeight"/>
+          <Item Value="FinishWeight"/>
+          <Item Value="VoucherDate"/>
+          <Item Value="Cancelled"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="SaleRegisterDetail4" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="SaleRegisterDetail4" IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="LV_SID" NDType="java.lang.Integer"/>
+      <NamedData NDName="LV_INC_CAN" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+    </methodAction>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_INC_CAN" id="INC_CAN" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+  </bindings>
+</pageDefinition>

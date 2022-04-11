@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.11.57" id="DataBindings"
+             SeparateXMLFiles="false" Package="bspl.reportfactory.view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/FinancePage/PartyBalance.jsff" usageId="bspl_reportfactory_view_PartyBalancePageDef"/>
+    <page path="/test.jspx" usageId="bspl_reportfactory_view_testPageDef"/>
+    <page path="/FinancePage/GeneralLedger.jsff" usageId="bspl_reportfactory_view_GeneralLedgerPageDef"/>
+    <page path="/FinancePage/SubLedgerTrial.jsff" usageId="bspl_reportfactory_view_SubLedgerPageDef"/>
+    <page path="/ProductionPage/WIPStock.jsff" usageId="bspl_reportfactory_view_WIPStockPageDef"/>
+    <page path="/ProductionPage/PendingFinishGoodsBatchWise.jsff"
+          usageId="bspl_reportfactory_view_PendingFinishGoodsWisePageDef"/>
+    <page path="/SalePage/B2bSaleInvoiceRegistered.jsff"
+          usageId="bspl_reportfactory_view_B2bSaleInvoiceRegisteredPageDef"/>
+    <page path="/InventoryPage/StockLedger.jsff" usageId="bspl_reportfactory_view_StockLedgerPageDef"/>
+    <page path="/FinancePage/B2CSaleInvoiceUnRegistered.jsff"
+          usageId="bspl_reportfactory_view_B2CSaleInvoiceUnRegisteredPageDef"/>
+    <page path="/SalePage/SaleRegisterDetail.jsff" usageId="bspl_reportfactory_view_SaleRegisterDetailPageDef"/>
+    <page path="/InventoryPage/StockStatus.jsff" usageId="bspl_reportfactory_view_StockStatusPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="bspl_reportfactory_view_PartyBalancePageDef" path="FinancePage.PartyBalancePageDef"/>
+    <page id="bspl_reportfactory_view_testPageDef" path="bspl.reportfactory.view.pageDefs.testPageDef"/>
+    <page id="bspl_reportfactory_view_GeneralLedgerPageDef" path="FinancePage.GeneralLedgerPageDef"/>
+    <page id="bspl_reportfactory_view_SubLedgerPageDef" path="FinancePage.SubLedgerPageDef"/>
+    <page id="bspl_reportfactory_view_WIPStockPageDef" path="FinancePage.WIPStockPageDef"/>
+    <page id="bspl_reportfactory_view_PendingFinishGoodsWisePageDef"
+          path="ProductionPage.PendingFinishGoodsWisePageDef"/>
+    <page id="bspl_reportfactory_view_B2bSaleInvoiceRegisteredPageDef" path="SalePage.B2bSaleInvoiceRegisteredPageDef"/>
+    <page id="bspl_reportfactory_view_StockLedgerPageDef" path="InventoryPage.StockLedgerPageDef"/>
+    <page id="bspl_reportfactory_view_B2CSaleInvoiceUnRegisteredPageDef"
+          path="FinancePage.B2CSaleInvoiceUnRegisteredPageDef"/>
+    <page id="bspl_reportfactory_view_SaleRegisterDetailPageDef" path="SalePage.SaleRegisterDetailPageDef"/>
+    <page id="bspl_reportfactory_view_StockStatusPageDef" path="InventoryPage.StockStatusPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="AppModuleDataControl" Package="model.service"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                     SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true" Configuration="AppModuleLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

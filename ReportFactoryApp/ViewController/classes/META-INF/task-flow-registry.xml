@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<task-flow-registry xmlns="http://xmlns.oracle.com/adf/controller/rc">
+   <task-flow-descriptor path="WEB-INF/FinanceTaskflow/B2CSaleInvoiceUnRegisteredTF.xml" id="B2CSaleInvoiceUnRegisteredTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/FinanceTaskflow/GeneralLedgerTF.xml" id="GeneralLedgerTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/FinanceTaskflow/PartyBalanceTF.xml" id="PartyBalanceTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/FinanceTaskflow/SubLedgerTrialTF.xml" id="SubLedgerTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/InventoryTaskflow/StockLedgerTF.xml" id="StockLedgerTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/InventoryTaskflow/StockStatusTF.xml" id="StockStatusTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/SaleTaskFlow/SaleRegisterDetailTF.xml" id="SaleRegisterDetailTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/SaleTaskFlow/b2bsaleinvoiceregisteredTF.xml" id="b2bsaleinvoiceregisteredTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/production/PendingFinishGoodsBatchWiseTF.xml" id="PendingFinishGoodsWiseTF" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+   <task-flow-descriptor path="WEB-INF/production/WIPStockTF.xml" id="WIPStock" type="task-flow-definition" uses-page-fragments="true" library-internal="false" remote-invocable="false" train="false" critical="false" page-type="jsp"/>
+</task-flow-registry>

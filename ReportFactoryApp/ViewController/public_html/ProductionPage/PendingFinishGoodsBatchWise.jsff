@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Pending Finish Goods Batch Wise" id="ph1">
+    <af:spacer width="10" height="10" id="s1"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr1">
+        <af:gridCell marginStart="5px" width="50%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:350px;" labelStyle="width:100px">
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="50%" marginEnd="5px" id="gc2">
+          <af:button text="Execute" id="b1" actionListener="#{PendingfinishGoodsWiseBean.onClickButton}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s2"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t2">
+        <af:button text="Export To Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="Pending Finish Goods wise.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.PendingFinishGoodsBatchWiseVO11.collectionModel}" var="row"
+              rows="#{bindings.PendingFinishGoodsBatchWiseVO11.rangeSize}"
+              emptyText="#{bindings.PendingFinishGoodsBatchWiseVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0"
+              selectedRowKeys="#{bindings.PendingFinishGoodsBatchWiseVO11.collectionModel.selectedRow}"
+              selectionListener="#{bindings.PendingFinishGoodsBatchWiseVO11.collectionModel.makeCurrent}"
+              rowSelection="single" fetchSize="#{bindings.PendingFinishGoodsBatchWiseVO11.rangeSize}"
+              filterModel="#{bindings.PendingFinishGoodsBatchWiseVO11Query.queryDescriptor}" filterVisible="true"
+              queryListener="#{bindings.PendingFinishGoodsBatchWiseVO11Query.processQuery}" varStatus="vs" id="t1">
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.UnitCd.name}" filterable="true"
+                 sortable="true" headerText="Unit Code" id="c1">
+        <af:outputText value="#{row.UnitCd}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.UnitCd.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ProductCode.name}" filterable="true"
+                 sortable="true" headerText="Product Code"
+                 id="c2">
+        <af:outputText value="#{row.ProductCode}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ProductCode.tooltip}" id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ProdName.name}" filterable="true"
+                 sortable="true" headerText="Product Name" id="c3">
+        <af:outputText value="#{row.ProdName}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ProdName.tooltip}" id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.BatchNo.name}" filterable="true"
+                 sortable="true" headerText="Batch Number" id="c4">
+        <af:outputText value="#{row.BatchNo}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.BatchNo.tooltip}" id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ProdType.name}" filterable="true"
+                 sortable="true" headerText="Product Type" id="c20">
+        <af:outputText value="#{row.ProdType}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ProdType.tooltip}" id="ot20"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.PendQty.name}" filterable="true"
+                 sortable="true" headerText="Pend Qty" id="c7">
+        <af:outputText value="#{row.PendQty}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.PendQty.tooltip}" id="ot7">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.PendQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.MfgDt.name}" filterable="true"
+                 sortable="true" headerText="Mfg Date" id="c5">
+        <af:outputText value="#{row.MfgDt}" shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.MfgDt.tooltip}"
+                       id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ExpDt.name}" filterable="true"
+                 sortable="true" headerText="Exp Date" id="c6">
+        <af:outputText value="#{row.ExpDt}" shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ExpDt.tooltip}"
+                       id="ot6"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ExpDt1.name}" filterable="true"
+                 sortable="true" headerText="Exp Date1" id="c8">
+        <af:outputText value="#{row.ExpDt1}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ExpDt1.tooltip}" id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.DaysRemaining.name}" filterable="true"
+                 sortable="true" headerText="Days Remaining"
+                 id="c9">
+        <af:outputText value="#{row.DaysRemaining}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.DaysRemaining.tooltip}" id="ot9">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.DaysRemaining.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ConverFact1.name}" filterable="true"
+                 sortable="true" headerText="Conversion Factor"
+                 id="c10">
+        <af:outputText value="#{row.ConverFact1}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ConverFact1.tooltip}" id="ot10">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ConverFact1.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.TotalQty.name}" filterable="true"
+                 sortable="true" headerText="Total Qty" id="c11">
+        <af:outputText value="#{row.TotalQty}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.TotalQty.tooltip}" id="ot11">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.TotalQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.Uom.name}" filterable="true"
+                 sortable="true" headerText="Uom" id="c12">
+        <af:outputText value="#{row.Uom}" shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.Uom.tooltip}"
+                       id="ot12"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.Rate.name}" filterable="true"
+                 sortable="true" headerText="Rate" id="c13">
+        <af:outputText value="#{row.Rate}" shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.Rate.tooltip}"
+                       id="ot13">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.Rate.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.Mrp.name}" filterable="true"
+                 sortable="true" headerText="MRP" id="c14">
+        <af:outputText value="#{row.Mrp}" shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.Mrp.tooltip}"
+                       id="ot14">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.Mrp.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.LocCd.name}" filterable="true"
+                 sortable="true" headerText="Location Code" id="c15">
+        <af:outputText value="#{row.LocCd}" shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.LocCd.tooltip}"
+                       id="ot15"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.NearToExpiry.name}" filterable="true"
+                 sortable="true" headerText="Near To Expiry"
+                 id="c16">
+        <af:outputText value="#{row.NearToExpiry}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.NearToExpiry.tooltip}" id="ot16">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.NearToExpiry.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.BatchMrp.name}" filterable="true"
+                 sortable="true" headerText="Batch MRP" id="c17">
+        <af:outputText value="#{row.BatchMrp}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.BatchMrp.tooltip}" id="ot17">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.BatchMrp.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ProdGroup.name}" filterable="true"
+                 sortable="true" headerText="Product Group"
+                 id="c18">
+        <af:outputText value="#{row.ProdGroup}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ProdGroup.tooltip}" id="ot18"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ProdSubGroup.name}" filterable="true"
+                 sortable="true" headerText="Product Sub Group"
+                 id="c19">
+        <af:outputText value="#{row.ProdSubGroup}"
+                       shortDesc="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.ProdSubGroup.tooltip}" id="ot19"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</jsp:root>

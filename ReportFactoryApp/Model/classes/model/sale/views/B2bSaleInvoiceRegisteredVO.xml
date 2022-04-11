@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="B2bSaleInvoiceRegisteredVO"
+  Version="12.2.1.11.57"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="model.sale.views.B2bSaleInvoiceRegisteredVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="P174_UNIT"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P174_CUSTOMER"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P174_FROM_DATE"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <Variable
+    Name="P174_TO_DATE"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <SQLQuery><![CDATA[WITH DATA AS (
+SELECT
+        H.UNIT_CODE, H.CUST_CODE, H.CONSIGNEE_NAME, H.IDENTIFIER INVC_NO, H.DATES INVC_DT, 
+        --(SELECT SUM(AMOUNT) NET_TOT FROM INVOICE_DETAIL I WHERE I.INV_HEAD_IDENTIFIER = H.IDENTIFIER) INVOICE_VALUE,
+        (H.NET_AMOUNT) INVOICE_VALUE,
+        H.DISTINATION, H.CUST_CITY_CODE,
+        --(SELECT STAT_CODE FROM CITY WHERE CODE = H.CUST_CITY_CODE) STATE_CODE,
+        (SELECT STATE_GST_CODE||'-'||NAME FROM state WHERE CODE = (SELECT STAT_CODE FROM CITY WHERE CODE = H.CUST_CITY_CODE)) STATE_CODE,
+        -- H.CURR_RATE, 
+        'N' REVERSE_CHARGE, NULL "APPLICABLE_%_OF_TAX_RATE", 
+        'REGULAR' INVOICE_TYPE, NULL "E-COMMERCE GSTIN", 
+        -- D.GST_CODE,
+        (SELECT GST_RATE FROM GST_RATE_MASTER WHERE GST_CODE = D.GST_CODE) GST_DESC,
+        --(SUM(D.IGST_RATE) + SUM(D.SGST_RATE) + SUM(D.CGST_RATE)) TAX_RATE,
+        SUM(AMOUNT) TAXABLE_VALUE, SUM(NVL(D.CESS_AMT,0)) CESS_AMT, SUM(D.IGST_AMT) IGST, 
+        SUM(D.SGST_AMT) SGST, SUM(D.CGST_AMT) CGST,
+        SUM(AMOUNT) + (SUM(D.IGST_AMT) + SUM(D.SGST_AMT) + SUM(D.CGST_AMT)) Invoice_LINE_TOTAL
+        FROM INVOICE_HEADER H
+        LEFT JOIN INVOICE_DETAIL D
+        ON H.IDENTIFIER = D.INV_HEAD_IDENTIFIER
+        WHERE H.CANCELLED = 'N'
+        GROUP BY H.IDENTIFIER , H.DATES , D.GST_CODE, 
+        H.GROSS_AMOUNT, 
+        H.NET_AMOUNT, H.DISTINATION, H.CUST_CITY_CODE, 
+        H.CURR_RATE,H.CONSIGNEE_NAME, H.CUST_CODE, H.UNIT_CODE )
+        SELECT M.GST_REG_NO, D.* ,(SELECT ADDRESS1||' '||CITY||' '||STATE  FROM VENDOR_REGD_ADDRESS WHERE VENDOR_CODE = D.CUST_CODE) ADDRESS      
+        FROM DATA D
+        LEFT JOIN VENDOR_MASTER M
+        ON D.CUST_CODE = M.VENDOR_CODE
+        WHERE -- M.REG_FLAG = 'R' AND
+           ( D.UNIT_CODE = :P174_UNIT OR 'ALL' = :P174_UNIT )
+          AND D.INVC_DT BETWEEN :P174_FROM_DATE AND :P174_TO_DATE
+          AND (D.CUST_CODE = :P174_CUSTOMER OR 'ALL' = :P174_CUSTOMER)
+        ORDER BY 3]]></SQLQuery>
+  <ViewAttribute
+    Name="GstRegNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="GST_REG_NO"
+    Expression="GST_REG_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="UnitCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="5"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="UNIT_CODE"
+    Expression="UNIT_CODE"
+    SQLType="CHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CustCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CUST_CODE"
+    Expression="CUST_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="15"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ConsigneeName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="200"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CONSIGNEE_NAME"
+    Expression="CONSIGNEE_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvcNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INVC_NO"
+    Expression="INVC_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvcDt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName="INVC_DT"
+    Expression="INVC_DT"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="InvoiceValue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="15"
+    Scale="2"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="INVOICE_VALUE"
+    Expression="INVOICE_VALUE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Distination"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DISTINATION"
+    Expression="DISTINATION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CustCityCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="4"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CUST_CITY_CODE"
+    Expression="CUST_CITY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="4"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StateCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="33"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STATE_CODE"
+    Expression="STATE_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="33"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ReverseCharge"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="REVERSE_CHARGE"
+    Expression="REVERSE_CHARGE"
+    SQLType="CHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ApplicableOfTaxRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"APPLICABLE_%_OF_TAX_RATE"'
+    Expression='"APPLICABLE_%_OF_TAX_RATE"'
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="InvoiceType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="7"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="INVOICE_TYPE"
+    Expression="INVOICE_TYPE"
+    SQLType="CHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ECommerceGstin"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"E-COMMERCE GSTIN"'
+    Expression='"E-COMMERCE GSTIN"'
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="GstDesc"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="GST_DESC"
+    Expression="GST_DESC"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="TaxableValue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="TAXABLE_VALUE"
+    Expression="TAXABLE_VALUE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CessAmt"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="CESS_AMT"
+    Expression="CESS_AMT"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Igst"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="IGST"
+    Expression="IGST"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Sgst"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="SGST"
+    Expression="SGST"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Cgst"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="CGST"
+    Expression="CGST"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="InvoiceLineTotal"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="INVOICE_LINE_TOTAL"
+    Expression="INVOICE_LINE_TOTAL"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Address"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="262"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ADDRESS"
+    Expression="ADDRESS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="262"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

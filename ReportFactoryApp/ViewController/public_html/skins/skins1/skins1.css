@@ -1,0 +1,1237 @@
+@charset "UTF-8";
+/**ADFFaces_Skin_File / DO NOT REMOVE**/
+@namespace af "http://xmlns.oracle.com/adf/faces/rich";
+@namespace dvt "http://xmlns.oracle.com/dss/adf/faces";
+
+/*af|inputComboboxListOfValues {
+    -tr-stretch-search-dialog: true;
+}
+
+af|inputListOfValues {
+    -tr-stretch-search-dialog: true;
+}
+
+.MainHeader {
+    background-color: #91BDAA;
+    height: 22.0px;
+}
+
+.HeaderImage {*/
+    /*background-image: url("../../../image/MAINTHEMEHEADER.PNG"); */
+/*}
+
+.InlineAddEditWindow {*/
+    /*background-color:#E8DFE0;*/
+
+    /*background-color: #FAEED6;*/
+    /*background-color:#FDEDC3;*/
+    /*background-color:#f7e5bf;*/
+/*}
+
+.AddEditWindow {*/
+    /*background-color: #FBF8E5;*/
+    /*background-color:#FEEEE4;*/
+    /*background-color:#FBEDD6;*/
+
+    /*background-color: #FCF0E2;*/
+    /*background-color:#f7ebe0;*/
+    /*background-color:#C1D8F6;*/
+    /*background-color:#DDEFDF;*/
+    /*background-color:#FEF2F2;*/
+    /*background-color: #E2F0F9;   skyblue*/
+/*}
+
+.Header {
+    background-color: #808080;
+    height: 25px;
+}
+
+.Header label {
+    color: Yellow;
+    font-size: 12px;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.MainHeaderLeft {
+    width: 1000px;
+}
+
+.MainHeader label {
+    color: #FFFFFF;
+    text-align: right;
+    font-size: medium;
+    font-weight: bold;
+    height: 20%;
+}
+
+.MainHeaderChild {
+    text-align: right;
+}
+
+.FormBodyPanalInline {*/
+    /*background-color:rgb(53,161,212);*/
+    /*background-color: #C1D8F6;*/
+    /*background-color: #fddecc;*/
+
+    /*background-color: #FEEEE4;
+}
+
+.SearchPanel {
+    background-color: rgb(250, 242, 181);*/
+    /*background-color:rgb(253,237,195);*/
+    /* Best Color */
+/*}
+
+.PanelForm {
+    background-color: rgb(187, 233, 182);
+}
+
+.CustomButton {
+    background-color: #4267b2;
+    text-align: center;
+    vertical-align: middle;
+    color: White;
+    background-image: none;
+    border: #4267b2 1.5px solid;
+}
+
+.CustomButton link {
+    background-color: #4267b2;
+    text-align: center;
+    vertical-align: middle;
+    color: White;
+    background-image: none;
+    border: #4267b2 1.5px solid;
+    font-family: Arial;
+}*/
+/**Set hover event properties for dialog button**/
+/*.CustomButton hover {
+    background-color: red;
+    text-align: center;
+    vertical-align: middle;
+    color: White;
+    background-image: none;
+    border: #528cff 1.5px solid;
+}
+
+.CustomButton hover {
+    background-color: #528cff;
+    text-align: center;
+    vertical-align: middle;
+    color: White;
+    background-image: none;
+    border: #528cff 1.5px solid;
+    font-family: Arial;
+}
+
+.ButtonBarHeader {
+    height: 30px;*/
+    /*background-color:#A7A6A6;
+    /*background-color:rgb(253,237,195);*/
+
+    /*background-color: rgb(167, 166, 166);*/
+    /*background-color:rgb(167,166,166);*/
+    /* black shades*/
+/*}
+
+.SearchHeader {
+    height: 23px;
+    background-color: rgb(167, 166, 166);*/
+    /*background-color:rgb(220,189,167);*/
+
+    /*font-size: 14px;
+}
+
+.SearchHeader label {
+    color: #FFFFFF;
+    text-align: right;
+    font-size: 14px;
+    font-weight: bold;
+    height: 20%;
+}
+
+.LeftHeader {
+    width: 100%;
+    height: 25px;*/
+    /*background-color: #C4B096;*/
+    /*background-color: #e1b493;*/
+
+    /*background-color: rgb(167, 166, 166);*/
+    /*background-color: rgb(189,145,164);*/
+    /*background-color:rgb(211,178,163);*/
+
+    /*font-size: 14px;*/
+    /*padding-left: 10px;*/
+/*}
+
+.LeftHeader label {
+    color: #FEFEFE !important;
+    font-size: 14px !important;*/
+    /*padding-left: 10px;*/
+
+    /*font-weight: bold;
+}
+
+.TabHeader {
+    background-color: #808080;
+    height: 25px;
+}
+
+.TabHeader label {
+    color: Yellow;
+    font-size: 12px;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.TabHeader span {
+    color: White;
+    font-weight: bold;
+    font-size: 12px;
+    padding-top: 5px;
+}
+
+.PanelForm {
+    background-color: #F2FFED;
+}
+
+.RightBoxPanelForm {
+    background-color: #FBF8E5;
+}
+
+.RightBoxHeader {
+    background-color: #808080;
+}
+
+.RightBoxHeader label {
+    color: Yellow;
+    font-weight: bold;
+}
+
+af|inputText::label {
+    color: rgb(33, 33, 33);
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+af|inputDate::label {
+    font-size: 12px;
+    color: rgb(33, 33, 33);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+af|selectOneChoice::label {
+    color: rgb(33, 33, 33);
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+af|inputDate::content {
+    color: rgb(73, 73, 73);
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: none;
+}
+
+af|inputText::content {
+    color: rgb(73, 73, 73);
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: none;
+}
+
+af|selectOneChoice::content {
+    color: rgb(73, 73, 73);
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+af|selectBooleanCheckbox::label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: rgb(73, 73, 73);*/
+    /*font-weight: bold;*/
+/*}
+
+af|inputText {
+    color: Black;
+    font-size: 11px;
+    caption-side: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    text-align: left;
+    background-color: transparent;
+}*/
+/*af|table {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    font-size: 11px;
+}*/
+/*af|table af|column::column-header-cell {
+    height: 20px;
+    color: Black;
+    text-align: center;
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    background-image: none;*/
+    /*background-color: #A65B1A;*/
+
+    /*background-color: #FEEEE4;
+    vertical-align: middle;
+    border-left: 1px solid #BF691E;
+}
+
+af|table::data-table-VH-lines af|column::data-cell {
+    background-color: #ffffff;*/
+    /*color: rgb(33, 33, 33);*/
+
+    /*font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 16px;*/
+    /*vertical-align: middle;*/
+    /*text-align: left;*/
+/*}
+
+af|table::data-table-VH-lines af|column::banded-data-cell {
+    background-color: #F0E5CC;
+    color: #7F4614;
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 30px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+af|table::data-row:selected af|column::data-cell {
+    background-color: #ffffff;
+}
+
+af|table::data-row:selected af|column::banded-data-cell {
+    background-color: #ffffff;
+}*/
+/* Table row selection: */
+/*af|table::data-row:selected:focused af|column::data-cell
+{  
+background-color: #eeaa00;  
+color: #ffffff; 
+}
+af|table::data-row:selected:focused af|column::banded-data-cell {
+background-color: #eeaa00;   
+color: #ffffff;    
+
+}*/
+/* Table row hover:  Don't Use this by aakash*/
+/*af|table::data-row:hover af|column::data-cell
+{ 
+background-color: #9bafc8;  
+color: #ffffff;  
+}
+af|table::data-row:hover af|column::banded-data-cell { 
+background-color: #9bafc8;
+color: #ffffff; 
+
+}*/
+/*af|table.sls-custom-style::data-row:selected af|column::data-cell {
+    background-color: #99d6ff;
+    background-color: #ffffff;
+    font-weight: bold;
+    padding: 6px;
+}
+
+af|table.sls-custom-style::data-row:selected:focused af|column::data-cell {
+    background-color: #99d6ff;
+    background-color: #ffffff;
+    font-weight: bold;
+    padding: 6px;
+}
+
+af|table.sls-custom-style::data-row:hover af|column::data-cell {
+    background-color: #fff0b3;
+    background-color: #ffffff;
+}
+
+af|column {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    text-align: left;
+    font-size: 12px;
+}
+
+af|column::column-header-cell {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 11px;
+}
+
+af|column::column-header-cell-content {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+af|column::context {
+    background-color: rgb(173, 255, 176);
+}
+
+af|column::data-cell {
+    color: rgb(66, 66, 66);
+}
+
+af|dialog {
+    background-color: white;
+}
+
+af|popup {
+    background-color: white;
+}
+
+af|panelCollection {
+    color: #FAEED6;
+}
+
+af|commandButton {
+    background-image: url("../../image/Backgroung.jpg");
+    color: White;
+    font-size: 11px;
+    border-color: rgb(163, 238, 157);
+    margin: 1px;
+    border-color: Green;
+    margin: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-left-color: Green;
+    background-origin: content-box;
+    content: open-quote;
+    font-weight: bolder;
+}
+
+af|commandButton:active {
+    background-image: none;
+    border-color: rgb(255, 162, 9);
+    margin: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-origin: content-box;
+    color: White;
+    background-color: rgb(243, 193, 34);
+}
+
+af|commandButton:hover {
+    color: White;
+    background-color: rgb(255, 155, 13);
+    background-image: none;
+}
+
+af|commandButton:focus {
+    background-image: none;
+    background-color: rgb(255, 198, 0);
+}
+
+af|commandButton:busy {
+    background-image: none;
+    background-color: rgb(179, 0, 0);
+}
+
+af|commandButton:active:hover {
+    background-image: url("../../image/Orange Background.jpg");
+    background-color: Orange;
+}
+
+af|commandButton:text-only {
+    background-image: url("../../image/Backgroung.jpg");
+}
+
+af|commandButton:active:disabled {
+    background-color: rgb(178, 238, 171);
+}
+
+af|commandButton:disabled {
+    background-color: rgb(178, 238, 171);
+}
+
+af|query::criterion-label {
+    color: Black;
+}
+
+af|query::criterion-content {
+    color: Black;
+}
+
+af|query::dynamic-help-icon-style {
+    color: Black;
+}
+
+af|query::instruction-text {
+    color: Black;
+}
+
+af|query::title-end0 {
+    color: Black;
+}
+
+af|query::title-end1 {
+    color: Black;
+}
+
+af|query::title-end2 {
+    color: Black;
+}
+
+af|query::title-end3 {
+    color: Black;
+}
+
+af|query::title-end4 {
+    color: Black;
+}
+
+af|query::title-end5 {
+    color: Black;
+}
+
+af|query::title-start0 {
+    color: Black;
+}
+
+af|query::title-start1 {
+    color: Black;
+}
+
+af|query::title-start2 {
+    color: Black;
+}
+
+af|query::title-start3 {
+    color: Black;
+}
+
+af|query::title-start4 {
+    color: Black;
+}
+
+af|query::title-start5 {
+    color: Black;
+}
+
+af|query::title-table {
+    color: Black;
+}
+
+af|query::title-text0 {
+    color: Black;
+}
+
+af|query::title-text1 {
+    color: Black;
+}
+
+af|query::title-text2 {
+    color: Black;
+}
+
+af|query::title-text3 {
+    color: Black;
+}
+
+af|query::title-text4 {
+    color: Black;
+}
+
+af|query::title-text5 {
+    color: Black;
+}
+
+af|query::title0 {
+    color: Black;
+}
+
+af|query::title1 {
+    color: Black;
+}
+
+af|query::title2 {
+    color: Black;
+}
+
+af|query::title3 {
+    color: Black;
+}
+
+af|query::title4 {
+    color: Black;
+}
+
+af|query::title5 {
+    color: Black;
+}
+
+af|query::footer-facet-content-style {
+    color: Black;
+}
+
+af|query::button {
+    background-image: url("../../image/Backgroung.jpg");
+    color: White;
+    font-size: 11px;
+    border-color: rgb(163, 238, 157);
+    margin: 1px;
+    border-color: Green;
+    margin: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-left-color: Green;
+    background-origin: content-box;
+    content: open-quote;
+}
+
+af|query::content0 {
+    color: Black;
+}
+
+af|query::button:busy {
+    background-image: none;
+    background-color: rgb(179, 0, 0);
+}
+
+af|query::button:hover {
+    color: White;
+    background-color: rgb(255, 155, 13);
+    background-image: none;
+}
+
+af|query::button:active {
+    background-image: none;
+    border-color: rgb(255, 162, 9);
+    margin: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-origin: content-box;
+    color: White;
+    background-color: rgb(243, 193, 34);
+}
+
+af|query::button:active:hover {
+    background-image: url("../../image/Orange Background.jpg");
+    background-color: Orange;
+}
+
+af|query::button:active:disabled {
+    background-color: rgb(133, 181, 118);
+    color: White;
+}
+
+af|query::button:focus {
+    background-image: none;
+    background-color: rgb(255, 198, 0);
+}
+
+af|query::button:focus:hover {
+    background-color: rgb(46, 181, 30);
+}
+
+af|query::button:disabled {
+    background-color: rgb(46, 181, 30);
+    color: White;
+}
+
+af|panelHeader {
+    color: Black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+af|dialog::title {
+    color: Black;
+}
+
+af|dialog::footer-button {
+    background-image: url("../../image/Backgroung.jpg");
+    color: White;
+    font-size: 11px;
+    border-color: rgb(163, 238, 157);
+    margin: 1px;
+    border-color: Green;
+    margin: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-left-color: Green;
+    background-origin: content-box;
+    content: open-quote;
+}
+
+af|dialog::footer-button:active {
+    background-image: none;
+    border-color: rgb(255, 162, 9);
+    margin: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-origin: content-box;
+    color: White;
+    background-color: rgb(243, 193, 34);
+}
+
+af|dialog::footer-button:active:disabled {
+    background-color: rgb(133, 181, 118);
+    color: White;
+}
+
+af|dialog::footer-button:active:hover {
+    background-image: url("../../image/Orange Background.jpg");
+    background-color: Orange;
+}
+
+af|dialog::footer-button:focus {
+    background-image: none;
+    background-color: rgb(255, 198, 0);
+}
+
+af|dialog::footer-button:hover {
+    color: White;
+    background-color: rgb(255, 155, 13);
+    background-image: none;
+}
+
+af|dialog::footer-button:disabled {
+    background-color: rgb(255, 175, 23);
+}
+
+af|dialog::footer-button:focus:hover {
+    background-color: rgb(46, 181, 30);
+}
+
+af|dialog::footer-button:text-only {
+    background-image: url("../../image/Backgroung.jpg");
+}
+
+af|selectBooleanCheckbox::selected-icon {
+    content: url("../../image/Actions-dialog-ok-apply-icon.png");
+}
+
+.Text1 {
+    color: White;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    font-weight: bolder;
+}
+
+.Background {
+    background-image: url("../../../image/greenBG.png");
+}
+
+.MainMenu {
+    background-color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.Background1 {*/
+    /*background-image: url("../../image/bg.jpg");*/
+
+    /*background-color: rgb(0, 102, 0);
+}
+
+.Background2 {
+    background-color: rgb(198, 198, 198);
+}
+
+.Background3 {
+    background-color: rgb(0, 155, 0);
+}
+
+.Text2 {
+    color: White;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.Text3 {
+    color: Black;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.Background4 {
+    height: 26px;
+    width: 50px;
+    background-color: rgb(148, 148, 148);
+    border-color: Gray;
+    border-style: outset;
+    border-width: 2px;
+    outline-color: Scrollbar;
+    outline-style: hidden;
+    outline-width: thin;
+    border-radius: 6% 6% 6% 6%;
+    border-spacing: 1px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+af|commandToolbarButton {
+    background-image: url("../../image/Backgroung.jpg");
+    color: White;
+    font-size: 11px;
+    border-color: rgb(163, 238, 157);
+    margin: 1px;
+    border-color: Green;
+    margin: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-left-color: Green;
+    font-weight: bolder;
+    height: auto;
+}
+
+af|commandToolbarButton:active {
+    background-image: none;
+    border-color: rgb(255, 162, 9);
+    margin: 1px 1px 1px 1px;
+    padding: 1px 1px 1px 1px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-origin: content-box;
+    color: White;
+    background-color: rgb(243, 193, 34);
+}
+
+af|commandToolbarButton:hover {
+    color: White;
+    background-color: rgb(255, 155, 13);
+    background-image: none;
+}
+
+af|commandToolbarButton:focus {
+    background-image: none;
+    background-color: rgb(255, 198, 0);
+}
+
+af|commandToolbarButton:busy {
+    background-image: none;
+    background-color: rgb(179, 0, 0);
+}
+
+af|commandToolbarButton:active:hover {
+    background-image: url("../../image/Orange Background.jpg");
+    background-color: Orange;
+}
+
+af|commandToolbarButton:text-only {
+    background-image: url("../../image/Backgroung.jpg");
+}
+
+af|commandToolbarButton:active:disabled {
+    background-color: rgb(178, 238, 171);
+}
+
+af|commandToolbarButton:disabled {
+    background-color: rgb(178, 238, 171);
+}
+
+.LabelClass {
+    color: rgb(33, 33, 33);
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ContentClass {
+    color: rgb(73, 73, 73);
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+af|panelLabelAndMessage {
+    color: rgb(33, 33, 33);
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.MySideBarItem {
+    background-color: #E8F3FF;
+    background-image: url('../../images/side_bar_dis_bg.png');
+    background-repeat: repeat-x;
+    background-position: top;
+    border: 1px solid #BFCDC9;
+    margin: 4px;
+    padding: 4px;
+}
+
+.MySideBarItemDisabled {
+    color: #AAADB1;
+}
+
+.MySideBarItemEnabled {
+    cursor: move;
+    background-color: white;
+    background-image: url('../../images/side_bar_ena_bg.png');
+    border: 1px solid #858FA5;
+}
+
+.MySideBarTitle {
+    font-weight: bold;
+}
+
+.MySideBarItemDisabled .MySideBarTitle {
+    color: #AAADB1;
+}
+
+.MySideBarItemEnabled .MySideBarTitle {
+    color: #003D5B;
+}
+
+.RightBoxHeader af|breadCrumbs label {
+    color: Yellow;
+    font-weight: bold;
+}
+
+.RightBoxHeader af|selectBooleanCheckbox label {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.RightBoxHeader af|outputLabel label {
+    color: #ffffff;
+    font-weight: bold;
+}*/
+/* Custom Breadcrumb - Start */
+/*.customBreadcrumbBeforeAfter:alias {
+    content: no-open-quote;
+    border-top: 28px solid transparent;
+    border-bottom: 28px solid transparent;
+    position: absolute;
+    left: 100%;
+    margin-top: -21px;
+}
+
+af|panelList.customBreadcrumb ul {
+    overflow: hidden;
+}
+
+af|panelList.customBreadcrumb li {
+    float: left;
+}
+
+af|panelList.customBreadcrumb li span:hover {
+    text-decoration: underline;
+    font-style: italic;
+    background-color: #ED992A;
+}
+
+af|panelList.customBreadcrumb li, af|panelList.customBreadcrumb li span {
+    color: white;
+    padding: 10px 5px 10px 15px;
+    background: #A5630D;
+    display: block;
+    position: relative;
+}
+
+af|panelList.customBreadcrumb li:not( last-child), af|panelList.customBreadcrumb li:not( last-child) span {
+    background-color: #D47F11;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+af|panelList.customBreadcrumb li:last-child span:before {
+    border-left: 0px solid #F1AF59;
+}
+
+af|panelList.customBreadcrumb li:last-child span:after {
+    border-left: 0px solid #F1AF59;
+}
+
+.PanelFormContent {
+}
+
+.PanelFormContent af|inputText::content {
+    font-size: 12px;
+    width: 150px;
+}
+
+.PanelFormContent af|inputText::label {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.PanelFormContent af|inputListOfValues::label {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.PanelFormContent af|inputListOfValues::content {
+    font-size: 12px;
+    width: 150px;
+}
+
+.PanelFormContent af|selectOneChoice::label {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.PanelFormContent af|selectOneChoice::content {
+    font-size: 12px;
+    width: 150px;
+}
+
+.PanelFormContent af|inputDate::content {
+    font-size: 12px;
+    width: 150px;
+}
+
+.PanelFormContent af|inputDate::label {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.PanelFormContent af|inputColor::label {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.PanelFormContent af|inputColor::content {
+    font-size: 12px;
+    width: 150px;
+}
+
+af|link.nav:link, af|link.nav:visited {
+    display: block;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #B28F6B;
+    border: 1px solid #B28F6B;
+    text-align: center;
+    padding: 3px;
+    text-decoration: none;
+    margin: 3px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+af|link.nav:hover, af|link.nav:active {
+    display: block;
+    font-weight: bold;
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid black;
+    text-align: center;
+    padding: 3px;
+    margin: 3px;
+    text-decoration: none;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+af|link.nav:disabled {
+    display: block;
+    font-weight: bold;
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid black;
+    text-align: center;
+    padding: 3px;
+    text-decoration: none;
+    margin: 3px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+    opacity: 1.0;
+}
+
+af|inputComboboxListOfValues::label {
+    color: rgb(33, 33, 33);
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}*/
+/*af|messages{
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+af|messages.p_AFError{
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+}*/
+/**new---------aakash**/
+/**Change background color and border color of dialog**/
+/*af|dialog {
+    background-color: #dff9d0;
+    border-color: #4267b2;
+}*/
+/**Change dialog header style**/
+/*af|dialog::header, af|dialog::header-end, af|dialog::header-start, af|dialog::title {
+    color: #FFFFFF;
+    text-align: Left;
+    background-color: #45619d;
+    background-image: none;
+    font-family: Arial;
+    padding: 2px;
+}*/
+/**Change dialog button styler**/
+/*af|dialog af|button {
+    background-color: #4267b2;
+    text-align: center;
+    vertical-align: middle;
+    color: White;
+    background-image: none;
+    border: #4267b2 1.5px solid;*/
+    /*width: 60px;*/
+/*}
+
+af|dialog af|button::link {
+    background-color: #4267b2;
+    text-align: center;
+    vertical-align: middle;
+    color: White;
+    background-image: none;
+    border: #4267b2 1.5px solid;
+    font-family: Arial;
+}*/
+/**Set hover event properties for dialog button**/
+/*af|dialog af|button:hover {
+    background-color: red;
+    text-align: center;
+    vertical-align: middle;
+    color: White;
+    background-image: none;
+    border: #528cff 1.5px solid;*/
+    /*width: 60px;*/
+/*}
+
+af|dialog af|button::link:hover {
+    background-color: #528cff;
+    text-align: center;
+    vertical-align: middle;
+    color: White;
+    background-image: none;
+    border: #528cff 1.5px solid;
+    font-family: Arial;
+}*/
+/**Change default close icon of dialog**/
+/*af|dialog::close-icon-style {
+    background: none;
+    background-image: url("../../lblue_cross_16.png");
+    height: 17px;
+}
+
+af|dialog::close-icon-style:hover {
+    background: none;
+    background-image: url("../../red_cross_16.png");
+    height: 17px;
+}*/
+/* To Change text style of Tab */
+/*af|panelTabbed::tab af|panelTabbed::tab-text-link {
+    color: #FFFFFF;
+    font-weight: bold;
+}*/
+/* To Change tab style */
+/*af|panelTabbed::tab {
+    background-color: #CB936D;*/
+    /*width: 200px;*/
+/*}*/
+/*To increase size of tab content to match with tab width */
+/*af|panelTabbed::tab af|panelTabbed::tab-content {*/
+    /*width: 200px;*/
+    /*background-color: #CB936D;
+}
+
+af|query div[id$='_afrLovInternalQueryId:_mode'] {
+    display: none;
+}
+
+af|column::column-footer-cell {
+    color: Black; 
+    font-weight: bold;
+}*/
+
+
+
+af|inputComboboxListOfValues {
+    -tr-stretch-search-dialog: true;
+}
+
+af|inputListOfValues {
+    -tr-stretch-search-dialog: true;
+}
+
+.MainHeader {
+    background-color: White;
+    height: 22.0px;
+}
+
+.MainHeaderLeft {
+    width: 1000px;
+}
+
+.MainHeader label {
+    color: Black;
+    text-align: right;
+    font-size: medium;
+    font-weight: bold;
+    height: 20%;
+}
+
+.MainHeaderChild {
+    text-align: right;
+}
+
+.ButtonBarHeader {
+    /*height: 28px;*/
+    /*background-color:#A7A6A6;
+    /*background-color:rgb(253,237,195);*/
+    /*background-color: rgb(167, 166, 166);*/
+    /*background-color:rgb(167,166,166);*/
+    /* black shades*/
+}
+
+.LeftHeader {
+      /*width: 100%;
+    height: 25px;
+  background-color: #C4B096;
+    background-color: #e1b493;
+
+    background-color: rgb(167, 166, 166);
+    background-color: rgb(189,145,164);
+    background-color:rgb(211,178,163);
+
+    font-size: 14px;
+    padding-left: 10px; */
+}
+
+.LeftHeader label {
+    color: Black;
+    /*font-size: 14px !important;
+    padding-left: 10px;*/
+
+    font-weight: bold;
+}
