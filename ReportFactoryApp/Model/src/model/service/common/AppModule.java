@@ -31,5 +31,7 @@ public interface AppModule extends ApplicationModule {
     void SaleRegisterDetail4(String LV_UNIT, Integer LV_SID, String LV_INC_CAN, Date FRDATE, Date TODATE);
 
     void StockStatus(String LV_UNIT, String LV_ITEM_CD, String LV_FIN_YEAR);
+
+    void PurchaseRegisterIncludingDRandCRNote(String LV_UNIT, String LV_DOC_TYPE, Date FRDATE, Date TODATE);
 }
 

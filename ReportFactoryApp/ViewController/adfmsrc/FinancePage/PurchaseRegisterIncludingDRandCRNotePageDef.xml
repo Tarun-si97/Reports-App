@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57"
+                id="PurchaseRegisterIncludingDRandCRNotePageDef" Package="FinancePage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PurchaseRegisterIncludingDRandCRNoteVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="PurchaseRegisterIncludingDRandCRNoteVO1Iterator"/>
+    <searchRegion Binds="PurchaseRegisterIncludingDRandCRNoteVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="PurchaseRegisterIncludingDRandCRNoteVO1Query"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PurchaseRegisterIncludingDRandCRNoteVO1Iterator" id="PurchaseRegisterIncludingDRandCRNoteVO1">
+      <nodeDefinition DefName="model.finance.views.PurchaseRegisterIncludingDRandCRNoteVO"
+                      Name="PurchaseRegisterIncludingDRandCRNoteVO10">
+        <AttrNames>
+          <Item Value="UnitCode"/>
+          <Item Value="VoucherNo"/>
+          <Item Value="VoucherDate"/>
+          <Item Value="DocNo"/>
+          <Item Value="DocDate"/>
+          <Item Value="VendorBillNo"/>
+          <Item Value="VendorBillDate"/>
+          <Item Value="DocType"/>
+          <Item Value="DocDescription"/>
+          <Item Value="VendorCode"/>
+          <Item Value="VendorFlag"/>
+          <Item Value="VendorName"/>
+          <Item Value="PanNo"/>
+          <Item Value="GstinNo"/>
+          <Item Value="PoNo"/>
+          <Item Value="AmdNo"/>
+          <Item Value="ItemCode"/>
+          <Item Value="ItemDescription"/>
+          <Item Value="Uom"/>
+          <Item Value="HsnNo"/>
+          <Item Value="ChallanQty"/>
+          <Item Value="ApprovedQty"/>
+          <Item Value="ReceivedQty"/>
+          <Item Value="Rate"/>
+          <Item Value="TaxableValueBeforeDiscount"/>
+          <Item Value="Discount"/>
+          <Item Value="DiscountValue"/>
+          <Item Value="TaxableValueAfterDiscount"/>
+          <Item Value="GstCode"/>
+          <Item Value="GstRate"/>
+          <Item Value="PurchaseType"/>
+          <Item Value="Sgst"/>
+          <Item Value="SgstAmount"/>
+          <Item Value="Cgst"/>
+          <Item Value="CgstAmount"/>
+          <Item Value="Igst"/>
+          <Item Value="IgstAmount"/>
+          <Item Value="LineTotal"/>
+          <Item Value="GlCode"/>
+          <Item Value="GlDescription"/>
+          <Item Value="StateCode"/>
+          <Item Value="VendorAddress"/>
+          <Item Value="TcsValue"/>
+          <Item Value="InvoiceValue"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_DocType" id="DocType" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <methodAction id="PurchaseRegisterIncludingDRandCRNote" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="PurchaseRegisterIncludingDRandCRNote" IsViewObjectMethod="false"
+                  DataControl="AppModuleDataControl" InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="LV_DOC_TYPE" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

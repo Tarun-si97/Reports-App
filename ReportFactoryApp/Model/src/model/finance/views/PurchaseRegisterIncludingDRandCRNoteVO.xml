@@ -1,0 +1,855 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="PurchaseRegisterIncludingDRandCRNoteVO"
+  Version="12.2.1.11.57"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="model.finance.views.PurchaseRegisterIncludingDRandCRNoteVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="P254_FROM_DATE"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <Variable
+    Name="P254_TO_DATE"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <Variable
+    Name="P254_DOC_TYPE"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P254_UNIT"
+    Kind="where"
+    Type="java.lang.String"/>
+  <SQLQuery><![CDATA[Select 
+    "UNIT CODE", 
+    "VOUCHER NO", 
+    "VOUCHER DATE", 
+     "DOC NO",  
+     "DOC DATE", 
+     "VENDOR BILL NO", 
+     "VENDOR BILL DATE", 
+     "DOC TYPE", 
+    "DOC DESCRIPTION", 
+    "VENDOR CODE", 
+    (SELECT VENDOR_FLAG FROM VENDOR_MASTER WHERE VENDOR_CODE = "VENDOR CODE" ) VENDOR_FLAG, 
+     "VENDOR NAME", 
+    "PAN NO", 
+    "GSTIN NO", 
+    "PO NO", 
+    "AMD NO", 
+    "ITEM CODE", 
+     "ITEM DESCRIPTION", 
+     (SELECT ITEM_UOM FROM vw_all_item_mas WHERE ITEM_CD = B."ITEM CODE" AND ROWNUM = 1) UOM, 
+    "HSN NO", 
+     "CHALLAN QTY", 
+     "APPROVED QTY", 
+    "RECEIVED QTY", 
+     RATE, 
+     "TAXABLE VALUE BEFORE DISCOUNT", 
+    "DISCOUNT %", 
+     "DISCOUNT VALUE", 
+   "TAXABLE VALUE AFTER DISCOUNT", 
+     "GST CODE", 
+     GST_RATE, 
+      ( SELECT CASE WHEN V.INTER_UNIT = 'Y' THEN 'STO' 
+                    WHEN B.GST_RATE = 0 THEN 'EXEMPTED' 
+                    ELSE 'TAXABLE' 
+                    END PURCHASE_TYPE 
+          FROM VENDOR_MASTER V 
+         WHERE V.VENDOR_CODE = B."VENDOR CODE") PURCHASE_TYPE, 
+    "SGST %", 
+   "SGST AMOUNT", 
+     "CGST %", 
+     "CGST AMOUNT", 
+    "IGST %", 
+     "IGST AMOUNT", 
+    "LINE TOTAL" + NVL(TCS_VALUE,0) "LINE TOTAL" , 
+     "GL CODE", 
+     "GL DESCRIPTION", 
+     "STATE CODE", 
+     "VENDOR ADDRESS" 
+        ,TCS_VALUE  
+        ,   ( SELECT SUM(A."LINE TOTAL" + NVL(A.TCS_VALUE,0) )    
+FROM 
+        ( 
+Select L.VOU_NO AS "VOUCHER NO" 
+    ,(NVL(B.QUANTITY,0) * NVL(B.RATE,0)) + NVL(B.SGST_AMT,0) + NVL(B.CGST_AMT,0) + NVL(B.IGST_AMT,0) AS "LINE TOTAL" 
+    ,(SELECT D.VALUE 
+        FROM BILL H 
+        LEFT JOIN BILL_DETAIL D 
+        ON H.BILL_NO = D.FIN_TBENT_BILL_NO 
+        WHERE H.VOU_NO = L.VOU_NO--'21-22/60001/0106/PURC/PV697' 
+       AND D.FIN_TBENT_UNIT_CODE = :P254_UNIT 
+        AND D.ITEM_STOCK_ITEM_CD = 'PART024' 
+        --AND D.GL_CD = 'GL-06034' 
+        AND  ( 
+                SELECT MAX(D.ITEM_STOCK_ITEM_CD ) ITEM 
+                FROM BILL H 
+                LEFT JOIN BILL_DETAIL D 
+                ON H.BILL_NO = D.FIN_TBENT_BILL_NO 
+                WHERE H.VOU_NO = L.VOU_NO--'21-22/60001/0106/PURC/PV697' -- 
+                AND D.FIN_TBENT_UNIT_CODE = :P254_UNIT 
+                --AND D.GL_CD = 'GL-06034' 
+                AND D.ITEM_STOCK_ITEM_CD != 'PART024'  
+        ) = B.ITEM_STOCK_ITEM_CD--||''||JOB_CD  
+         ) TCS_VALUE 
+from Bill_detail B 
+LEFT JOIN GEN_LED_V10 G ON B.GL_CD = G.GL_CD 
+LEFT JOIN PART_MASTER P ON B.ITEM_STOCK_ITEM_CD = P.PART_CODE 
+LEFT JOIN INV_SER_BILL_VIEW S ON B.ITEM_STOCK_ITEM_CD = S.ITEM_CD 
+LEFT JOIN PRODUCT PR ON B.ITEM_STOCK_ITEM_CD = PR.CODE 
+--LEFT JOIN JO_BILL_DETAIL J ON B.JOB_DETAIL = J.JOB_DETAIL 
+LEFT JOIN BILL L ON B.FIN_TBENT_BILL_NO = L.BILL_NO AND B.FIN_TBENT_BILL_TYPE = L.BILL_TYPE AND B.FIN_TBENT_UNIT_CODE = L.UNIT_CODE 
+--LEFT JOIN VENDOR_MASTER VM ON L.VEN_CD = VM.VENDOR_CODE 
+--LEFT JOIN VENDOR_REGD_ADDRESS VRA ON L.VEN_CD = VRA.VENDOR_CODE 
+--LEFT JOIN STATE SE ON VRA.STATE = SE.NAME 
+WHERE L.VOU_DATE BETWEEN :P254_FROM_DATE AND :P254_TO_DATE AND FIN_TBENT_UNIT_CODE = :P254_UNIT 
+--AND L.VOU_NO = '21-22/60001/0106/PURC/PV697' 
+AND P.DESCRIPTION||''|| S.ITEM_DESC||''||B.JOB_DETAIL||''||PR.DESCRIPTION != 'TCS RECIVABLE'  
+) A 
+WHERE A."VOUCHER NO" = B."VOUCHER NO" 
+GROUP BY A."VOUCHER NO" 
+) INVOICE_VALUE 
+        FROM 
+        ( 
+Select 
+    B.FIN_TBENT_UNIT_CODE AS "UNIT CODE", 
+    L.VOU_NO AS "VOUCHER NO", 
+    L.VOU_DATE AS "VOUCHER DATE", 
+    LPAD (B.FIN_TBENT_BILL_NO,10,'.') AS "DOC NO",  
+    B.FIN_TBENT_BILL_DATE AS "DOC DATE", 
+    L.VEN_BILL_NO AS "VENDOR BILL NO", 
+    L.VEN_BILL_DATE AS "VENDOR BILL DATE", 
+    B.FIN_TBENT_BILL_TYPE AS "DOC TYPE", 
+    case 
+    WHEN B.FIN_TBENT_BILL_TYPE = 'P' THEN 'PURCHASE' 
+    WHEN B.FIN_TBENT_BILL_TYPE = 'V' THEN 'SERVICE' 
+    END AS "DOC DESCRIPTION", 
+    L.VEN_CD AS "VENDOR CODE", 
+    VM.NAME AS "VENDOR NAME", 
+    VM.PAN_NO AS "PAN NO", 
+    VM.GST_REG_NO AS "GSTIN NO", 
+    B.PO_NO AS "PO NO", 
+    B.AMD_NO AS "AMD NO", 
+    B.ITEM_STOCK_ITEM_CD--||''||JOB_CD  
+            AS "ITEM CODE", 
+    P.DESCRIPTION||''|| S.ITEM_DESC||''||B.JOB_DETAIL||''||PR.DESCRIPTION AS "ITEM DESCRIPTION", 
+    B.BILL_HSN_CODE AS "HSN NO", 
+    NVL(B.CHALLAN_QTY,0) AS "CHALLAN QTY", 
+    NVL(B.APPR_QTY,0) AS "APPROVED QTY", 
+    B.QUANTITY AS "RECEIVED QTY", 
+    B.RATE AS RATE, 
+    NVL(B.QUANTITY * B.RATE,0) AS "TAXABLE VALUE BEFORE DISCOUNT", 
+    NVL(B.DISCOUNT_PER,0) AS "DISCOUNT %", 
+    (NVL(B.QUANTITY,0) * NVL(B.RATE,0)) * (NVL(B.DISCOUNT_PER,0) / 100) AS "DISCOUNT VALUE", 
+    NVL(B.QUANTITY * B.RATE,0) - (NVL(B.QUANTITY,0) * NVL(B.RATE,0)) * (NVL(B.DISCOUNT_PER,0) / 100) AS "TAXABLE VALUE AFTER DISCOUNT", 
+    B.GST_CODE AS "GST CODE", 
+    (SELECT GST_RATE FROM gst_rate_master WHERE GST_CODE = B.GST_CODE ) GST_RATE, 
+    NVL(B.SGST_PER,0) AS "SGST %", 
+   NVL(B.SGST_AMT,0) AS "SGST AMOUNT", 
+    NVL(B.CGST_PER,0) AS "CGST %", 
+    NVL(B.CGST_AMT,0) AS "CGST AMOUNT", 
+    NVL(B.IGST_PER,0) AS "IGST %", 
+    NVL(B.IGST_AMT,0) AS "IGST AMOUNT", 
+    (NVL(B.QUANTITY,0) * NVL(B.RATE,0)) + NVL(B.SGST_AMT,0) + NVL(B.CGST_AMT,0) + NVL(B.IGST_AMT,0) AS "LINE TOTAL", 
+    B.GL_CD AS "GL CODE", 
+    G.GL_DESC AS "GL DESCRIPTION", 
+    SE.STATE_GST_CODE ||'-'|| VRA.STATE AS "STATE CODE", 
+    VRA.ADDRESS1 ||' '||VRA.ADDRESS2 ||' '||VRA.ADDRESS3 AS "VENDOR ADDRESS" 
+        ,(SELECT D.VALUE 
+        FROM BILL H 
+        LEFT JOIN BILL_DETAIL D 
+        ON H.BILL_NO = D.FIN_TBENT_BILL_NO 
+        WHERE H.VOU_NO = L.VOU_NO--'21-22/60001/0106/PURC/PV697' 
+        AND D.FIN_TBENT_UNIT_CODE = :P254_UNIT 
+        AND D.ITEM_STOCK_ITEM_CD = 'PART024' 
+        --AND D.GL_CD = 'GL-06034' 
+        AND  ( 
+                SELECT MAX(D.ITEM_STOCK_ITEM_CD ) ITEM 
+                FROM BILL H 
+                LEFT JOIN BILL_DETAIL D 
+                ON H.BILL_NO = D.FIN_TBENT_BILL_NO 
+                WHERE H.VOU_NO = L.VOU_NO--'21-22/60001/0106/PURC/PV697' -- 
+                AND D.FIN_TBENT_UNIT_CODE = :P254_UNIT 
+                --AND D.GL_CD = 'GL-06034' 
+                AND D.ITEM_STOCK_ITEM_CD != 'PART024'  
+        ) = B.ITEM_STOCK_ITEM_CD--||''||JOB_CD  
+         ) TCS_VALUE 
+from Bill_detail B 
+LEFT JOIN GEN_LED_V10 G ON B.GL_CD = G.GL_CD 
+LEFT JOIN PART_MASTER P ON B.ITEM_STOCK_ITEM_CD = P.PART_CODE 
+LEFT JOIN INV_SER_BILL_VIEW S ON B.ITEM_STOCK_ITEM_CD = S.ITEM_CD 
+LEFT JOIN PRODUCT PR ON B.ITEM_STOCK_ITEM_CD = PR.CODE 
+--LEFT JOIN JO_BILL_DETAIL J ON B.JOB_DETAIL = J.JOB_DETAIL 
+LEFT JOIN BILL L ON B.FIN_TBENT_BILL_NO = L.BILL_NO AND B.FIN_TBENT_BILL_TYPE = L.BILL_TYPE AND B.FIN_TBENT_UNIT_CODE = L.UNIT_CODE 
+LEFT JOIN VENDOR_MASTER VM ON L.VEN_CD = VM.VENDOR_CODE 
+LEFT JOIN VENDOR_REGD_ADDRESS VRA ON L.VEN_CD = VRA.VENDOR_CODE 
+LEFT JOIN STATE SE ON VRA.STATE = SE.NAME 
+WHERE L.VOU_DATE BETWEEN :P254_FROM_DATE AND :P254_TO_DATE AND FIN_TBENT_UNIT_CODE = :P254_UNIT 
+--AND L.VOU_NO = '21-22/60001/0106/PURC/PV697' 
+AND P.DESCRIPTION||''|| S.ITEM_DESC||''||B.JOB_DETAIL||''||PR.DESCRIPTION != 'TCS RECIVABLE'  
+AND B.FIN_TBENT_BILL_TYPE LIKE '%'||:P254_DOC_TYPE             
+        ) B 
+ 
+UNION 
+SELECT  
+    D.DR_CR_NOTE_DN_CN_UNIT AS "UNIT CODE", 
+    DC.FiN_TVOUCH_VOU_NO AS "VOUCHER NO", 
+    DC.FIN_TVOUCH_VOU_DATE AS "VOUCHER DATE", 
+    D.DR_CR_NOTE_DN_CN_NO AS "DOC NO", 
+    D.DR_CR_NOTE_DN_CN_DATE AS "DOC DATE", 
+    DC.BILL_NO_FOR_CREDIT AS "VENDOR BILL NO", 
+    DC.BILL_DATE_FOR_CREDIT AS "VENDOR BILL DATE", 
+    D.DR_CR_NOTE_DN_CN_FLAG AS "DOC TYPE", 
+  CASE 
+  WHEN D.DR_CR_NOTE_DN_CN_FLAG = 'D' THEN 'DEBIT NOTE' 
+  WHEN D.DR_CR_NOTE_DN_CN_FLAG = 'C' THEN 'CREDIT NOTE' 
+  END AS " DOC DESCRIPTION", 
+    DC.SUB_CODE AS "VENDOR CODE", 
+    (SELECT VENDOR_FLAG FROM VENDOR_MASTER WHERE VENDOR_CODE = DC.SUB_CODE ) VENDOR_FLAG, 
+    VN.NAME AS "VENDOR NAME", 
+    VN.PAN_NO AS "PAN NO", 
+    VN.GST_REG_NO AS "GSTIN NO", 
+    ('0') AS "PO NO", 
+    (0) AS "AMD NO", 
+    D.ITEM_CD AS "ITEM CODE", 
+    P.DESCRIPTION||''||S.ITEM_DESC||''||PM.DESCRIPTION AS "ITEM DESCRIPTION",     
+    NVL((SELECT ITEM_UOM FROM vw_all_item_mas WHERE ITEM_CD = D.ITEM_CD AND ROWNUM = 1),(SELECT MEASUREMENT_UNIT FROM inv_item_list_view WHERE ITEM_CODE = D.ITEM_CD AND ROWNUM = 1)) UOM, 
+    D.HSN_NO AS "HSN NO", 
+    (0) AS "CHALLAN QTY", 
+    (0) AS "APPROVED QTY", 
+    DECODE(DN_CN_FLAG,'D',D.QTY * -1, D.QTY) AS "RECEIVED QTY", 
+    D.RATE AS RATE, 
+    DECODE(DN_CN_FLAG,'D',NVL(D.QTY * D.RATE,0)*-1,NVL(D.QTY * D.RATE,0)) AS "TAXABLE VALUE BEFORE DISCOUNT",  
+    (0) AS "DISCOUNT %", 
+    (0) AS "DISCOUNT AMOUNT", 
+    DECODE(DN_CN_FLAG,'D',NVL(D.QTY * D.RATE,0)*-1,NVL(D.QTY * D.RATE,0)) AS "TAXABLE VALUE AFTER DISCOUNT", 
+    D.DGST_CODE AS "GST CODE", 
+    (SELECT GST_RATE FROM gst_rate_master WHERE GST_CODE = D.DGST_CODE ) GST_RATE, 
+    (SELECT CASE WHEN V.INTER_UNIT = 'Y' THEN 'STO' 
+            WHEN (SELECT GST_RATE FROM gst_rate_master WHERE GST_CODE = D.DGST_CODE ) = 0 THEN 'EXEMPTED' 
+            ELSE 'TAXABLE' 
+            END PURCHASE_TYPE 
+    FROM VENDOR_MASTER V 
+    WHERE V.VENDOR_CODE = DC.SUB_CODE) PURCHASE_TYPE, 
+    NVL(D.DSGST_RATE,0) AS "SGST %", 
+    DECODE(DN_CN_FLAG,'D',NVL(D.DSGST_AMT,0)*-1,NVL(D.DSGST_AMT,0)) AS "SGST AMOUNT", 
+    NVL(D.DCGST_RATE,0) AS "CGST %", 
+    DECODE(DN_CN_FLAG,'D',NVL(D.DCGST_AMT,0)*-1,NVL(D.DCGST_AMT,0)) AS "CGST AMOUNT", 
+    NVL(D.DIGST_RATE,0) AS "IGST %", 
+    DECODE(DN_CN_FLAG,'D',NVL(D.DIGST_AMT,0)*-1,NVL(D.DIGST_AMT,0)) AS "IGST AMOUNT", 
+    DECODE(DN_CN_FLAG,'D',((NVL(D.QTY,0) * NVL(D.RATE,0)) + NVL(D.DSGST_AMT,0) + NVL(D.DCGST_AMT,0) + NVL(D.DIGST_AMT,0))*-1,((NVL(D.QTY,0) * NVL(D.RATE,0)) + NVL(D.DSGST_AMT,0) + NVL(D.DCGST_AMT,0) + NVL(D.DIGST_AMT,0))) AS "LINE TOTAL", 
+     
+    (SELECT GL_CD FROM DR_CR_DETAIL WHERE AMOUNT = 
+        (SELECT MAX(AMOUNT)  
+           FROM DR_CR_DETAIL  
+          WHERE DR_CR_NOTE_DN_CN_NO =  
+             ( SELECT DN_CN_NO FROM DR_CR_NOTE WHERE FIN_TVOUCH_VOU_NO = DC.FiN_TVOUCH_VOU_NO ) 
+            AND DREMAST_REASON_CODE NOT IN ('SG','CG','IG','RO') ) AND ROWNUM = 1 )  AS "GL CODE", 
+     
+    (SELECT GL_DESC FROM GEN_LED_V10 WHERE GL_CD = (SELECT GL_CD FROM DR_CR_DETAIL WHERE AMOUNT = 
+        (SELECT MAX(AMOUNT)  
+           FROM DR_CR_DETAIL  
+          WHERE DR_CR_NOTE_DN_CN_NO =  
+             ( SELECT DN_CN_NO FROM DR_CR_NOTE WHERE FIN_TVOUCH_VOU_NO = DC.FiN_TVOUCH_VOU_NO ) 
+            AND DREMAST_REASON_CODE NOT IN ('SG','CG','IG','RO') ) AND ROWNUM = 1 )) AS "GL DESCRIPTION", 
+     
+    ST.STATE_GST_CODE||'-'||VAR.STATE AS "STATE CODE", 
+    VAR.ADDRESS1 ||' '|| VAR.ADDRESS2 ||' '|| VAR.ADDRESS3 AS "VENDOR ADDRESS", NULL TCS_VALUE,  
+    ( SELECT SUM(DECODE(DN_CN_FLAG,'D',((NVL(D.QTY,0) * NVL(D.RATE,0)) + NVL(D.DSGST_AMT,0)  
+    + NVL(D.DCGST_AMT,0) + NVL(D.DIGST_AMT,0))*-1,((NVL(D.QTY,0) * NVL(D.RATE,0))  
+    + NVL(D.DSGST_AMT,0) + NVL(D.DCGST_AMT,0) + NVL(D.DIGST_AMT,0)))) INVOICE_TOTAL 
+-- NULL INVOICE_TOTAL 
+FROM DR_CR_DETAIL_ITEM D 
+LEFT JOIN PART_MASTER P ON D.ITEM_CD = P.PART_CODE 
+LEFT JOIN INV_SER_BILL_VIEW S ON D.ITEM_CD = S.ITEM_CD 
+LEFT JOIN PRODUCT PM ON D.ITEM_CD = PM.CODE 
+LEFT JOIN DR_CR_NOTE DCN ON D.DR_CR_NOTE_DN_CN_NO = DCN.DN_CN_NO 
+LEFT JOIN VENDOR_MASTER VN ON DCN.SUB_CODE = VN.VENDOR_CODE 
+LEFT JOIN VENDOR_REGD_ADDRESS VAR ON DCN.SUB_CODE = VAR.VENDOR_CODE 
+LEFT JOIN STATE ST ON VAR.STATE = ST.NAME 
+WHERE DCN.FIN_TVOUCH_VOU_DATE BETWEEN :P254_FROM_DATE AND :P254_TO_DATE  
+AND DR_CR_NOTE_DN_CN_UNIT = :P254_UNIT 
+AND DCN.SL_CODE_TYPE = 'C' 
+AND DCN.FiN_TVOUCH_VOU_NO = DC.FiN_TVOUCH_VOU_NO--'21-22/60002/3006/JVPV/JV400' 
+GROUP BY DCN.FiN_TVOUCH_VOU_NO ) INVOICE_VALUE 
+FROM DR_CR_DETAIL_ITEM D 
+LEFT JOIN PART_MASTER P ON D.ITEM_CD = P.PART_CODE 
+LEFT JOIN INV_SER_BILL_VIEW S ON D.ITEM_CD = S.ITEM_CD 
+LEFT JOIN PRODUCT PM ON D.ITEM_CD = PM.CODE 
+LEFT JOIN DR_CR_NOTE DC ON D.DR_CR_NOTE_DN_CN_NO = DC.DN_CN_NO 
+LEFT JOIN VENDOR_MASTER VN ON DC.SUB_CODE = VN.VENDOR_CODE 
+LEFT JOIN VENDOR_REGD_ADDRESS VAR ON DC.SUB_CODE = VAR.VENDOR_CODE 
+LEFT JOIN STATE ST ON VAR.STATE = ST.NAME 
+WHERE DC.FIN_TVOUCH_VOU_DATE BETWEEN :P254_FROM_DATE AND :P254_TO_DATE AND DR_CR_NOTE_DN_CN_UNIT = :P254_UNIT 
+AND DC.SL_CODE_TYPE = 'C' 
+AND D.DR_CR_NOTE_DN_CN_FLAG LIKE '%'||:P254_DOC_TYPE]]></SQLQuery>
+  <ViewAttribute
+    Name="UnitCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"UNIT CODE"'
+    Expression='"UNIT CODE"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VoucherNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"VOUCHER NO"'
+    Expression='"VOUCHER NO"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VoucherDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName='"VOUCHER DATE"'
+    Expression='"VOUCHER DATE"'
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="DocNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="40"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"DOC NO"'
+    Expression='"DOC NO"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="40"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DocDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName='"DOC DATE"'
+    Expression='"DOC DATE"'
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="VendorBillNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"VENDOR BILL NO"'
+    Expression='"VENDOR BILL NO"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VendorBillDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.sql.Timestamp"
+    ColumnType="DATE"
+    AliasName='"VENDOR BILL DATE"'
+    Expression='"VENDOR BILL DATE"'
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="DocType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName='"DOC TYPE"'
+    Expression='"DOC TYPE"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DocDescription"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="11"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"DOC DESCRIPTION"'
+    Expression='"DOC DESCRIPTION"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VendorCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="17"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"VENDOR CODE"'
+    Expression='"VENDOR CODE"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="17"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VendorFlag"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VENDOR_FLAG"
+    Expression="VENDOR_FLAG"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VendorName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"VENDOR NAME"'
+    Expression='"VENDOR NAME"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PanNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"PAN NO"'
+    Expression='"PAN NO"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GstinNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"GSTIN NO"'
+    Expression='"GSTIN NO"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PoNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"PO NO"'
+    Expression='"PO NO"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AmdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"AMD NO"'
+    Expression='"AMD NO"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ItemCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="200"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"ITEM CODE"'
+    Expression='"ITEM CODE"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemDescription"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1440"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"ITEM DESCRIPTION"'
+    Expression='"ITEM DESCRIPTION"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1440"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Uom"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UOM"
+    Expression="UOM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="HsnNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"HSN NO"'
+    Expression='"HSN NO"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ChallanQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"CHALLAN QTY"'
+    Expression='"CHALLAN QTY"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ApprovedQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"APPROVED QTY"'
+    Expression='"APPROVED QTY"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ReceivedQty"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"RECEIVED QTY"'
+    Expression='"RECEIVED QTY"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Rate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="RATE"
+    Expression="RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="TaxableValueBeforeDiscount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"TAXABLE VALUE BEFORE DISCOUNT"'
+    Expression='"TAXABLE VALUE BEFORE DISCOUNT"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Discount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"DISCOUNT %"'
+    Expression='"DISCOUNT %"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="DiscountValue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"DISCOUNT VALUE"'
+    Expression='"DISCOUNT VALUE"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="TaxableValueAfterDiscount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"TAXABLE VALUE AFTER DISCOUNT"'
+    Expression='"TAXABLE VALUE AFTER DISCOUNT"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="GstCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="20"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"GST CODE"'
+    Expression='"GST CODE"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GstRate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="GST_RATE"
+    Expression="GST_RATE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="PurchaseType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PURCHASE_TYPE"
+    Expression="PURCHASE_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Sgst"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"SGST %"'
+    Expression='"SGST %"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="SgstAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"SGST AMOUNT"'
+    Expression='"SGST AMOUNT"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Cgst"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"CGST %"'
+    Expression='"CGST %"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CgstAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"CGST AMOUNT"'
+    Expression='"CGST AMOUNT"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Igst"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"IGST %"'
+    Expression='"IGST %"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="IgstAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"IGST AMOUNT"'
+    Expression='"IGST AMOUNT"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="LineTotal"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"LINE TOTAL"'
+    Expression='"LINE TOTAL"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="GlCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"GL CODE"'
+    Expression='"GL CODE"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="GlDescription"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="400"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"GL DESCRIPTION"'
+    Expression='"GL DESCRIPTION"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="400"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StateCode"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="53"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"STATE CODE"'
+    Expression='"STATE CODE"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="53"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="VendorAddress"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="312"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"VENDOR ADDRESS"'
+    Expression='"VENDOR ADDRESS"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="312"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TcsValue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="TCS_VALUE"
+    Expression="TCS_VALUE"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="InvoiceValue"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName="INVOICE_VALUE"
+    Expression="INVOICE_VALUE"
+    SQLType="NUMERIC"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

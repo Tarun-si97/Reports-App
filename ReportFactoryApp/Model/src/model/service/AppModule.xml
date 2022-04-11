@@ -59,6 +59,9 @@
   <ViewUsage
     Name="StockStatusVO1"
     ViewObjectName="model.inventory.views.StockStatusVO"/>
+  <ViewUsage
+    Name="PurchaseRegisterIncludingDRandCRNoteVO1"
+    ViewObjectName="model.finance.views.PurchaseRegisterIncludingDRandCRNoteVO"/>
   <ClientInterface
     Name="__clientInterface">
     <Method
@@ -592,6 +595,25 @@
       <Parameter
         Name="LV_FIN_YEAR"
         Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="PurchaseRegisterIncludingDRandCRNote"
+      MethodName="PurchaseRegisterIncludingDRandCRNote">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="LV_DOC_TYPE"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
     </Method>
   </ClientInterface>
 </AppModule>

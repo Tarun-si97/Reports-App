@@ -488,6 +488,42 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
     
     
 }
+
+    /**
+     * Container's getter for PurchaseRegisterIncludingDRandCRNoteVO1.
+     * @return PurchaseRegisterIncludingDRandCRNoteVO1
+     */
+    public ViewObjectImpl getPurchaseRegisterIncludingDRandCRNoteVO1() {
+        return (ViewObjectImpl) findViewObject("PurchaseRegisterIncludingDRandCRNoteVO1");
+    }
+    
+    public void PurchaseRegisterIncludingDRandCRNote(String LV_UNIT,String LV_DOC_TYPE,Date FRDATE,Date TODATE){
+        ViewObjectImpl vo = this.getPurchaseRegisterIncludingDRandCRNoteVO1();
+        System.out.println(LV_DOC_TYPE + "--" + LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--");
+        
+    if (LV_DOC_TYPE != null && LV_UNIT != null &&  FRDATE != null && TODATE != null) {
+        System.out.println("Inside condition!");
+    try {
+
+        
+       
+        vo.setNamedWhereClauseParam("P254_FROM_DATE", FRDATE);
+        vo.setNamedWhereClauseParam("P254_DOC_TYPE", LV_DOC_TYPE);
+        vo.setNamedWhereClauseParam("P254_TO_DATE", TODATE);
+        vo.setNamedWhereClauseParam("P254_UNIT", LV_UNIT);
+       
+        vo.executeQuery();
+        
+        
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    
+    }
+    }
+    }
+    
+
 }
 
 

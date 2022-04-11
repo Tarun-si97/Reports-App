@@ -245,6 +245,7 @@
             <hash>
                <url n="content-folder-url" path="adfmsrc/bspl/reportfactory/view/"/>
                <list n="pattern-filters">
+                  <string v="+bspl/reportfactory/view/PurchaseRegisterIncludingDRandCRNoteBean.java"/>
                   <string v="+bspl/reportfactory/view/StockStatusBean.java"/>
                   <string v="+bspl/reportfactory/view/SaleRegisterDetailBean.java"/>
                   <string v="+bspl/reportfactory/view/B2CSaleInvoiceUnRegisteredBean.java"/>

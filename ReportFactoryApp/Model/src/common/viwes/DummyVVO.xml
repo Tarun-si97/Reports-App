@@ -111,6 +111,10 @@
     Name="ItemCodeVVO3"
     ViewObjectName="common.viwes.ItemCodeVVO"
     RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="DocTypeStaticvalueVVO1"
+    ViewObjectName="common.viwes.DocTypeStaticvalueVVO"
+    RowLevelBinds="true"/>
   <ListBinding
     Name="LOV_UnitCode"
     ListVOName="UnitVVO1"
@@ -315,6 +319,25 @@
     </AttrArray>
     <DisplayCriteria
       Hint="showAndExecute"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_DocType"
+    ListVOName="DocTypeStaticvalueVVO1"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="LOV_DocType_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="DocType"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Return1"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Display"/>
+    </AttrArray>
+    <DisplayCriteria/>
   </ListBinding>
   <SQLQuery><![CDATA[select * from Dual]]></SQLQuery>
   <ViewAttribute
@@ -574,6 +597,24 @@
     AliasName="VIEW_ATTR"
     SQLType="VARCHAR"
     LOVName="LOV_INC_CAN">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DocType"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    LOVName="LOV_DocType">
     <Properties>
       <SchemaBasedProperties>
         <CONTROLTYPE
