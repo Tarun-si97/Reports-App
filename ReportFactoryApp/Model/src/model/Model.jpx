@@ -36,6 +36,14 @@
   </Containee>
   <Containee
     Name="views"
+    PackageName="model.inventory.views"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_VO" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
+    Name="views"
     PackageName="model.production.views"
     ObjectType="JboPackage">
     <DesignTime>

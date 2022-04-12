@@ -35,5 +35,9 @@ public interface AppModule extends ApplicationModule {
     void PurchaseRegisterIncludingDRandCRNote(String LV_UNIT, String LV_DOC_TYPE, Date FRDATE, Date TODATE);
 
     void callDebitCreditNoteEntryDetail(String LV_UNIT, Date FRDATE, Date TODATE);
+
+    void AssemblyProductionSummary(String LV_UNIT, Date FRDATE, Date TODATE, String LV_PRODUCT);
+
+    void processproduction(String LV_UNIT, Date FRDATE, Date TODATE);
 }
 

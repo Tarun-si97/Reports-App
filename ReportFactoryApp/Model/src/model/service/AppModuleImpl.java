@@ -590,6 +590,40 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
       }
     
     }
+
+    /**
+     * Container's getter for AssemblyProductionSummaryVO1.
+     * @return AssemblyProductionSummaryVO1
+     */
+    public ViewObjectImpl getAssemblyProductionSummaryVO1() {
+        return (ViewObjectImpl) findViewObject("AssemblyProductionSummaryVO1");
+    }
+    
+    public void AssemblyProductionSummary(String LV_UNIT,Date FRDATE,Date TODATE, String LV_PRODUCT){
+          ViewObjectImpl vo = this.getAssemblyProductionSummaryVO1();
+          System.out.println( LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--" + LV_PRODUCT + "--");
+          
+      if (LV_UNIT != null &&  FRDATE != null && TODATE != null && LV_PRODUCT !=null) {
+          System.out.println("Inside condition!");
+      try {
+
+          
+         
+          vo.setNamedWhereClauseParam("P142_FROM", FRDATE);
+      
+          vo.setNamedWhereClauseParam("P142_TO", TODATE);
+          vo.setNamedWhereClauseParam("P142_UNIT", LV_UNIT);
+          vo.setNamedWhereClauseParam("P142_PROD", LV_PRODUCT);
+         
+          vo.executeQuery();
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      
+      }
+      }
+    
+    }
     
 }
 
