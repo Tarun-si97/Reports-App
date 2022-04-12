@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57"
+                id="AssemblyProductionSummaryPageDef" Package="ProductionPage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AssemblyProductionSummaryVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="AssemblyProductionSummaryVO1Iterator"/>
+    <searchRegion Binds="AssemblyProductionSummaryVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="AssemblyProductionSummaryVO1Query"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="AssemblyProductionSummaryVO1Iterator" id="AssemblyProductionSummaryVO1">
+      <nodeDefinition DefName="model.production.views.AssemblyProductionSummaryVO" Name="AssemblyProductionSummaryVO10">
+        <AttrNames>
+          <Item Value="UnitCd"/>
+          <Item Value="ProductCode"/>
+          <Item Value="ItemDesc"/>
+          <Item Value="ProdnQty"/>
+          <Item Value="AcceptQty"/>
+          <Item Value="RejectQty"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="callAssemblyProductionSummary" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callAssemblyProductionSummary" IsViewObjectMethod="false"
+                  DataControl="AppModuleDataControl" InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+      <NamedData NDName="LV_PRODUCT" NDType="java.lang.String"/>
+    </methodAction>
+    <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_ItemCd" id="ItemCd"/>
+  </bindings>
+</pageDefinition>

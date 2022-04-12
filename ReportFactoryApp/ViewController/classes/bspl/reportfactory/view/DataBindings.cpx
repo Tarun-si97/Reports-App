@@ -21,6 +21,11 @@
           usageId="bspl_reportfactory_view_B2CSaleInvoiceUnRegisteredPageDef"/>
     <page path="/SalePage/SaleRegisterDetail.jsff" usageId="bspl_reportfactory_view_SaleRegisterDetailPageDef"/>
     <page path="/InventoryPage/StockStatus.jsff" usageId="bspl_reportfactory_view_StockStatusPageDef"/>
+    <page path="/FinancePage/DebitCreditNoteEntryDetail.jsff"
+          usageId="bspl_reportfactory_view_DebitCreditNoteEntryDetailPageDef"/>
+    <page path="/ProductionPage/ProcessProduction.jsff" usageId="bspl_reportfactory_view_ProcessProductionPageDef"/>
+    <page path="/ProductionPage/AssemblyProductionSummary.jsff"
+          usageId="bspl_reportfactory_view_AssemblyProductionSummaryPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="bspl_reportfactory_view_PartyBalancePageDef" path="FinancePage.PartyBalancePageDef"/>
@@ -36,6 +41,11 @@
           path="FinancePage.B2CSaleInvoiceUnRegisteredPageDef"/>
     <page id="bspl_reportfactory_view_SaleRegisterDetailPageDef" path="SalePage.SaleRegisterDetailPageDef"/>
     <page id="bspl_reportfactory_view_StockStatusPageDef" path="InventoryPage.StockStatusPageDef"/>
+    <page id="bspl_reportfactory_view_DebitCreditNoteEntryDetailPageDef"
+          path="FinancePage.DebitCreditNoteEntryDetailPageDef"/>
+    <page id="bspl_reportfactory_view_ProcessProductionPageDef" path="ProductionPage.ProcessProductionPageDef"/>
+    <page id="bspl_reportfactory_view_AssemblyProductionSummaryPageDef"
+          path="ProductionPage.AssemblyProductionSummaryPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="AppModuleDataControl" Package="model.service"

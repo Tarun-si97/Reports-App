@@ -245,6 +245,9 @@
             <hash>
                <url n="content-folder-url" path="adfmsrc/bspl/reportfactory/view/"/>
                <list n="pattern-filters">
+                  <string v="+bspl/reportfactory/view/AssemblyProductionSummaryBean.java"/>
+                  <string v="+bspl/reportfactory/view/ProductionProcessBean.java"/>
+                  <string v="+bspl/reportfactory/view/ProcessProductionBean.java"/>
                   <string v="+bspl/reportfactory/view/DebitCreditNoteEntryDetailBean.java"/>
                   <string v="+bspl/reportfactory/view/PurchaseRegisterIncludingDRandCRNoteBean.java"/>
                   <string v="+bspl/reportfactory/view/StockStatusBean.java"/>

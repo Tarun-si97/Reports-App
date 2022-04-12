@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="ProcessProductionPageDef"
+                Package="ProductionPage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="ProcessProductionVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="ProcessProductionVO1Iterator"/>
+    <searchRegion Binds="ProcessProductionVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="ProcessProductionVO1Query"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="ProcessProductionVO1Iterator" id="ProcessProductionVO1">
+      <nodeDefinition DefName="model.production.views.ProcessProductionVO" Name="ProcessProductionVO10">
+        <AttrNames>
+          <Item Value="ProdnSlipNo"/>
+          <Item Value="ProdnSlipDt"/>
+          <Item Value="ProcessJobcard"/>
+          <Item Value="LeafCd"/>
+          <Item Value="ItemName"/>
+          <Item Value="Uom"/>
+          <Item Value="ProcessCd"/>
+          <Item Value="StartTime"/>
+          <Item Value="EndTime"/>
+          <Item Value="ProductionForQty"/>
+          <Item Value="OutputQty"/>
+          <Item Value="RejectQty"/>
+          <Item Value="PlanQty"/>
+          <Item Value="FromLoc"/>
+          <Item Value="ToDest"/>
+          <Item Value="PdqaQty"/>
+          <Item Value="ProdnHrs"/>
+          <Item Value="UnitCd"/>
+          <Item Value="BatchNo"/>
+          <Item Value="Yield"/>
+          <Item Value="ApprovedBy"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="processproduction" RequiresUpdateModel="true" Action="invokeMethod" MethodName="processproduction"
+                  IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Assembly Production Summary" id="ph1">
+    <af:spacer width="10" height="10" id="s1"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:186px;" labelStyle="width:100px" >
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2">
+          <af:inputComboboxListOfValues id="itemCdId" popupTitle="Search and Select: #{bindings.ItemCd.hints.label}"
+                                        value="#{bindings.ItemCd.inputValue}" label="Product"
+                                        model="#{bindings.ItemCd.listOfValuesModel}"
+                                        required="#{bindings.ItemCd.hints.mandatory}"
+                                        columns="#{bindings.ItemCd.hints.displayWidth}"
+                                        shortDesc="#{bindings.ItemCd.hints.tooltip}" contentStyle="width:168px;" labelStyle="width:100px" >
+            <f:validator binding="#{bindings.ItemCd.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3"/>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
+                        required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id1" contentStyle="width:180px;" labelStyle="width:100px" >
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date"
+                        required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id2" contentStyle="width:180px;" labelStyle="width:100px" >
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b1" actionListener="#{AssemblyProductionSummaryBean.onClickButton}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s2"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth" >
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t1">
+        <af:button text="Export To Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t2" filename="Assembly Production Summary.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.AssemblyProductionSummaryVO1.collectionModel}" var="row"
+              rows="#{bindings.AssemblyProductionSummaryVO1.rangeSize}"
+              emptyText="#{bindings.AssemblyProductionSummaryVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0"
+              selectedRowKeys="#{bindings.AssemblyProductionSummaryVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.AssemblyProductionSummaryVO1.collectionModel.makeCurrent}"
+              rowSelection="single" fetchSize="#{bindings.AssemblyProductionSummaryVO1.rangeSize}"
+              filterModel="#{bindings.AssemblyProductionSummaryVO1Query.queryDescriptor}" filterVisible="false"
+              queryListener="#{bindings.AssemblyProductionSummaryVO1Query.processQuery}" varStatus="vs" id="t2">
+      <af:column sortProperty="#{bindings.AssemblyProductionSummaryVO1.hints.UnitCd.name}" filterable="true"
+                 sortable="true" headerText="Unit Code" id="c1">
+        <af:outputText value="#{row.UnitCd}" shortDesc="#{bindings.AssemblyProductionSummaryVO1.hints.UnitCd.tooltip}"
+                       id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.AssemblyProductionSummaryVO1.hints.ProductCode.name}" filterable="true"
+                 sortable="true" headerText="Product Code" id="c2">
+        <af:outputText value="#{row.ProductCode}"
+                       shortDesc="#{bindings.AssemblyProductionSummaryVO1.hints.ProductCode.tooltip}" id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.AssemblyProductionSummaryVO1.hints.ItemDesc.name}" filterable="true"
+                 sortable="true" headerText="Product Description " id="c3">
+        <af:outputText value="#{row.ItemDesc}"
+                       shortDesc="#{bindings.AssemblyProductionSummaryVO1.hints.ItemDesc.tooltip}" id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.AssemblyProductionSummaryVO1.hints.ProdnQty.name}" filterable="true"
+                 sortable="true" headerText="Production Qty" id="c4">
+        <af:outputText value="#{row.ProdnQty}"
+                       shortDesc="#{bindings.AssemblyProductionSummaryVO1.hints.ProdnQty.tooltip}" id="ot4">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.AssemblyProductionSummaryVO1.hints.ProdnQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.AssemblyProductionSummaryVO1.hints.AcceptQty.name}" filterable="true"
+                 sortable="true" headerText="Accept Qty" id="c5">
+        <af:outputText value="#{row.AcceptQty}"
+                       shortDesc="#{bindings.AssemblyProductionSummaryVO1.hints.AcceptQty.tooltip}" id="ot5">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.AssemblyProductionSummaryVO1.hints.AcceptQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.AssemblyProductionSummaryVO1.hints.RejectQty.name}" filterable="true"
+                 sortable="true" headerText="Reject Qty" id="c6">
+        <af:outputText value="#{row.RejectQty}"
+                       shortDesc="#{bindings.AssemblyProductionSummaryVO1.hints.RejectQty.tooltip}" id="ot6">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.AssemblyProductionSummaryVO1.hints.RejectQty.format}"/>
+        </af:outputText>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</jsp:root>

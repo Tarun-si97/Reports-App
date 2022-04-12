@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="ProcessProductionTF">
+    <default-activity>view1</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <managed-bean id="__1">
+      <managed-bean-name>ProcessProductionBean</managed-bean-name>
+      <managed-bean-class>bspl.reportfactory.view.ProcessProductionBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__2">
+      <managed-bean-name>ProcessProductionBean</managed-bean-name>
+      <managed-bean-class>bspl.reportfactory.view.ProcessProductionBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__3">
+      <managed-bean-name>ProductionProcessBean</managed-bean-name>
+      <managed-bean-class>bspl.reportfactory.view.ProductionProcessBean</managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <view id="view1">
+      <page>/ProductionPage/ProcessProduction.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

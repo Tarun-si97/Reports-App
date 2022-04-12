@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Process Production" id="ph1">
+    <af:spacer width="10" height="10" id="s1"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:180px;" labelStyle="width:100px">
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2"/>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3"/>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
+                        required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id4" contentStyle="width:180px;" labelStyle="width:100px" >
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date"
+                        required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id5" contentStyle="width:180px;" labelStyle="width:100px">
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b1" actionListener="#{ProductionProcessBean.onClickButton}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s2"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar"/>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.ProcessProductionVO1.collectionModel}" var="row"
+              rows="#{bindings.ProcessProductionVO1.rangeSize}"
+              emptyText="#{bindings.ProcessProductionVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.ProcessProductionVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.ProcessProductionVO1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.ProcessProductionVO1.rangeSize}"
+              filterModel="#{bindings.ProcessProductionVO1Query.queryDescriptor}" filterVisible="false"
+              queryListener="#{bindings.ProcessProductionVO1Query.processQuery}" varStatus="vs" id="t1">
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.ProdnSlipNo.name}" filterable="true"
+                 sortable="true" headerText="Production Slip No" id="c1">
+        <af:outputText value="#{row.ProdnSlipNo}" shortDesc="#{bindings.ProcessProductionVO1.hints.ProdnSlipNo.tooltip}"
+                       id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.ProdnSlipDt.name}" filterable="true"
+                 sortable="true" headerText="Production Slip Date" id="c2">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.ProcessProductionVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ProdnSlipDt.value}"
+                        id="id1">
+            <af:convertDateTime pattern="#{bindings.ProcessProductionVO1.hints.ProdnSlipDt.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.ProdnSlipDt}" shortDesc="#{bindings.ProcessProductionVO1.hints.ProdnSlipDt.tooltip}"
+                       id="ot2">
+          <af:convertDateTime pattern="#{bindings.ProcessProductionVO1.hints.ProdnSlipDt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.Uom.name}" filterable="true" sortable="true"
+                 headerText="Uom" id="c6">
+        <af:outputText value="#{row.Uom}" shortDesc="#{bindings.ProcessProductionVO1.hints.Uom.tooltip}" id="ot6"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.PdqaQty.name}" filterable="true" sortable="true"
+                 headerText="Pdqa Qty" id="c16">
+        <af:outputText value="#{row.PdqaQty}" shortDesc="#{bindings.ProcessProductionVO1.hints.PdqaQty.tooltip}"
+                       id="ot16">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.ProcessProductionVO1.hints.PdqaQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.RejectQty.name}" filterable="true" sortable="true"
+                 headerText="Reject Qty" id="c12">
+        <af:outputText value="#{row.RejectQty}" shortDesc="#{bindings.ProcessProductionVO1.hints.RejectQty.tooltip}"
+                       id="ot12">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.ProcessProductionVO1.hints.RejectQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.PlanQty.name}" filterable="true" sortable="true"
+                 headerText="Plan Qty" id="c13">
+        <af:outputText value="#{row.PlanQty}" shortDesc="#{bindings.ProcessProductionVO1.hints.PlanQty.tooltip}"
+                       id="ot13">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.ProcessProductionVO1.hints.PlanQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.ProdnHrs.name}" filterable="true" sortable="true"
+                 headerText="Production Hours" id="c17">
+        <af:outputText value="#{row.ProdnHrs}" shortDesc="#{bindings.ProcessProductionVO1.hints.ProdnHrs.tooltip}"
+                       id="ot17"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.ProcessCd.name}" filterable="true" sortable="true"
+                 headerText="Process Code" id="c7">
+        <af:outputText value="#{row.ProcessCd}" shortDesc="#{bindings.ProcessProductionVO1.hints.ProcessCd.tooltip}"
+                       id="ot7"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.StartTime.name}" filterable="true" sortable="true"
+                 headerText="Start Time" id="c8">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.ProcessProductionVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.StartTime.value}"
+                        id="id2">
+            <af:convertDateTime pattern="#{bindings.ProcessProductionVO1.hints.StartTime.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.StartTime}" shortDesc="#{bindings.ProcessProductionVO1.hints.StartTime.tooltip}"
+                       id="ot8">
+          <af:convertDateTime pattern="#{bindings.ProcessProductionVO1.hints.StartTime.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.EndTime.name}" filterable="true" sortable="true"
+                 headerText="End Time" id="c9">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.ProcessProductionVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.EndTime.value}"
+                        id="id3">
+            <af:convertDateTime pattern="#{bindings.ProcessProductionVO1.hints.EndTime.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.EndTime}" shortDesc="#{bindings.ProcessProductionVO1.hints.EndTime.tooltip}"
+                       id="ot9">
+          <af:convertDateTime pattern="#{bindings.ProcessProductionVO1.hints.EndTime.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.FromLoc.name}" filterable="true" sortable="true"
+                 headerText="From Location" id="c14">
+        <af:outputText value="#{row.FromLoc}" shortDesc="#{bindings.ProcessProductionVO1.hints.FromLoc.tooltip}"
+                       id="ot14"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.ToDest.name}" filterable="true" sortable="true"
+                 headerText="TO destination" id="c15">
+        <af:outputText value="#{row.ToDest}" shortDesc="#{bindings.ProcessProductionVO1.hints.ToDest.tooltip}"
+                       id="ot15"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.ProductionForQty.name}" filterable="true"
+                 sortable="true" headerText="Production For Qty" id="c10">
+        <af:outputText value="#{row.ProductionForQty}"
+                       shortDesc="#{bindings.ProcessProductionVO1.hints.ProductionForQty.tooltip}" id="ot10">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.ProcessProductionVO1.hints.ProductionForQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.OutputQty.name}" filterable="true" sortable="true"
+                 headerText="Output Qty" id="c11">
+        <af:outputText value="#{row.OutputQty}" shortDesc="#{bindings.ProcessProductionVO1.hints.OutputQty.tooltip}"
+                       id="ot11">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.ProcessProductionVO1.hints.OutputQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.Yield.name}" filterable="true" sortable="true"
+                 headerText="Yield" id="c20">
+        <af:outputText value="#{row.Yield}" shortDesc="#{bindings.ProcessProductionVO1.hints.Yield.tooltip}" id="ot20">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.ProcessProductionVO1.hints.Yield.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.ApprovedBy.name}" filterable="true" sortable="true"
+                 headerText="Approved By" id="c21">
+        <af:outputText value="#{row.ApprovedBy}" shortDesc="#{bindings.ProcessProductionVO1.hints.ApprovedBy.tooltip}"
+                       id="ot21"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.ProcessJobcard.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.ProcessProductionVO1.hints.ProcessJobcard.label}" id="c3">
+        <af:outputText value="#{row.ProcessJobcard}"
+                       shortDesc="#{bindings.ProcessProductionVO1.hints.ProcessJobcard.tooltip}" id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.LeafCd.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.ProcessProductionVO1.hints.LeafCd.label}" id="c4">
+        <af:outputText value="#{row.LeafCd}" shortDesc="#{bindings.ProcessProductionVO1.hints.LeafCd.tooltip}"
+                       id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.ItemName.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.ProcessProductionVO1.hints.ItemName.label}" id="c5">
+        <af:outputText value="#{row.ItemName}" shortDesc="#{bindings.ProcessProductionVO1.hints.ItemName.tooltip}"
+                       id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.UnitCd.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.ProcessProductionVO1.hints.UnitCd.label}" id="c18">
+        <af:outputText value="#{row.UnitCd}" shortDesc="#{bindings.ProcessProductionVO1.hints.UnitCd.tooltip}"
+                       id="ot18"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.ProcessProductionVO1.hints.BatchNo.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.ProcessProductionVO1.hints.BatchNo.label}" id="c19">
+        <af:outputText value="#{row.BatchNo}" shortDesc="#{bindings.ProcessProductionVO1.hints.BatchNo.tooltip}"
+                       id="ot19"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</jsp:root>
