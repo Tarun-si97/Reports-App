@@ -33,5 +33,7 @@ public interface AppModule extends ApplicationModule {
     void StockStatus(String LV_UNIT, String LV_ITEM_CD, String LV_FIN_YEAR);
 
     void PurchaseRegisterIncludingDRandCRNote(String LV_UNIT, String LV_DOC_TYPE, Date FRDATE, Date TODATE);
+
+    void callDebitCreditNoteEntryDetail(String LV_UNIT, Date FRDATE, Date TODATE);
 }
 

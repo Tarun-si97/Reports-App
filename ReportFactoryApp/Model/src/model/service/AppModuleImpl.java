@@ -522,8 +522,43 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
     }
     }
     }
-    
 
+
+    /**
+     * Container's getter for DebitCreditNoteEntryDetailVO1.
+     * @return DebitCreditNoteEntryDetailVO1
+     */
+    public ViewObjectImpl getDebitCreditNoteEntryDetailVO1() {
+        return (ViewObjectImpl) findViewObject("DebitCreditNoteEntryDetailVO1");
+    }
+    
+    public void callDebitCreditNoteEntryDetail(String LV_UNIT,Date FRDATE,Date TODATE){
+          ViewObjectImpl vo = this.getDebitCreditNoteEntryDetailVO1();
+          System.out.println( LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--");
+          
+      if (LV_UNIT != null &&  FRDATE != null && TODATE != null) {
+          System.out.println("Inside condition!");
+      try {
+
+          
+         
+          vo.setNamedWhereClauseParam("P250_FROM_DATE", FRDATE);
+      
+          vo.setNamedWhereClauseParam("P250_TO_DATE", TODATE);
+          vo.setNamedWhereClauseParam("P250_UNIT_CODE", LV_UNIT);
+         
+          vo.executeQuery();
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      
+      }
+      }
+    
+    }
+    
+    
+    
 }
 
 
