@@ -6,7 +6,7 @@
     <af:panelGridLayout id="pgl1">
       <af:gridRow marginTop="5px" height="auto" id="gr1">
         <af:gridCell marginStart="5px" width="34%" id="gc1">
-          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Code"
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
                               required="#{bindings.UnitCode.hints.mandatory}"
                               shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:180px;"
                       labelStyle="width:100px">
