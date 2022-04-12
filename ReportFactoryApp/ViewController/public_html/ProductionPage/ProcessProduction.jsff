@@ -43,7 +43,13 @@
   </af:panelHeader>
   <af:panelCollection id="pc1" styleClass="AFStretchWidth">
     <f:facet name="menus"/>
-    <f:facet name="toolbar"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t2">
+        <af:button text="Export To Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="Process Production.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
     <f:facet name="statusbar"/>
     <af:table value="#{bindings.ProcessProductionVO1.collectionModel}" var="row"
               rows="#{bindings.ProcessProductionVO1.rangeSize}"
