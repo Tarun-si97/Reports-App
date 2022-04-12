@@ -65,6 +65,9 @@
   <ViewUsage
     Name="DebitCreditNoteEntryDetailVO1"
     ViewObjectName="model.finance.views.DebitCreditNoteEntryDetailVO"/>
+  <ViewUsage
+    Name="ProcessProductionVO1"
+    ViewObjectName="model.production.views.ProcessProductionVO"/>
   <ClientInterface
     Name="__clientInterface">
     <Method

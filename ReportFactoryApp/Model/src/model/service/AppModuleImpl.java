@@ -556,8 +556,40 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
       }
     
     }
+
+
+    /**
+     * Container's getter for ProcessProductionVO1.
+     * @return ProcessProductionVO1
+     */
+    public ViewObjectImpl getProcessProductionVO1() {
+        return (ViewObjectImpl) findViewObject("ProcessProductionVO1");
+    }
     
+    public void processproduction(String LV_UNIT,Date FRDATE,Date TODATE){
+          ViewObjectImpl vo = this.getProcessProductionVO1();
+          System.out.println( LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--");
+          
+      if (LV_UNIT != null &&  FRDATE != null && TODATE != null) {
+          System.out.println("Inside condition!");
+      try {
+
+          
+         
+          vo.setNamedWhereClauseParam("P32_FR_DT", FRDATE);
+      
+          vo.setNamedWhereClauseParam("P32_TO_DT", TODATE);
+          vo.setNamedWhereClauseParam("P32_UNIT", LV_UNIT);
+         
+          vo.executeQuery();
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      
+      }
+      }
     
+    }
     
 }
 
