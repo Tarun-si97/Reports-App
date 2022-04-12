@@ -599,7 +599,7 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
         return (ViewObjectImpl) findViewObject("AssemblyProductionSummaryVO1");
     }
     
-    public void AssemblyProductionSummary(String LV_UNIT,Date FRDATE,Date TODATE, String LV_PRODUCT){
+    public void callAssemblyProductionSummary(String LV_UNIT,Date FRDATE,Date TODATE, String LV_PRODUCT){
           ViewObjectImpl vo = this.getAssemblyProductionSummaryVO1();
           System.out.println( LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--" + LV_PRODUCT + "--");
           
@@ -624,7 +624,7 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
       }
     
     }
-    
+
 }
 
 

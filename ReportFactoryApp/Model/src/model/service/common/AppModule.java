@@ -36,8 +36,9 @@ public interface AppModule extends ApplicationModule {
 
     void callDebitCreditNoteEntryDetail(String LV_UNIT, Date FRDATE, Date TODATE);
 
-    void AssemblyProductionSummary(String LV_UNIT, Date FRDATE, Date TODATE, String LV_PRODUCT);
 
     void processproduction(String LV_UNIT, Date FRDATE, Date TODATE);
+
+    void callAssemblyProductionSummary(String LV_UNIT, Date FRDATE, Date TODATE, String LV_PRODUCT);
 }
 

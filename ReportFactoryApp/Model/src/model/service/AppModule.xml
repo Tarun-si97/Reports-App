@@ -641,8 +641,24 @@
         Type="java.util.Date"/>
     </Method>
     <Method
-      Name="AssemblyProductionSummary"
-      MethodName="AssemblyProductionSummary">
+      Name="processproduction"
+      MethodName="processproduction">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
+    </Method>
+    <Method
+      Name="callAssemblyProductionSummary"
+      MethodName="callAssemblyProductionSummary">
       <Return
         Name="_return_type_"
         Type="void"/>
@@ -658,22 +674,6 @@
       <Parameter
         Name="LV_PRODUCT"
         Type="java.lang.String"/>
-    </Method>
-    <Method
-      Name="processproduction"
-      MethodName="processproduction">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-      <Parameter
-        Name="LV_UNIT"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="FRDATE"
-        Type="java.util.Date"/>
-      <Parameter
-        Name="TODATE"
-        Type="java.util.Date"/>
     </Method>
   </ClientInterface>
 </AppModule>
