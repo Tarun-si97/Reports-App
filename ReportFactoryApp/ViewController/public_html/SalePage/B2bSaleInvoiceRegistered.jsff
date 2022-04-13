@@ -32,7 +32,7 @@
           <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
                         required="#{bindings.fromDate.hints.mandatory}"
                         columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
-                        id="id1" contentStyle="width :155px;" labelStyle="width:100px">
+                        id="id1" contentStyle="width :175px;" labelStyle="width:100px">
             <f:validator binding="#{bindings.fromDate.validator}"/>
             <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
           </af:inputDate>

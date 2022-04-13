@@ -43,7 +43,7 @@
         <af:gridCell marginStart="5px" width="34%" id="gc4">
           <af:inputDate value="#{bindings.fromDate.inputValue}" required="#{bindings.fromDate.hints.mandatory}"
                         columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
-                        id="id2" label="From Date" contentStyle="width:160px;" labelStyle="width:100px">
+                        id="id2" label="From Date" contentStyle="width:175px;" labelStyle="width:100px">
             <f:validator binding="#{bindings.fromDate.validator}"/>
             <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
           </af:inputDate>
@@ -51,7 +51,7 @@
         <af:gridCell marginStart="5px" width="33%" id="gc5">
           <af:inputDate value="#{bindings.toDate.inputValue}" required="#{bindings.toDate.hints.mandatory}"
                         columns="#{bindings.toDate.hints.displayWidth}" shortDesc="#{bindings.toDate.hints.tooltip}"
-                        id="id3" label="To Date" contentStyle="width:180px;" labelStyle="width:98px">
+                        id="id3" label="To Date" contentStyle="width:195px;" labelStyle="width:98px">
             <f:validator binding="#{bindings.toDate.validator}"/>
             <af:convertDateTime pattern="#{bindings.toDate.format}"/>
           </af:inputDate>
