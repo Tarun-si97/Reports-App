@@ -18,27 +18,30 @@ public interface AppModule extends ApplicationModule {
 
     void callWIPStock(String LV_UNIT, String LOC, Date FRDATE, Date TODATE);
 
-    void getPendingFinishGoodsBatchWise(String LV_UNIT);
 
     void callB2bSaleInvoiceRegistered(String LV_UNIT, String CUSTOMER, Date FRDATE, Date TODATE);
 
 
-    void StockLedger3(String LV_UNIT, String LV_ITEM_CD, String LV_SID, String LV_LOC, Date FRDATE, Date TODATE,
-                      String LV_GROUP_CD, String LV_SUB_GROUP_CD);
-
-    void B2CSaleInvoiceUnRegistered(String LV_UNIT, Date FRDATE, Date TODATE);
-
-    void SaleRegisterDetail4(String LV_UNIT, Integer LV_SID, String LV_INC_CAN, Date FRDATE, Date TODATE);
-
-    void StockStatus(String LV_UNIT, String LV_ITEM_CD, String LV_FIN_YEAR);
-
-    void PurchaseRegisterIncludingDRandCRNote(String LV_UNIT, String LV_DOC_TYPE, Date FRDATE, Date TODATE);
-
     void callDebitCreditNoteEntryDetail(String LV_UNIT, Date FRDATE, Date TODATE);
 
 
-    void processproduction(String LV_UNIT, Date FRDATE, Date TODATE);
-
     void callAssemblyProductionSummary(String LV_UNIT, Date FRDATE, Date TODATE, String LV_PRODUCT);
+
+    void callB2CSaleInvoiceUnRegistered(String LV_UNIT, Date FRDATE, Date TODATE);
+
+    void callGatePassChallan(String LV_UNIT, Date FRDATE, Date TODATE);
+
+    void callPendingFinishGoodsBatchWise(String LV_UNIT);
+
+    void callProcessProduction(String LV_UNIT, Date FRDATE, Date TODATE);
+
+    void callPurchaseRegisterIncludingDRandCRNote(String LV_UNIT, String LV_DOC_TYPE, Date FRDATE, Date TODATE);
+
+    void callSaleRegisterDetail4(String LV_UNIT, Integer LV_SID, String LV_INC_CAN, Date FRDATE, Date TODATE);
+
+    void callStockLedger3(String LV_UNIT, String LV_ITEM_CD, String LV_SID, String LV_LOC, Date FRDATE, Date TODATE,
+                          String LV_GROUP_CD, String LV_SUB_GROUP_CD);
+
+    void callStockStatus(String LV_UNIT, String LV_ITEM_CD, String LV_FIN_YEAR);
 }
 

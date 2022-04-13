@@ -71,6 +71,9 @@
   <ViewUsage
     Name="AssemblyProductionSummaryVO1"
     ViewObjectName="model.production.views.AssemblyProductionSummaryVO"/>
+  <ViewUsage
+    Name="GatePassChallanVO1"
+    ViewObjectName="model.inventory.views.GatePassChallanVO"/>
   <ClientInterface
     Name="__clientInterface">
     <Method
@@ -232,16 +235,6 @@
         Type="java.util.Date"/>
     </Method>
     <Method
-      Name="getPendingFinishGoodsBatchWise"
-      MethodName="getPendingFinishGoodsBatchWise">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-      <Parameter
-        Name="LV_UNIT"
-        Type="java.lang.String"/>
-    </Method>
-    <Method
       Name="callB2bSaleInvoiceRegistered"
       MethodName="callB2bSaleInvoiceRegistered">
       <Return
@@ -360,16 +353,6 @@
       <Parameter
         Name="TODATE"
         Type="java.util.Date"/>
-    </Method>
-    <Method
-      Name="getPendingFinishGoodsBatchWise"
-      MethodName="getPendingFinishGoodsBatchWise">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-      <Parameter
-        Name="LV_UNIT"
-        Type="java.lang.String"/>
     </Method>
     <Method
       Name="callB2bSaleInvoiceRegistered"
@@ -509,140 +492,10 @@
       <Return
         Name="_return_type_"
         Type="void"/>
-    </Method>
-    <Method
-      Name="getPendingFinishGoodsBatchWise"
-      MethodName="getPendingFinishGoodsBatchWise">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-      <Parameter
-        Name="LV_UNIT"
-        Type="java.lang.String"/>
-    </Method>
-    <Method
-      Name="StockLedger3"
-      MethodName="StockLedger3">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-      <Parameter
-        Name="LV_UNIT"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="LV_ITEM_CD"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="LV_SID"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="LV_LOC"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="FRDATE"
-        Type="java.util.Date"/>
-      <Parameter
-        Name="TODATE"
-        Type="java.util.Date"/>
-      <Parameter
-        Name="LV_GROUP_CD"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="LV_SUB_GROUP_CD"
-        Type="java.lang.String"/>
-    </Method>
-    <Method
-      Name="B2CSaleInvoiceUnRegistered"
-      MethodName="B2CSaleInvoiceUnRegistered">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-      <Parameter
-        Name="LV_UNIT"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="FRDATE"
-        Type="java.util.Date"/>
-      <Parameter
-        Name="TODATE"
-        Type="java.util.Date"/>
-    </Method>
-    <Method
-      Name="SaleRegisterDetail4"
-      MethodName="SaleRegisterDetail4">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-      <Parameter
-        Name="LV_UNIT"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="LV_SID"
-        Type="java.lang.Integer"/>
-      <Parameter
-        Name="LV_INC_CAN"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="FRDATE"
-        Type="java.util.Date"/>
-      <Parameter
-        Name="TODATE"
-        Type="java.util.Date"/>
-    </Method>
-    <Method
-      Name="StockStatus"
-      MethodName="StockStatus">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-      <Parameter
-        Name="LV_UNIT"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="LV_ITEM_CD"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="LV_FIN_YEAR"
-        Type="java.lang.String"/>
-    </Method>
-    <Method
-      Name="PurchaseRegisterIncludingDRandCRNote"
-      MethodName="PurchaseRegisterIncludingDRandCRNote">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-      <Parameter
-        Name="LV_UNIT"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="LV_DOC_TYPE"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="FRDATE"
-        Type="java.util.Date"/>
-      <Parameter
-        Name="TODATE"
-        Type="java.util.Date"/>
     </Method>
     <Method
       Name="callDebitCreditNoteEntryDetail"
       MethodName="callDebitCreditNoteEntryDetail">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-      <Parameter
-        Name="LV_UNIT"
-        Type="java.lang.String"/>
-      <Parameter
-        Name="FRDATE"
-        Type="java.util.Date"/>
-      <Parameter
-        Name="TODATE"
-        Type="java.util.Date"/>
-    </Method>
-    <Method
-      Name="processproduction"
-      MethodName="processproduction">
       <Return
         Name="_return_type_"
         Type="void"/>
@@ -673,6 +526,152 @@
         Type="java.util.Date"/>
       <Parameter
         Name="LV_PRODUCT"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="callB2CSaleInvoiceUnRegistered"
+      MethodName="callB2CSaleInvoiceUnRegistered">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
+    </Method>
+    <Method
+      Name="callGatePassChallan"
+      MethodName="callGatePassChallan">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
+    </Method>
+    <Method
+      Name="callPendingFinishGoodsBatchWise"
+      MethodName="callPendingFinishGoodsBatchWise">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="callProcessProduction"
+      MethodName="callProcessProduction">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
+    </Method>
+    <Method
+      Name="callPurchaseRegisterIncludingDRandCRNote"
+      MethodName="callPurchaseRegisterIncludingDRandCRNote">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="LV_DOC_TYPE"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
+    </Method>
+    <Method
+      Name="callSaleRegisterDetail4"
+      MethodName="callSaleRegisterDetail4">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="LV_SID"
+        Type="java.lang.Integer"/>
+      <Parameter
+        Name="LV_INC_CAN"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
+    </Method>
+    <Method
+      Name="callStockLedger3"
+      MethodName="callStockLedger3">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="LV_ITEM_CD"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="LV_SID"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="LV_LOC"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="LV_GROUP_CD"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="LV_SUB_GROUP_CD"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="callStockStatus"
+      MethodName="callStockStatus">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="LV_ITEM_CD"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="LV_FIN_YEAR"
         Type="java.lang.String"/>
     </Method>
   </ClientInterface>

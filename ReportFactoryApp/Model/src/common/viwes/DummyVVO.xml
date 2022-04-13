@@ -314,7 +314,6 @@
       <Item Value="ItemCd"/>
     </AttrArray>
     <AttrArray Name="ListDisplayAttrNames">
-      <Item Value="ItemCd"/>
       <Item Value="ItemDesc"/>
     </AttrArray>
     <DisplayCriteria

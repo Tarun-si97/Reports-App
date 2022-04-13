@@ -269,7 +269,7 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
         return (ViewObjectImpl) findViewObject("PendingFinishGoodsBatchWiseVO1");
     }
     
-    public void getPendingFinishGoodsBatchWise (String LV_UNIT){
+    public void callPendingFinishGoodsBatchWise (String LV_UNIT){
         ViewObjectImpl vo = this.getPendingFinishGoodsBatchWiseVO1();
     System.out.println(LV_UNIT + "--");
     
@@ -338,7 +338,7 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
         return (ViewObjectImpl) findViewObject("StockLedgerVO1");
     }
     
-    public void StockLedger3(String LV_UNIT,String LV_ITEM_CD,String LV_SID,String LV_LOC,Date FRDATE,Date TODATE,
+    public void callStockLedger3(String LV_UNIT,String LV_ITEM_CD,String LV_SID,String LV_LOC,Date FRDATE,Date TODATE,
                              String LV_GROUP_CD, String LV_SUB_GROUP_CD ){
         ViewObjectImpl vo = this.getStockLedgerVO1();
         System.out.println( LV_UNIT + "--" + LV_SID + "--" + FRDATE + "--" + TODATE+"--"+LV_ITEM_CD + "--" + LV_LOC+ "---"
@@ -380,7 +380,7 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
         return (ViewObjectImpl) findViewObject("B2CSaleInvoiceUnRegisteredVO1");
     }
     
-    public void B2CSaleInvoiceUnRegistered(String LV_UNIT,Date FRDATE,Date TODATE){
+    public void callB2CSaleInvoiceUnRegistered(String LV_UNIT,Date FRDATE,Date TODATE){
           ViewObjectImpl vo = this.getB2CSaleInvoiceUnRegisteredVO1();
           System.out.println( LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--");
           
@@ -421,7 +421,7 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
         return (ViewObjectImpl) findViewObject("SaleregisterDetailVO1");
     }
     
-    public void SaleRegisterDetail4(String LV_UNIT, Integer LV_SID,String LV_INC_CAN, Date FRDATE, Date TODATE){
+    public void callSaleRegisterDetail4(String LV_UNIT, Integer LV_SID,String LV_INC_CAN, Date FRDATE, Date TODATE){
         ViewObjectImpl vo = this.getSaleregisterDetailVO1();
     String LV_INV_TYPE = "";
     String LV_CUST = "";
@@ -461,7 +461,7 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
         return (ViewObjectImpl) findViewObject("StockStatusVO1");
     }
     
-    public void StockStatus(String LV_UNIT,String LV_ITEM_CD, String LV_FIN_YEAR){
+    public void callStockStatus(String LV_UNIT,String LV_ITEM_CD, String LV_FIN_YEAR){
         ViewObjectImpl vo = this.getStockStatusVO1();
         System.out.println(LV_UNIT + "--" + LV_ITEM_CD + "--"   + LV_FIN_YEAR + "--" );
         
@@ -497,7 +497,7 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
         return (ViewObjectImpl) findViewObject("PurchaseRegisterIncludingDRandCRNoteVO1");
     }
     
-    public void PurchaseRegisterIncludingDRandCRNote(String LV_UNIT,String LV_DOC_TYPE,Date FRDATE,Date TODATE){
+    public void callPurchaseRegisterIncludingDRandCRNote(String LV_UNIT,String LV_DOC_TYPE,Date FRDATE,Date TODATE){
         ViewObjectImpl vo = this.getPurchaseRegisterIncludingDRandCRNoteVO1();
         System.out.println(LV_DOC_TYPE + "--" + LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--");
         
@@ -566,7 +566,7 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
         return (ViewObjectImpl) findViewObject("ProcessProductionVO1");
     }
     
-    public void processproduction(String LV_UNIT,Date FRDATE,Date TODATE){
+    public void callProcessProduction(String LV_UNIT,Date FRDATE,Date TODATE){
           ViewObjectImpl vo = this.getProcessProductionVO1();
           System.out.println( LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--");
           
@@ -625,6 +625,42 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
     
     }
 
+    /**
+     * Container's getter for GatePassChallanVO1.
+     * @return GatePassChallanVO1
+     */
+    public ViewObjectImpl getGatePassChallanVO1() {
+        return (ViewObjectImpl) findViewObject("GatePassChallanVO1");
+    }
+    public void callGatePassChallan(String LV_UNIT,Date FRDATE,Date TODATE){
+          ViewObjectImpl vo = this.getGatePassChallanVO1();
+          System.out.println( LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--" );
+          
+      if (LV_UNIT != null &&  FRDATE != null && TODATE != null ) {
+          System.out.println("Inside condition!");
+      try {
+
+          
+         
+          vo.setNamedWhereClauseParam("P142_FROM", FRDATE);
+      
+          vo.setNamedWhereClauseParam("P142_TO", TODATE);
+          vo.setNamedWhereClauseParam("P142_UNIT", LV_UNIT);
+          
+         
+          vo.executeQuery();
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      
+      }
+      }
+    
+    }
+    
+    
+    
+    
 }
 
 
