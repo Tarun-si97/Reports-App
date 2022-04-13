@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="PendingGateEntryForSRVPageDef"
+                Package="InventoryPage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="PendingGateEntryForSRVVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="PendingGateEntryForSRVVO1Iterator"/>
+    <searchRegion Binds="PendingGateEntryForSRVVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="PendingGateEntryForSRVVO1Query"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="PendingGateEntryForSRVVO1Iterator" id="PendingGateEntryForSRVVO1">
+      <nodeDefinition DefName="model.inventory.views.PendingGateEntryForSRVVO" Name="PendingGateEntryForSRVVO10">
+        <AttrNames>
+          <Item Value="UnitCd"/>
+          <Item Value="GateEno"/>
+          <Item Value="ItemCd"/>
+          <Item Value="ChallanQty"/>
+          <Item Value="PoHeadPoNo"/>
+          <Item Value="GateEdt"/>
+          <Item Value="VenCd"/>
+          <Item Value="VenName"/>
+          <Item Value="ChallanType"/>
+          <Item Value="DocType"/>
+          <Item Value="ChallanNo"/>
+          <Item Value="ChallanDt"/>
+          <Item Value="BillNo"/>
+          <Item Value="BillDt"/>
+          <Item Value="PendDays"/>
+          <Item Value="ItemDescription"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <methodAction id="callPendingGateEntryForSRV" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callPendingGateEntryForSRV" IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

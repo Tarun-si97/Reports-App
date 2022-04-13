@@ -43,5 +43,7 @@ public interface AppModule extends ApplicationModule {
                           String LV_GROUP_CD, String LV_SUB_GROUP_CD);
 
     void callStockStatus(String LV_UNIT, String LV_ITEM_CD, String LV_FIN_YEAR);
+
+    void callPendingGateEntryForSRV(String LV_UNIT);
 }
 

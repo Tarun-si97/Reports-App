@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Gate Pass Challan" id="ph1">
+    <af:spacer width="10" height="10" id="s1"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="#{bindings.UnitCode.label}"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:186px;" labelStyle="width:100px" >
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2"/>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3"/>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="#{bindings.fromDate.hints.label}"
+                        required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id1" contentStyle="width:180px;" labelStyle="width:100px">
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="#{bindings.toDate.hints.label}"
+                        required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id2" contentStyle="width:180px;" labelStyle="width:100px">
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b2" actionListener="#{GatePassChallanBean.onClickButton}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s2"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth" >
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t1">
+        <af:button text="Export To Excel" id="b1">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t2" filename="Gate Pass Challan.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.GatePassChallanVO1.collectionModel}" var="row"
+              rows="#{bindings.GatePassChallanVO1.rangeSize}"
+              emptyText="#{bindings.GatePassChallanVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.GatePassChallanVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.GatePassChallanVO1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.GatePassChallanVO1.rangeSize}"
+              filterModel="#{bindings.GatePassChallanVO1Query.queryDescriptor}" filterVisible="false"
+              queryListener="#{bindings.GatePassChallanVO1Query.processQuery}" varStatus="vs" id="t2">
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.UnitCd.name}" filterable="true" sortable="true"
+                 headerText="Unit Code" id="c1">
+        <af:outputText value="#{row.UnitCd}" shortDesc="#{bindings.GatePassChallanVO1.hints.UnitCd.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.ChallanNo.name}" filterable="true" sortable="true"
+                 headerText="Challan No" id="c2">
+        <af:outputText value="#{row.ChallanNo}" shortDesc="#{bindings.GatePassChallanVO1.hints.ChallanNo.tooltip}"
+                       id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.ChallanDt.name}" filterable="true" sortable="true"
+                 headerText="Challan Date" id="c3">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.GatePassChallanVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ChallanDt.value}"
+                        id="id3">
+            <af:convertDateTime pattern="#{bindings.GatePassChallanVO1.hints.ChallanDt.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.ChallanDt}" shortDesc="#{bindings.GatePassChallanVO1.hints.ChallanDt.tooltip}"
+                       id="ot3">
+          <af:convertDateTime pattern="#{bindings.GatePassChallanVO1.hints.ChallanDt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.ChallanType.name}" filterable="true" sortable="true"
+                 headerText="Challan Type" id="c5">
+        <af:outputText value="#{row.ChallanType}" shortDesc="#{bindings.GatePassChallanVO1.hints.ChallanType.tooltip}"
+                       id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.PartyCd.name}" filterable="true" sortable="true"
+                 headerText="Party Code" id="c6">
+        <af:outputText value="#{row.PartyCd}" shortDesc="#{bindings.GatePassChallanVO1.hints.PartyCd.tooltip}"
+                       id="ot6"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.PartyName.name}" filterable="true" sortable="true"
+                 headerText="Party Name" id="c7">
+        <af:outputText value="#{row.PartyName}" shortDesc="#{bindings.GatePassChallanVO1.hints.PartyName.tooltip}"
+                       id="ot7"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.ExciseType.name}" filterable="true" sortable="true"
+                 headerText="Excise Type" id="c8">
+        <af:outputText value="#{row.ExciseType}" shortDesc="#{bindings.GatePassChallanVO1.hints.ExciseType.tooltip}"
+                       id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.E57f3No.name}" filterable="true" sortable="true"
+                 headerText="E57F3 Number" id="c9">
+        <af:outputText value="#{row.E57f3No}" shortDesc="#{bindings.GatePassChallanVO1.hints.E57f3No.tooltip}"
+                       id="ot9"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.E57f3Dt.name}" filterable="true" sortable="true"
+                 headerText="E57F3 Date" id="c10">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.GatePassChallanVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.E57f3Dt.value}"
+                        id="id4">
+            <af:convertDateTime pattern="#{bindings.GatePassChallanVO1.hints.E57f3Dt.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.E57f3Dt}" shortDesc="#{bindings.GatePassChallanVO1.hints.E57f3Dt.tooltip}"
+                       id="ot10">
+          <af:convertDateTime pattern="#{bindings.GatePassChallanVO1.hints.E57f3Dt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.GateExitNo.name}" filterable="true" sortable="true"
+                 headerText="Gate Exit Number" id="c11">
+        <af:outputText value="#{row.GateExitNo}" shortDesc="#{bindings.GatePassChallanVO1.hints.GateExitNo.tooltip}"
+                       id="ot11"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.GateExitDt.name}" filterable="true" sortable="true"
+                 headerText="Gate Exit Date" id="c12">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.GatePassChallanVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.GateExitDt.value}"
+                        id="id5">
+            <af:convertDateTime pattern="#{bindings.GatePassChallanVO1.hints.GateExitDt.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.GateExitDt}" shortDesc="#{bindings.GatePassChallanVO1.hints.GateExitDt.tooltip}"
+                       id="ot12">
+          <af:convertDateTime pattern="#{bindings.GatePassChallanVO1.hints.GateExitDt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.ExitType.name}" filterable="true" sortable="true"
+                 headerText="Exit Type" id="c13">
+        <af:outputText value="#{row.ExitType}" shortDesc="#{bindings.GatePassChallanVO1.hints.ExitType.tooltip}"
+                       id="ot13"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.Status.name}" filterable="true" sortable="true"
+                 headerText="Status" id="c14">
+        <af:outputText value="#{row.Status}" shortDesc="#{bindings.GatePassChallanVO1.hints.Status.tooltip}" id="ot14"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.ForProces.name}" filterable="true" sortable="true"
+                 headerText="For Process" id="c15">
+        <af:outputText value="#{row.ForProces}" shortDesc="#{bindings.GatePassChallanVO1.hints.ForProces.tooltip}"
+                       id="ot15"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.DelMode.name}" filterable="true" sortable="true"
+                 headerText="Delivery Mode" id="c16">
+        <af:outputText value="#{row.DelMode}" shortDesc="#{bindings.GatePassChallanVO1.hints.DelMode.tooltip}"
+                       id="ot16"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.VehicleNo.name}" filterable="true" sortable="true"
+                 headerText="Vehicle No" id="c17">
+        <af:outputText value="#{row.VehicleNo}" shortDesc="#{bindings.GatePassChallanVO1.hints.VehicleNo.tooltip}"
+                       id="ot17"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.TrptCd.name}" filterable="true" sortable="true"
+                 headerText="Transport Code" id="c18">
+        <af:outputText value="#{row.TrptCd}" shortDesc="#{bindings.GatePassChallanVO1.hints.TrptCd.tooltip}" id="ot18"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.DocNo.name}" filterable="true" sortable="true"
+                 headerText="Document Number" id="c19">
+        <af:outputText value="#{row.DocNo}" shortDesc="#{bindings.GatePassChallanVO1.hints.DocNo.tooltip}" id="ot19"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.ItemCd.name}" filterable="true" sortable="true"
+                 headerText="Item Code" id="c20">
+        <af:outputText value="#{row.ItemCd}" shortDesc="#{bindings.GatePassChallanVO1.hints.ItemCd.tooltip}" id="ot20"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.Descript.name}" filterable="true" sortable="true"
+                 headerText="Description " id="c21">
+        <af:outputText value="#{row.Descript}" shortDesc="#{bindings.GatePassChallanVO1.hints.Descript.tooltip}"
+                       id="ot21"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.ProcCd.name}" filterable="true" sortable="true"
+                 headerText="Process Code" id="c22">
+        <af:outputText value="#{row.ProcCd}" shortDesc="#{bindings.GatePassChallanVO1.hints.ProcCd.tooltip}" id="ot22"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.Qty.name}" filterable="true" sortable="true"
+                 headerText="Quantity" id="c23">
+        <af:outputText value="#{row.Qty}" shortDesc="#{bindings.GatePassChallanVO1.hints.Qty.tooltip}" id="ot23">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.GatePassChallanVO1.hints.Qty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.Amt.name}" filterable="true" sortable="true"
+                 headerText="Amount" id="c25">
+        <af:outputText value="#{row.Amt}" shortDesc="#{bindings.GatePassChallanVO1.hints.Amt.tooltip}" id="ot25">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.GatePassChallanVO1.hints.Amt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.Remarks.name}" filterable="true" sortable="true"
+                 headerText="Remarks" id="c26">
+        <af:outputText value="#{row.Remarks}" shortDesc="#{bindings.GatePassChallanVO1.hints.Remarks.tooltip}"
+                       id="ot26"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.TargetDate.name}" filterable="true" sortable="true"
+                 headerText="Target Date" id="c4">
+        <af:outputText value="#{row.TargetDate}" shortDesc="#{bindings.GatePassChallanVO1.hints.TargetDate.tooltip}"
+                       id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.GtEheadGateEno.name}" filterable="true"
+                 sortable="true" headerText="Gt ehead gate eno" id="c27">
+        <af:outputText value="#{row.GtEheadGateEno}"
+                       shortDesc="#{bindings.GatePassChallanVO1.hints.GtEheadGateEno.tooltip}" id="ot27"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.ChallanQty.name}" filterable="true" sortable="true"
+                 headerText="Challan Qty" id="c29">
+        <af:outputText value="#{row.ChallanQty}" shortDesc="#{bindings.GatePassChallanVO1.hints.ChallanQty.tooltip}"
+                       id="ot29">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.GatePassChallanVO1.hints.ChallanQty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.Uom.name}" filterable="true" sortable="true"
+                 headerText="Uom" id="c24">
+        <af:outputText value="#{row.Uom}" shortDesc="#{bindings.GatePassChallanVO1.hints.Uom.tooltip}" id="ot24"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.GateDt.name}" filterable="true" sortable="true"
+                 headerText="Gate Date" id="c28">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.GatePassChallanVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.GateDt.value}"
+                        id="id6">
+            <af:convertDateTime pattern="#{bindings.GatePassChallanVO1.hints.GateDt.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.GateDt}" shortDesc="#{bindings.GatePassChallanVO1.hints.GateDt.tooltip}" id="ot28">
+          <af:convertDateTime pattern="#{bindings.GatePassChallanVO1.hints.GateDt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.EmpCd.name}" filterable="true" sortable="true"
+                 headerText="Emp Code" id="c30">
+        <af:outputText value="#{row.EmpCd}" shortDesc="#{bindings.GatePassChallanVO1.hints.EmpCd.tooltip}" id="ot30"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.GatePassChallanVO1.hints.EmpName.name}" filterable="true" sortable="true"
+                 headerText="Emp Name" id="c31">
+        <af:outputText value="#{row.EmpName}" shortDesc="#{bindings.GatePassChallanVO1.hints.EmpName.tooltip}"
+                       id="ot31"/>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</jsp:root>

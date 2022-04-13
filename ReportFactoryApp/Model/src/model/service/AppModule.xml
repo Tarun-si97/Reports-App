@@ -677,5 +677,15 @@
         Name="LV_FIN_YEAR"
         Type="java.lang.String"/>
     </Method>
+    <Method
+      Name="callPendingGateEntryForSRV"
+      MethodName="callPendingGateEntryForSRV">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+    </Method>
   </ClientInterface>
 </AppModule>

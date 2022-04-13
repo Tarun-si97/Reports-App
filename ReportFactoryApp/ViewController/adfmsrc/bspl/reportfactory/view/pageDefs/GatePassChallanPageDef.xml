@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="GatePassChallanPageDef"
+                Package="bspl.reportfactory.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+    <iterator Binds="GatePassChallanVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="GatePassChallanVO1Iterator"/>
+    <searchRegion Binds="GatePassChallanVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="GatePassChallanVO1Query"/>
+  </executables>
+  <bindings>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="GatePassChallanVO1Iterator" id="GatePassChallanVO1">
+      <nodeDefinition DefName="model.inventory.views.GatePassChallanVO" Name="GatePassChallanVO10">
+        <AttrNames>
+          <Item Value="UnitCd"/>
+          <Item Value="ChallanNo"/>
+          <Item Value="ChallanDt"/>
+          <Item Value="TargetDate"/>
+          <Item Value="ChallanType"/>
+          <Item Value="PartyCd"/>
+          <Item Value="PartyName"/>
+          <Item Value="ExciseType"/>
+          <Item Value="E57f3No"/>
+          <Item Value="E57f3Dt"/>
+          <Item Value="GateExitNo"/>
+          <Item Value="GateExitDt"/>
+          <Item Value="ExitType"/>
+          <Item Value="Status"/>
+          <Item Value="ForProces"/>
+          <Item Value="DelMode"/>
+          <Item Value="VehicleNo"/>
+          <Item Value="TrptCd"/>
+          <Item Value="DocNo"/>
+          <Item Value="ItemCd"/>
+          <Item Value="Descript"/>
+          <Item Value="ProcCd"/>
+          <Item Value="Qty"/>
+          <Item Value="Uom"/>
+          <Item Value="Amt"/>
+          <Item Value="Remarks"/>
+          <Item Value="GtEheadGateEno"/>
+          <Item Value="GateDt"/>
+          <Item Value="ChallanQty"/>
+          <Item Value="EmpCd"/>
+          <Item Value="EmpName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="callGatePassChallan" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callGatePassChallan" IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>
