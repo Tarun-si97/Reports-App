@@ -657,8 +657,39 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
       }
     
     }
+
+
+    /**
+     * Container's getter for PendingGateEntryForSRVVO1.
+     * @return PendingGateEntryForSRVVO1
+     */
+    public ViewObjectImpl getPendingGateEntryForSRVVO1() {
+        return (ViewObjectImpl) findViewObject("PendingGateEntryForSRVVO1");
+    }
     
+    public void callPendingGateEntryForSRV(String LV_UNIT){
+          ViewObjectImpl vo = this.getPendingGateEntryForSRVVO1();
+          System.out.println( LV_UNIT + "--"  );
+          
+      if (LV_UNIT != null  ) {
+          System.out.println("Inside condition!");
+      try {
+
+          
+         
+         
+          vo.setNamedWhereClauseParam("P46_UNIT", LV_UNIT);
+          
+         
+          vo.executeQuery();
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      
+      }
+      }
     
+    }
     
     
 }

@@ -74,6 +74,9 @@
   <ViewUsage
     Name="GatePassChallanVO1"
     ViewObjectName="model.inventory.views.GatePassChallanVO"/>
+  <ViewUsage
+    Name="PendingGateEntryForSRVVO1"
+    ViewObjectName="model.inventory.views.PendingGateEntryForSRVVO"/>
   <ClientInterface
     Name="__clientInterface">
     <Method
