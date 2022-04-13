@@ -642,10 +642,10 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
 
           
          
-          vo.setNamedWhereClauseParam("P142_FROM", FRDATE);
+          vo.setNamedWhereClauseParam("P11_FROM_DATE", FRDATE);
       
-          vo.setNamedWhereClauseParam("P142_TO", TODATE);
-          vo.setNamedWhereClauseParam("P142_UNIT", LV_UNIT);
+          vo.setNamedWhereClauseParam("P11_TO_DATE", TODATE);
+          vo.setNamedWhereClauseParam("P11_UNIT", LV_UNIT);
           
          
           vo.executeQuery();
