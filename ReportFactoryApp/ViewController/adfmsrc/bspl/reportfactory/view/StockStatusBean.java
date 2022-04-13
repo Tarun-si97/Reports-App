@@ -33,7 +33,7 @@ public class StockStatusBean {
         
         
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();  
-        OperationBinding operationBinding = bindings.getOperationBinding("StockStatus");
+        OperationBinding operationBinding = bindings.getOperationBinding("callStockStatus");
         operationBinding.getParamsMap().put("LV_UNIT",Unit);
         operationBinding.getParamsMap().put("LV_ITEM_CD", Item_code);
         operationBinding.getParamsMap().put("LV_FIN_YEAR", finance_year);

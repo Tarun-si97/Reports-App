@@ -30,7 +30,7 @@ public class PurchaseRegisterIncludingDRandCRNoteBean {
         
         
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();  
-        OperationBinding operationBinding = bindings.getOperationBinding("PurchaseRegisterIncludingDRandCRNote");
+        OperationBinding operationBinding = bindings.getOperationBinding("callPurchaseRegisterIncludingDRandCRNote");
         operationBinding.getParamsMap().put("LV_UNIT",Unit);
         operationBinding.getParamsMap().put("LV_DOC_TYPE", Doc_Type);
         operationBinding.getParamsMap().put("FRDATE",fromDate);

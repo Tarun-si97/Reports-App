@@ -28,7 +28,7 @@ import oracle.binding.OperationBinding;
         oracle.jbo.domain.Date toDate = (oracle.jbo.domain.Date) pvIter.getCurrentRow().getAttribute("toDate");
         
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();  
-        OperationBinding operationBinding = bindings.getOperationBinding("processproduction");
+        OperationBinding operationBinding = bindings.getOperationBinding("callProcessProduction");
         operationBinding.getParamsMap().put("LV_UNIT",Unit);
         operationBinding.getParamsMap().put("FRDATE",fromDate);
         operationBinding.getParamsMap().put("TODATE",toDate);

@@ -129,7 +129,7 @@ public class StockLedgerBean {
 
         
                 BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();  
-        OperationBinding operationBinding = bindings.getOperationBinding("StockLedger3");
+        OperationBinding operationBinding = bindings.getOperationBinding("callStockLedger3");
         operationBinding.getParamsMap().put("LV_UNIT",Unit);
         operationBinding.getParamsMap().put("LV_ITEM_CD",ItemCd);
         operationBinding.getParamsMap().put("LV_SID",num);

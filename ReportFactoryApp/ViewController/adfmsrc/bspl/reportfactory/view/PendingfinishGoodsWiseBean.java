@@ -39,7 +39,7 @@ public class PendingfinishGoodsWiseBean {
 
         
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();  
-        OperationBinding operationBinding = bindings.getOperationBinding("getPendingFinishGoodsBatchWise");
+        OperationBinding operationBinding = bindings.getOperationBinding("callPendingFinishGoodsBatchWise");
         operationBinding.getParamsMap().put("LV_UNIT",Unit);
 //        operationBinding.getParamsMap().put("LOC", LOC);
 //        operationBinding.getParamsMap().put("FRDATE",fromDate);

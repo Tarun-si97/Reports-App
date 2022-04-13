@@ -51,7 +51,7 @@ public class SaleRegisterDetailBean {
         
         
         BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();  
-        OperationBinding operationBinding = bindings.getOperationBinding("SaleRegisterDetail4");
+        OperationBinding operationBinding = bindings.getOperationBinding("callSaleRegisterDetail4");
         operationBinding.getParamsMap().put("LV_UNIT",Unit);
 //        operationBinding.getParamsMap().put("LV_CANCEL", GL_Canceled);
         operationBinding.getParamsMap().put("LV_SID", num);
