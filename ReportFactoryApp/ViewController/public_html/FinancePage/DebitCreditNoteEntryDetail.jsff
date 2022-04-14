@@ -6,7 +6,7 @@
     <af:panelGridLayout id="pgl1">
       <af:gridRow marginTop="5px" height="auto" id="gr1">
         <af:gridCell marginStart="5px" width="34%" id="gc1">
-          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="#{bindings.UnitCode.label}"
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
                               required="#{bindings.UnitCode.hints.mandatory}"
                               shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:186px;" labelStyle="width:100px" >
             <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
@@ -18,7 +18,7 @@
       </af:gridRow>
       <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
         <af:gridCell marginStart="5px" width="34%" id="gc4">
-          <af:inputDate value="#{bindings.fromDate.inputValue}" label="#{bindings.fromDate.hints.label}"
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
                         required="#{bindings.fromDate.hints.mandatory}"
                         columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
                         id="id1" contentStyle="width:180px;" labelStyle="width:100px">
@@ -27,7 +27,7 @@
           </af:inputDate>
         </af:gridCell>
         <af:gridCell marginStart="5px" width="33%" id="gc5">
-          <af:inputDate value="#{bindings.toDate.inputValue}" label="#{bindings.toDate.hints.label}"
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date"
                         required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
                         shortDesc="#{bindings.toDate.hints.tooltip}" id="id2" contentStyle="width:180px;" labelStyle="width:100px" >
             <f:validator binding="#{bindings.toDate.validator}"/>
@@ -58,15 +58,15 @@
               selectedRowKeys="#{bindings.DebitCreditNoteEntryDetailVO1.collectionModel.selectedRow}"
               selectionListener="#{bindings.DebitCreditNoteEntryDetailVO1.collectionModel.makeCurrent}"
               rowSelection="single" fetchSize="#{bindings.DebitCreditNoteEntryDetailVO1.rangeSize}"
-              filterModel="#{bindings.DebitCreditNoteEntryDetailVO1Query.queryDescriptor}" filterVisible="true"
+              filterModel="#{bindings.DebitCreditNoteEntryDetailVO1Query.queryDescriptor}" filterVisible="false"
               queryListener="#{bindings.DebitCreditNoteEntryDetailVO1Query.processQuery}" varStatus="vs" id="t1">
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DnCnNo.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DnCnNo.label}" id="c1">
+                 sortable="true" headerText="DN CN NO" id="c1">
         <af:outputText value="#{row.DnCnNo}" shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DnCnNo.tooltip}"
                        id="ot1"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DnCnDt.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DnCnDt.label}" id="c2">
+                 sortable="true" headerText="DN CN Date" id="c2">
         <f:facet name="filter">
           <af:inputDate value="#{bindings.DebitCreditNoteEntryDetailVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.DnCnDt.value}"
                         id="id3">
@@ -79,7 +79,7 @@
         </af:outputText>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.FinTvouchUnitCode.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.FinTvouchUnitCode.label}"
+                 sortable="true" headerText="Fin Tvouc Unit Code"
                  id="c3">
         <af:outputText value="#{row.FinTvouchUnitCode}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.FinTvouchUnitCode.tooltip}" id="ot3"/>
@@ -90,13 +90,13 @@
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Narration.tooltip}" id="ot4"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.BillNoForCredit.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.BillNoForCredit.label}"
+                 sortable="true" headerText="Bill No For Credit"
                  id="c5">
         <af:outputText value="#{row.BillNoForCredit}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.BillNoForCredit.tooltip}" id="ot5"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.BillDateForCredit.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.BillDateForCredit.label}"
+                 sortable="true" headerText="Bill Date For Credit"
                  id="c6">
         <f:facet name="filter">
           <af:inputDate value="#{bindings.DebitCreditNoteEntryDetailVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.BillDateForCredit.value}"
@@ -110,75 +110,75 @@
         </af:outputText>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.PartyType.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.PartyType.label}" id="c7">
+                 sortable="true" headerText="Party Type" id="c7">
         <af:outputText value="#{row.PartyType}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.PartyType.tooltip}" id="ot7"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.SubCode.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.SubCode.label}" id="c8">
+                 sortable="true" headerText="Sub Code" id="c8">
         <af:outputText value="#{row.SubCode}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.SubCode.tooltip}" id="ot8"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Name.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Name.label}" id="c9">
+                 sortable="true" headerText="Name" id="c9">
         <af:outputText value="#{row.Name}" shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Name.tooltip}"
                        id="ot9"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Address.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Address.label}" id="c10">
+                 sortable="true" headerText="Address" id="c10">
         <af:outputText value="#{row.Address}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Address.tooltip}" id="ot10"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.GstRegNo.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.GstRegNo.label}" id="c11">
+                 sortable="true" headerText="GST Reg No" id="c11">
         <af:outputText value="#{row.GstRegNo}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.GstRegNo.tooltip}" id="ot11"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.StateCode.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.StateCode.label}" id="c12">
+                 sortable="true" headerText="State Code" id="c12">
         <af:outputText value="#{row.StateCode}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.StateCode.tooltip}" id="ot12"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.ItemCd.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.ItemCd.label}" id="c13">
+                 sortable="true" headerText="Item Code" id="c13">
         <af:outputText value="#{row.ItemCd}" shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.ItemCd.tooltip}"
                        id="ot13"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.ItemDescription.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.ItemDescription.label}"
+                 sortable="true" headerText="Item Description"
                  id="c14">
         <af:outputText value="#{row.ItemDescription}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.ItemDescription.tooltip}" id="ot14"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.ItemUom.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.ItemUom.label}" id="c15">
+                 sortable="true" headerText="Item UOM" id="c15">
         <af:outputText value="#{row.ItemUom}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.ItemUom.tooltip}" id="ot15"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.GlCode.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.GlCode.label}" id="c16">
+                 sortable="true" headerText="GL Code" id="c16">
         <af:outputText value="#{row.GlCode}" shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.GlCode.tooltip}"
                        id="ot16"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.GlDesc.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.GlDesc.label}" id="c17">
+                 sortable="true" headerText="GL Desc" id="c17">
         <af:outputText value="#{row.GlDesc}" shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.GlDesc.tooltip}"
                        id="ot17"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.HsnNo.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.HsnNo.label}" id="c18">
+                 sortable="true" headerText="HSN No" id="c18">
         <af:outputText value="#{row.HsnNo}" shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.HsnNo.tooltip}"
                        id="ot18"/>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Qty.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Qty.label}" id="c19">
+                 sortable="true" headerText="QTY" id="c19">
         <af:outputText value="#{row.Qty}" shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Qty.tooltip}"
                        id="ot19">
           <af:convertNumber groupingUsed="false" pattern="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Qty.format}"/>
         </af:outputText>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Amount.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Amount.label}" id="c20">
+                 sortable="true" headerText="Amount" id="c20">
         <af:outputText value="#{row.Amount}" shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.Amount.tooltip}"
                        id="ot20">
           <af:convertNumber groupingUsed="false"
@@ -186,7 +186,7 @@
         </af:outputText>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DcgstRate.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DcgstRate.label}" id="c21">
+                 sortable="true" headerText="DC GST Rate" id="c21">
         <af:outputText value="#{row.DcgstRate}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DcgstRate.tooltip}" id="ot21">
           <af:convertNumber groupingUsed="false"
@@ -194,7 +194,7 @@
         </af:outputText>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DcgstAmt.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DcgstAmt.label}" id="c22">
+                 sortable="true" headerText="DC GST Amount" id="c22">
         <af:outputText value="#{row.DcgstAmt}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DcgstAmt.tooltip}" id="ot22">
           <af:convertNumber groupingUsed="false"
@@ -202,7 +202,7 @@
         </af:outputText>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DsgstRate.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DsgstRate.label}" id="c23">
+                 sortable="true" headerText="DS GST Rate" id="c23">
         <af:outputText value="#{row.DsgstRate}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DsgstRate.tooltip}" id="ot23">
           <af:convertNumber groupingUsed="false"
@@ -210,7 +210,7 @@
         </af:outputText>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DsgstAmt.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DsgstAmt.label}" id="c24">
+                 sortable="true" headerText="DS GST Amount" id="c24">
         <af:outputText value="#{row.DsgstAmt}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DsgstAmt.tooltip}" id="ot24">
           <af:convertNumber groupingUsed="false"
@@ -218,7 +218,7 @@
         </af:outputText>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DigstRate.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DigstRate.label}" id="c25">
+                 sortable="true" headerText="DI GST Rate" id="c25">
         <af:outputText value="#{row.DigstRate}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DigstRate.tooltip}" id="ot25">
           <af:convertNumber groupingUsed="false"
@@ -226,7 +226,7 @@
         </af:outputText>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DigstAmt.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DigstAmt.label}" id="c26">
+                 sortable="true" headerText="DI GST Amount" id="c26">
         <af:outputText value="#{row.DigstAmt}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.DigstAmt.tooltip}" id="ot26">
           <af:convertNumber groupingUsed="false"
@@ -234,7 +234,7 @@
         </af:outputText>
       </af:column>
       <af:column sortProperty="#{bindings.DebitCreditNoteEntryDetailVO1.hints.TotalAmount.name}" filterable="true"
-                 sortable="true" headerText="#{bindings.DebitCreditNoteEntryDetailVO1.hints.TotalAmount.label}"
+                 sortable="true" headerText="Total Amount"
                  id="c27">
         <af:outputText value="#{row.TotalAmount}"
                        shortDesc="#{bindings.DebitCreditNoteEntryDetailVO1.hints.TotalAmount.tooltip}" id="ot27">

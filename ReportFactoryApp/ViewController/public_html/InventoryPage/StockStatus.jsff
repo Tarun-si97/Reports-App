@@ -36,8 +36,8 @@
           </af:inputComboboxListOfValues>
         </af:gridCell>
         <af:gridCell marginStart="5px" width="50%" marginEnd="5px" id="gc4">
-          <af:button text="Execute" id="b1" actionListener="#{StockStatusBean.onClickButton}"
-                     disabled="#{!bindings.StockStatus.enabled}"/>
+          <af:button text="Execute" id="b1" disabled="#{!bindings.callStockStatus.enabled}"
+                     actionListener="#{StockStatusBean.onClickButton}"/>
         </af:gridCell>
       </af:gridRow>
     </af:panelGridLayout>
@@ -45,14 +45,20 @@
   </af:panelHeader>
   <af:panelCollection id="pc1" styleClass="AFStretchWidth">
     <f:facet name="menus"/>
-    <f:facet name="toolbar"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t2">
+        <af:button text="Export To Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="Stock Status.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
     <f:facet name="statusbar"/>
     <af:table value="#{bindings.StockStatusVO1.collectionModel}" var="row" rows="#{bindings.StockStatusVO1.rangeSize}"
               emptyText="#{bindings.StockStatusVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
               rowBandingInterval="0" selectedRowKeys="#{bindings.StockStatusVO1.collectionModel.selectedRow}"
               selectionListener="#{bindings.StockStatusVO1.collectionModel.makeCurrent}" rowSelection="single"
               fetchSize="#{bindings.StockStatusVO1.rangeSize}"
-              filterModel="#{bindings.StockStatusVO1Query.queryDescriptor}" filterVisible="true"
+              filterModel="#{bindings.StockStatusVO1Query.queryDescriptor}" filterVisible="false"
               queryListener="#{bindings.StockStatusVO1Query.processQuery}" varStatus="vs" id="t1">
       <af:column sortProperty="#{bindings.StockStatusVO1.hints.UnitCd.name}" filterable="true" sortable="true"
                  headerText="Unit Code" id="c1">

@@ -57,5 +57,12 @@
       <NamedData NDName="FRDATE" NDType="java.util.Date"/>
       <NamedData NDName="TODATE" NDType="java.util.Date"/>
     </methodAction>
+    <methodAction id="callProcessProduction" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callProcessProduction" IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

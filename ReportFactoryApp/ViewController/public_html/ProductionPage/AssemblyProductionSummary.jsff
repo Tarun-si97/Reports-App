@@ -19,7 +19,7 @@
                                         model="#{bindings.ItemCd.listOfValuesModel}"
                                         required="#{bindings.ItemCd.hints.mandatory}"
                                         columns="#{bindings.ItemCd.hints.displayWidth}"
-                                        shortDesc="#{bindings.ItemCd.hints.tooltip}" contentStyle="width:168px;" labelStyle="width:100px" >
+                                        shortDesc="#{bindings.ItemCd.hints.tooltip}" contentStyle="Width:160px;" labelStyle="Width:100px">
             <f:validator binding="#{bindings.ItemCd.validator}"/>
           </af:inputComboboxListOfValues>
         </af:gridCell>

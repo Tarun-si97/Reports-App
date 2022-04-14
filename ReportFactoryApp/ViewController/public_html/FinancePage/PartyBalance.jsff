@@ -6,7 +6,7 @@
     <af:panelGridLayout id="pgl1">
       <af:gridRow marginTop="5px" height="auto" id="gr1">
         <af:gridCell marginStart="5px" width="34%" id="gc1">
-          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="#{bindings.UnitCode.label}"
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
                               required="#{bindings.UnitCode.hints.mandatory}"
                               shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:180px;"
                               labelStyle="width:105px">
@@ -15,9 +15,9 @@
           </af:selectOneChoice>
         </af:gridCell>
         <af:gridCell marginStart="5px" width="33%" id="gc2">
-          <af:selectOneChoice value="#{bindings.GlType.inputValue}" label="Gl Type"
+          <af:selectOneChoice value="#{bindings.GlType.inputValue}" label="GL Type"
                               required="#{bindings.GlType.hints.mandatory}" shortDesc="#{bindings.GlType.hints.tooltip}"
-                              id="soc2" contentStyle="width:180px;" labelStyle="width:105px">
+                              id="soc2"  contentStyle="Width:180px;" labelStyle="Width:105px">
             <f:selectItems value="#{bindings.GlType.items}" id="si2"/>
             <f:validator binding="#{bindings.GlType.validator}"/>
           </af:selectOneChoice>
@@ -73,7 +73,7 @@
               rowBandingInterval="0" selectedRowKeys="#{bindings.PartyBalancesVO11.collectionModel.selectedRow}"
               selectionListener="#{bindings.PartyBalancesVO11.collectionModel.makeCurrent}" rowSelection="single"
               fetchSize="#{bindings.PartyBalancesVO11.rangeSize}"
-              filterModel="#{bindings.PartyBalancesVO1Query.queryDescriptor}" filterVisible="true"
+              filterModel="#{bindings.PartyBalancesVO1Query.queryDescriptor}" filterVisible="false"
               queryListener="#{bindings.PartyBalancesVO1Query.processQuery}" varStatus="vs" id="t1">
       <af:column sortProperty="#{bindings.PartyBalancesVO11.hints.Unit.name}" filterable="true" sortable="true"
                  headerText="#{bindings.PartyBalancesVO11.hints.Unit.label}" id="c1">

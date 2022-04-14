@@ -87,18 +87,9 @@
     </tree>
     <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
           SelectItemValueMode="ListObject"/>
-    <list IterBinding="DummyVVO1Iterator" id="GlType" DTSupportsMRU="true" SelectItemValueMode="ListObject"
-          StaticList="true" NullValueFlag="start">
-      <AttrNames>
-        <Item Value="GlType"/>
-      </AttrNames>
-      <ValueList>
-        <Item Value="Select"/>
-        <Item Value="Creditor"/>
-        <Item Value="Debtor"/>
-      </ValueList>
-    </list>
     <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_FinYear" id="FinYear" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_GlType" id="GlType" DTSupportsMRU="true"
           SelectItemValueMode="ListObject"/>
   </bindings>
 </pageDefinition>

@@ -28,7 +28,7 @@
                         required="#{bindings.fromDate.hints.mandatory}"
                         columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
                         id="id13" 
-                              contentStyle="width:125px;" labelStyle="width:95px">
+                              contentStyle="width:145px;" labelStyle="width:95px">
             <f:validator binding="#{bindings.fromDate.validator}"/>
             <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
           </af:inputDate>
@@ -36,14 +36,14 @@
         <af:gridCell marginStart="5px" width="33%" id="gc5">
           <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date"
                         required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
-                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id14" contentStyle="width:130px;" labelStyle="width:95px">
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id14" contentStyle="width:130px;" labelStyle="width:93px">
             <f:validator binding="#{bindings.toDate.validator}"/>
             <af:convertDateTime pattern="#{bindings.toDate.format}"/>
           </af:inputDate>
         </af:gridCell>
         <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
           <af:button text="Execute" id="b1"
-                     disabled="#{!bindings.SaleRegisterDetail4.enabled}"
+                     disabled="#{!bindings.callSaleRegisterDetail4.enabled}"
                      actionListener="#{SaleRegisterDetailBean.onClickButton}"/>
         </af:gridCell>
       </af:gridRow>
@@ -66,7 +66,7 @@
               rowBandingInterval="0" selectedRowKeys="#{bindings.SaleregisterDetailVO1.collectionModel.selectedRow}"
               selectionListener="#{bindings.SaleregisterDetailVO1.collectionModel.makeCurrent}" rowSelection="single"
               fetchSize="#{bindings.SaleregisterDetailVO1.rangeSize}"
-              filterModel="#{bindings.SaleregisterDetailVO1Query.queryDescriptor}" filterVisible="true"
+              filterModel="#{bindings.SaleregisterDetailVO1Query.queryDescriptor}" filterVisible="false"
               queryListener="#{bindings.SaleregisterDetailVO1Query.processQuery}" varStatus="vs" id="t1">
       <af:column sortProperty="#{bindings.SaleregisterDetailVO1.hints.UnitCode.name}" filterable="true" sortable="true"
                  headerText="Unit Code" id="c14">

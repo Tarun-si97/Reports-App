@@ -81,7 +81,7 @@
           </af:inputDate>
         </af:gridCell>
         <af:gridCell marginStart="5px" width="25%" marginEnd="5px" id="gc8">
-          <af:button text="Execute" id="b1" disabled="#{!bindings.StockLedger3.enabled}"
+          <af:button text="Execute" id="b1" disabled="#{!bindings.callStockLedger3.enabled}"
                      actionListener="#{StockLedgerBean.onClickButton}"/>
         </af:gridCell>
       </af:gridRow>
@@ -103,7 +103,7 @@
               rowBandingInterval="0" selectedRowKeys="#{bindings.StockLedgerVO1.collectionModel.selectedRow}"
               selectionListener="#{bindings.StockLedgerVO1.collectionModel.makeCurrent}" rowSelection="single"
               fetchSize="#{bindings.StockLedgerVO1.rangeSize}"
-              filterModel="#{bindings.StockLedgerVO1Query.queryDescriptor}" filterVisible="true"
+              filterModel="#{bindings.StockLedgerVO1Query.queryDescriptor}" filterVisible="false"
               queryListener="#{bindings.StockLedgerVO1Query.processQuery}" varStatus="vs" id="t1">
       <af:column sortProperty="#{bindings.StockLedgerVO1.hints.UnitCd.name}" filterable="true" sortable="true"
                  headerText="Unit Code" id="c1">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
-  <task-flow-definition id="SubLedgerTF">
+  <task-flow-definition id="SubLedgerTrialTF">
     <default-activity>view1</default-activity>
     <data-control-scope>
       <shared/>

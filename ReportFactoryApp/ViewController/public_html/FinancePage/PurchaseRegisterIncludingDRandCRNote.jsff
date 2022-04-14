@@ -31,8 +31,7 @@
           <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
                         required="#{bindings.fromDate.hints.mandatory}"
                         columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
-                        id="id4" contentStyle="width:175px;"
-                              labelStyle="width:100px">
+                        id="id4" contentStyle="width:175px;" labelStyle="width:100px">
             <f:validator binding="#{bindings.fromDate.validator}"/>
             <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
           </af:inputDate>
@@ -48,8 +47,8 @@
         </af:gridCell>
         <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
           <af:button text="Execute" id="b1"
-                     actionListener="#{PurchaseRegisterIncludingDRandCRNoteBean.onClickButton}"
-                     disabled="#{!bindings.PurchaseRegisterIncludingDRandCRNote.enabled}"/>
+                     disabled="#{!bindings.callPurchaseRegisterIncludingDRandCRNote.enabled}"
+                     actionListener="#{PurchaseRegisterIncludingDRandCRNoteBean.onClickButton}"/>
         </af:gridCell>
       </af:gridRow>
     </af:panelGridLayout>
@@ -66,385 +65,391 @@
       </af:toolbar>
     </f:facet>
     <f:facet name="statusbar"/>
-    <af:table value="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.collectionModel}" var="row"
-              rows="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.rangeSize}"
-              emptyText="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+    <af:table value="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.collectionModel}" var="row"
+              rows="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.rangeSize}"
+              emptyText="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.viewable ? 'No data to display.' : 'Access Denied.'}"
               rowBandingInterval="0"
-              selectedRowKeys="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.collectionModel.selectedRow}"
-              selectionListener="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.collectionModel.makeCurrent}"
-              rowSelection="single" fetchSize="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.rangeSize}"
+              selectedRowKeys="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.collectionModel.selectedRow}"
+              selectionListener="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.collectionModel.makeCurrent}"
+              rowSelection="single" fetchSize="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.rangeSize}"
               filterModel="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1Query.queryDescriptor}"
-              filterVisible="true" queryListener="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1Query.processQuery}"
+              filterVisible="false" queryListener="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1Query.processQuery}"
               varStatus="vs" id="t1">
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.UnitCode.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.UnitCode.name}"
                  filterable="true" sortable="true"
                  headerText="Unit Code" id="c1">
         <af:outputText value="#{row.UnitCode}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.UnitCode.tooltip}" id="ot1"/>
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.UnitCode.tooltip}"
+                       id="ot1"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ItemCode.name}"
-                 filterable="true" sortable="true" headerText="Item Code" id="c17">
-        <af:outputText value="#{row.ItemCode}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ItemCode.tooltip}"
-                       id="ot17"/>
-      </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ItemDescription.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VoucherNo.name}"
                  filterable="true" sortable="true"
-                 headerText="Item Description" id="c18">
-        <af:outputText value="#{row.ItemDescription}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ItemDescription.tooltip}"
-                       id="ot18"/>
-      </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VoucherNo.name}"
-                 filterable="true" sortable="true"
-                 headerText="Voucher Number" id="c2">
+                 headerText="Voucher No" id="c2">
         <af:outputText value="#{row.VoucherNo}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VoucherNo.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VoucherNo.tooltip}"
                        id="ot2"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VoucherDate.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VoucherDate.name}"
                  filterable="true" sortable="true"
                  headerText="Voucher Date" id="c3">
         <f:facet name="filter">
           <af:inputDate value="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.VoucherDate.value}"
                         id="id1">
-            <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VoucherDate.format}"/>
+            <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VoucherDate.format}"/>
           </af:inputDate>
         </f:facet>
         <af:outputText value="#{row.VoucherDate}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VoucherDate.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VoucherDate.tooltip}"
                        id="ot3">
-          <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VoucherDate.format}"/>
+          <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VoucherDate.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DocType.name}" filterable="true"
-                 sortable="true" headerText="Document Type"
-                 id="c8">
-        <af:outputText value="#{row.DocType}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DocType.tooltip}" id="ot8"/>
-      </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DocNo.name}" filterable="true"
-                 sortable="true" headerText="Document Number"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DocNo.name}" filterable="true"
+                 sortable="true" headerText="Document No"
                  id="c4">
         <af:outputText value="#{row.DocNo}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DocNo.tooltip}" id="ot4"/>
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DocNo.tooltip}" id="ot4"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DocDate.name}" filterable="true"
-                 sortable="true" headerText="Document Date"
-                 id="c5">
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DocDate.name}"
+                 filterable="true" sortable="true"
+                 headerText="Document Date" id="c5">
         <f:facet name="filter">
           <af:inputDate value="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.DocDate.value}"
                         id="id2">
-            <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DocDate.format}"/>
+            <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DocDate.format}"/>
           </af:inputDate>
         </f:facet>
         <af:outputText value="#{row.DocDate}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DocDate.tooltip}" id="ot5">
-          <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DocDate.format}"/>
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DocDate.tooltip}" id="ot5">
+          <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DocDate.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DocDescription.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorBillNo.name}"
                  filterable="true" sortable="true"
-                 headerText="Document Description" id="c9">
-        <af:outputText value="#{row.DocDescription}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DocDescription.tooltip}"
-                       id="ot9"/>
-      </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorBillNo.name}"
-                 filterable="true" sortable="true"
-                 headerText="Vendor Bil No" id="c6">
+                 headerText="Vendor Bill No" id="c6">
         <af:outputText value="#{row.VendorBillNo}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorBillNo.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorBillNo.tooltip}"
                        id="ot6"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorBillDate.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorBillDate.name}"
                  filterable="true" sortable="true"
-                 headerText="Vendor Bil Date" id="c7">
+                 headerText="Vendor Bill Date" id="c7">
         <f:facet name="filter">
           <af:inputDate value="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.VendorBillDate.value}"
                         id="id3">
-            <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorBillDate.format}"/>
+            <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorBillDate.format}"/>
           </af:inputDate>
         </f:facet>
         <af:outputText value="#{row.VendorBillDate}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorBillDate.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorBillDate.tooltip}"
                        id="ot7">
-          <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorBillDate.format}"/>
+          <af:convertDateTime pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorBillDate.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorCode.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DocType.name}"
+                 filterable="true" sortable="true"
+                 headerText="Document Type" id="c8">
+        <af:outputText value="#{row.DocType}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DocType.tooltip}" id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DocDescription.name}"
+                 filterable="true" sortable="true"
+                 headerText="Document Desc" id="c9">
+        <af:outputText value="#{row.DocDescription}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DocDescription.tooltip}"
+                       id="ot9"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorCode.name}"
                  filterable="true" sortable="true"
                  headerText="Vendor Code" id="c10">
         <af:outputText value="#{row.VendorCode}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorCode.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorCode.tooltip}"
                        id="ot10"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorFlag.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorFlag.name}"
                  filterable="true" sortable="true"
                  headerText="Vendor Flag" id="c11">
         <af:outputText value="#{row.VendorFlag}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorFlag.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorFlag.tooltip}"
                        id="ot11"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorName.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorName.name}"
                  filterable="true" sortable="true"
                  headerText="Vendor Name" id="c12">
         <af:outputText value="#{row.VendorName}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorName.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorName.tooltip}"
                        id="ot12"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.PanNo.name}" filterable="true"
-                 sortable="true" headerText="PAN No."
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.PanNo.name}" filterable="true"
+                 sortable="true" headerText="PAN No"
                  id="c13">
         <af:outputText value="#{row.PanNo}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.PanNo.tooltip}" id="ot13"/>
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.PanNo.tooltip}" id="ot13"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GstinNo.name}" filterable="true"
-                 sortable="true" headerText="GSTIN No."
-                 id="c14">
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GstinNo.name}"
+                 filterable="true" sortable="true"
+                 headerText="GSTIN No" id="c14">
         <af:outputText value="#{row.GstinNo}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GstinNo.tooltip}" id="ot14"/>
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GstinNo.tooltip}"
+                       id="ot14"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.PoNo.name}" filterable="true"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.PoNo.name}" filterable="true"
                  sortable="true" headerText="PO No"
                  id="c15">
         <af:outputText value="#{row.PoNo}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.PoNo.tooltip}" id="ot15"/>
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.PoNo.tooltip}" id="ot15"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.AmdNo.name}" filterable="true"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.AmdNo.name}" filterable="true"
                  sortable="true" headerText="AMD No"
                  id="c16">
         <af:outputText value="#{row.AmdNo}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.AmdNo.tooltip}" id="ot16">
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.AmdNo.tooltip}" id="ot16">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.AmdNo.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.AmdNo.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Uom.name}" filterable="true"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ItemCode.name}"
+                 filterable="true" sortable="true"
+                 headerText="Item Code" id="c17">
+        <af:outputText value="#{row.ItemCode}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ItemCode.tooltip}"
+                       id="ot17"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ItemDescription.name}"
+                 filterable="true" sortable="true"
+                 headerText="Item Desc" id="c18">
+        <af:outputText value="#{row.ItemDescription}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ItemDescription.tooltip}"
+                       id="ot18"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Uom.name}" filterable="true"
                  sortable="true" headerText="UOM"
                  id="c19">
         <af:outputText value="#{row.Uom}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Uom.tooltip}" id="ot19"/>
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Uom.tooltip}" id="ot19"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.HsnNo.name}" filterable="true"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.HsnNo.name}" filterable="true"
                  sortable="true" headerText="HSN No"
                  id="c20">
         <af:outputText value="#{row.HsnNo}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.HsnNo.tooltip}" id="ot20"/>
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.HsnNo.tooltip}" id="ot20"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ChallanQty.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ChallanQty.name}"
                  filterable="true" sortable="true"
                  headerText="Challan Qty" id="c21">
         <af:outputText value="#{row.ChallanQty}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ChallanQty.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ChallanQty.tooltip}"
                        id="ot21">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ChallanQty.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ChallanQty.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ApprovedQty.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ApprovedQty.name}"
                  filterable="true" sortable="true"
                  headerText="Approved Qty" id="c22">
         <af:outputText value="#{row.ApprovedQty}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ApprovedQty.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ApprovedQty.tooltip}"
                        id="ot22">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ApprovedQty.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ApprovedQty.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ReceivedQty.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ReceivedQty.name}"
                  filterable="true" sortable="true"
                  headerText="Received Qty" id="c23">
         <af:outputText value="#{row.ReceivedQty}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ReceivedQty.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ReceivedQty.tooltip}"
                        id="ot23">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.ReceivedQty.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.ReceivedQty.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Rate.name}" filterable="true"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Rate.name}" filterable="true"
                  sortable="true" headerText="Rate"
                  id="c24">
         <af:outputText value="#{row.Rate}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Rate.tooltip}" id="ot24">
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Rate.tooltip}" id="ot24">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Rate.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Rate.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.TaxableValueBeforeDiscount.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.TaxableValueBeforeDiscount.name}"
                  filterable="true" sortable="true"
                  headerText="Taxable Value Before Discount"
                  id="c25">
         <af:outputText value="#{row.TaxableValueBeforeDiscount}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.TaxableValueBeforeDiscount.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.TaxableValueBeforeDiscount.tooltip}"
                        id="ot25">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.TaxableValueBeforeDiscount.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.TaxableValueBeforeDiscount.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Discount.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Discount.name}"
                  filterable="true" sortable="true"
                  headerText="Discount" id="c26">
         <af:outputText value="#{row.Discount}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Discount.tooltip}" id="ot26">
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Discount.tooltip}"
+                       id="ot26">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Discount.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Discount.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DiscountValue.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DiscountValue.name}"
                  filterable="true" sortable="true"
                  headerText="Discount Value" id="c27">
         <af:outputText value="#{row.DiscountValue}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DiscountValue.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DiscountValue.tooltip}"
                        id="ot27">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.DiscountValue.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.DiscountValue.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.TaxableValueAfterDiscount.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.TaxableValueAfterDiscount.name}"
                  filterable="true" sortable="true"
-                 headerText="Taxable Value After Discoount"
+                 headerText="Taxable Value After Discount"
                  id="c28">
         <af:outputText value="#{row.TaxableValueAfterDiscount}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.TaxableValueAfterDiscount.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.TaxableValueAfterDiscount.tooltip}"
                        id="ot28">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.TaxableValueAfterDiscount.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.TaxableValueAfterDiscount.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GstCode.name}" filterable="true"
-                 sortable="true" headerText="GST Code"
-                 id="c29">
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GstCode.name}"
+                 filterable="true" sortable="true"
+                 headerText="GST Code" id="c29">
         <af:outputText value="#{row.GstCode}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GstCode.tooltip}" id="ot29"/>
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GstCode.tooltip}"
+                       id="ot29"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GstRate.name}" filterable="true"
-                 sortable="true" headerText="GST Rate"
-                 id="c30">
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GstRate.name}"
+                 filterable="true" sortable="true"
+                 headerText="GST Rate" id="c30">
         <af:outputText value="#{row.GstRate}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GstRate.tooltip}" id="ot30">
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GstRate.tooltip}" id="ot30">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GstRate.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GstRate.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.PurchaseType.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.PurchaseType.name}"
                  filterable="true" sortable="true"
                  headerText="Purchase Type" id="c31">
         <af:outputText value="#{row.PurchaseType}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.PurchaseType.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.PurchaseType.tooltip}"
                        id="ot31"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Sgst.name}" filterable="true"
-                 sortable="true" headerText="SGST "
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Sgst.name}" filterable="true"
+                 sortable="true" headerText="SGST"
                  id="c32">
         <af:outputText value="#{row.Sgst}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Sgst.tooltip}" id="ot32">
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Sgst.tooltip}" id="ot32">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Sgst.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Sgst.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.SgstAmount.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.SgstAmount.name}"
                  filterable="true" sortable="true"
                  headerText="SGST Amount" id="c33">
         <af:outputText value="#{row.SgstAmount}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.SgstAmount.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.SgstAmount.tooltip}"
                        id="ot33">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.SgstAmount.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.SgstAmount.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Cgst.name}" filterable="true"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Cgst.name}" filterable="true"
                  sortable="true" headerText="CGST"
                  id="c34">
         <af:outputText value="#{row.Cgst}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Cgst.tooltip}" id="ot34">
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Cgst.tooltip}" id="ot34">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Cgst.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Cgst.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.CgstAmount.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.CgstAmount.name}"
                  filterable="true" sortable="true"
                  headerText="CGST Amount" id="c35">
         <af:outputText value="#{row.CgstAmount}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.CgstAmount.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.CgstAmount.tooltip}"
                        id="ot35">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.CgstAmount.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.CgstAmount.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Igst.name}" filterable="true"
-                 sortable="true" headerText="IGST"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Igst.name}" filterable="true"
+                 sortable="true" headerText="IGST "
                  id="c36">
         <af:outputText value="#{row.Igst}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Igst.tooltip}" id="ot36">
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Igst.tooltip}" id="ot36">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.Igst.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.Igst.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.IgstAmount.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.IgstAmount.name}"
                  filterable="true" sortable="true"
                  headerText="IGST Amount" id="c37">
         <af:outputText value="#{row.IgstAmount}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.IgstAmount.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.IgstAmount.tooltip}"
                        id="ot37">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.IgstAmount.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.IgstAmount.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.LineTotal.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.LineTotal.name}"
                  filterable="true" sortable="true"
-                 headerText="Line Total" id="c38">
+                 headerText="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.LineTotal.label}" id="c38">
         <af:outputText value="#{row.LineTotal}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.LineTotal.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.LineTotal.tooltip}"
                        id="ot38">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.LineTotal.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.LineTotal.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GlCode.name}" filterable="true"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GlCode.name}" filterable="true"
                  sortable="true" headerText="GL Code"
                  id="c39">
         <af:outputText value="#{row.GlCode}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GlCode.tooltip}" id="ot39"/>
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GlCode.tooltip}" id="ot39"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GlDescription.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GlDescription.name}"
                  filterable="true" sortable="true"
                  headerText="GL Description" id="c40">
         <af:outputText value="#{row.GlDescription}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.GlDescription.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.GlDescription.tooltip}"
                        id="ot40"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.StateCode.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.StateCode.name}"
                  filterable="true" sortable="true"
                  headerText="State Code" id="c41">
         <af:outputText value="#{row.StateCode}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.StateCode.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.StateCode.tooltip}"
                        id="ot41"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorAddress.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorAddress.name}"
                  filterable="true" sortable="true"
                  headerText="Vendor Address" id="c42">
         <af:outputText value="#{row.VendorAddress}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.VendorAddress.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.VendorAddress.tooltip}"
                        id="ot42"/>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.TcsValue.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.TcsValue.name}"
                  filterable="true" sortable="true"
                  headerText="TCS Value" id="c43">
         <af:outputText value="#{row.TcsValue}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.TcsValue.tooltip}" id="ot43">
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.TcsValue.tooltip}"
+                       id="ot43">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.TcsValue.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.TcsValue.format}"/>
         </af:outputText>
       </af:column>
-      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.InvoiceValue.name}"
+      <af:column sortProperty="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.InvoiceValue.name}"
                  filterable="true" sortable="true"
                  headerText="Invoice Value" id="c44">
         <af:outputText value="#{row.InvoiceValue}"
-                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.InvoiceValue.tooltip}"
+                       shortDesc="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.InvoiceValue.tooltip}"
                        id="ot44">
           <af:convertNumber groupingUsed="false"
-                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO1.hints.InvoiceValue.format}"/>
+                            pattern="#{bindings.PurchaseRegisterIncludingDRandCRNoteVO11.hints.InvoiceValue.format}"/>
         </af:outputText>
       </af:column>
     </af:table>

@@ -37,8 +37,9 @@
           </af:inputDate>
         </af:gridCell>
         <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
-          <af:button text="Execute" id="b1" actionListener="#{B2CSaleInvoiceUnRegisteredBean.onClickButton}"
-                     disabled="#{!bindings.B2CSaleInvoiceUnRegistered.enabled}"/>
+          <af:button text="Execute" id="b1"
+                     disabled="#{!bindings.callB2CSaleInvoiceUnRegistered.enabled}"
+                     actionListener="#{B2CSaleInvoiceUnRegisteredBean.onClickButton}"/>
         </af:gridCell>
       </af:gridRow>
     </af:panelGridLayout>
@@ -62,7 +63,7 @@
               selectedRowKeys="#{bindings.B2CSaleInvoiceUnRegisteredVO11.collectionModel.selectedRow}"
               selectionListener="#{bindings.B2CSaleInvoiceUnRegisteredVO11.collectionModel.makeCurrent}"
               rowSelection="single" fetchSize="#{bindings.B2CSaleInvoiceUnRegisteredVO11.rangeSize}"
-              filterModel="#{bindings.B2CSaleInvoiceUnRegisteredVO1Query.queryDescriptor}" filterVisible="true"
+              filterModel="#{bindings.B2CSaleInvoiceUnRegisteredVO1Query.queryDescriptor}" filterVisible="false"
               queryListener="#{bindings.B2CSaleInvoiceUnRegisteredVO1Query.processQuery}" varStatus="vs" id="t1">
       <af:column sortProperty="#{bindings.B2CSaleInvoiceUnRegisteredVO11.hints.UnitCode.name}" filterable="true"
                  sortable="true" headerText="Unit Code" id="c1">

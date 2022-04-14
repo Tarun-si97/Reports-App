@@ -14,7 +14,9 @@
           </af:selectOneChoice>
         </af:gridCell>
         <af:gridCell marginStart="5px" width="50%" marginEnd="5px" id="gc2">
-          <af:button text="Execute" id="b1" actionListener="#{PendingfinishGoodsWiseBean.onClickButton}"/>
+          <af:button text="Execute" id="b1"
+                     actionListener="#{PendingfinishGoodsWiseBean.onClickButton}"
+                     disabled="#{!bindings.callPendingFinishGoodsBatchWise.enabled}"/>
         </af:gridCell>
       </af:gridRow>
     </af:panelGridLayout>
@@ -37,7 +39,7 @@
               selectedRowKeys="#{bindings.PendingFinishGoodsBatchWiseVO11.collectionModel.selectedRow}"
               selectionListener="#{bindings.PendingFinishGoodsBatchWiseVO11.collectionModel.makeCurrent}"
               rowSelection="single" fetchSize="#{bindings.PendingFinishGoodsBatchWiseVO11.rangeSize}"
-              filterModel="#{bindings.PendingFinishGoodsBatchWiseVO11Query.queryDescriptor}" filterVisible="true"
+              filterModel="#{bindings.PendingFinishGoodsBatchWiseVO11Query.queryDescriptor}" filterVisible="false"
               queryListener="#{bindings.PendingFinishGoodsBatchWiseVO11Query.processQuery}" varStatus="vs" id="t1">
       <af:column sortProperty="#{bindings.PendingFinishGoodsBatchWiseVO11.hints.UnitCd.name}" filterable="true"
                  sortable="true" headerText="Unit Code" id="c1">

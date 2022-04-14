@@ -8,7 +8,7 @@
         <af:gridCell marginStart="5px" width="34%" id="gc1">
           <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
                               required="#{bindings.UnitCode.hints.mandatory}"
-                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width :180px;"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width :175px;"
                               labelStyle="width:100px">
             <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
             <f:validator binding="#{bindings.UnitCode.validator}"/>
@@ -20,7 +20,7 @@
                                         model="#{bindings.Customer.listOfValuesModel}"
                                         required="#{bindings.Customer.hints.mandatory}"
                                         columns="#{bindings.Customer.hints.displayWidth}"
-                                        shortDesc="#{bindings.Customer.hints.tooltip}" contentStyle="width :165px;"
+                                        shortDesc="#{bindings.Customer.hints.tooltip}" contentStyle="width :150px;"
                                         labelStyle="width:100px">
             <f:validator binding="#{bindings.Customer.validator}"/>
           </af:inputComboboxListOfValues>
@@ -32,7 +32,7 @@
           <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
                         required="#{bindings.fromDate.hints.mandatory}"
                         columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
-                        id="id1" contentStyle="width :175px;" labelStyle="width:100px">
+                        id="id1" contentStyle="width :185px;" labelStyle="width:100px">
             <f:validator binding="#{bindings.fromDate.validator}"/>
             <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
           </af:inputDate>
@@ -40,7 +40,7 @@
         <af:gridCell marginStart="5px" width="33%" id="gc5">
           <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date"
                         required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
-                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id2" contentStyle="width :180px;"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id2" contentStyle="width :189px;"
                         labelStyle="width:100px">
             <f:validator binding="#{bindings.toDate.validator}"/>
             <af:convertDateTime pattern="#{bindings.toDate.format}"/>
@@ -72,7 +72,7 @@
               selectedRowKeys="#{bindings.B2bSaleInvoiceRegisteredVO1.collectionModel.selectedRow}"
               selectionListener="#{bindings.B2bSaleInvoiceRegisteredVO1.collectionModel.makeCurrent}"
               rowSelection="single" fetchSize="#{bindings.B2bSaleInvoiceRegisteredVO1.rangeSize}"
-              filterModel="#{bindings.B2bSaleInvoiceRegisteredVO1Query.queryDescriptor}" filterVisible="true"
+              filterModel="#{bindings.B2bSaleInvoiceRegisteredVO1Query.queryDescriptor}" filterVisible="false"
               queryListener="#{bindings.B2bSaleInvoiceRegisteredVO1Query.processQuery}" varStatus="vs" id="t1">
       <af:column sortProperty="#{bindings.B2bSaleInvoiceRegisteredVO1.hints.UnitCode.name}" filterable="true"
                  sortable="true" headerText="Unit Code" id="c1"

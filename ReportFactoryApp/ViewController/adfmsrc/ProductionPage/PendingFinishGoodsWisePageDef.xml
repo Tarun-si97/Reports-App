@@ -73,5 +73,10 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <methodAction id="callPendingFinishGoodsBatchWise" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callPendingFinishGoodsBatchWise" IsViewObjectMethod="false"
+                  DataControl="AppModuleDataControl" InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

@@ -36,7 +36,7 @@
     <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_ItemCd" id="ItemCd"/>
     <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_FinYear" id="FinYear" DTSupportsMRU="true"
           SelectItemValueMode="ListObject"/>
-    <methodAction id="StockStatus" RequiresUpdateModel="true" Action="invokeMethod" MethodName="StockStatus"
+    <methodAction id="callStockStatus" RequiresUpdateModel="true" Action="invokeMethod" MethodName="callStockStatus"
                   IsViewObjectMethod="false" DataControl="AppModuleDataControl"
                   InstanceName="data.AppModuleDataControl.dataProvider">
       <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
