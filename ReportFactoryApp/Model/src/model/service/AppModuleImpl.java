@@ -690,7 +690,40 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
       }
     
     }
+
+
+    /**
+     * Container's getter for DispatchAdviceDetailVO1.
+     * @return DispatchAdviceDetailVO1
+     */
+    public ViewObjectImpl getDispatchAdviceDetailVO1() {
+        return (ViewObjectImpl) findViewObject("DispatchAdviceDetailVO1");
+    }
+    public void callDispatchAdviceDetail(String LV_DA_NO,Date FRDATE,Date TODATE){
+          ViewObjectImpl vo = this.getDispatchAdviceDetailVO1();
+          System.out.println( LV_DA_NO + "--"  + "--" + FRDATE + "--" + TODATE+"--" );
+          
+      if (LV_DA_NO != null &&  FRDATE != null && TODATE != null ) {
+          System.out.println("Inside condition!");
+      try {
+
+          
+         
+          vo.setNamedWhereClauseParam("P217_FR_DT", FRDATE);
+      
+          vo.setNamedWhereClauseParam("P217_TO_DT", TODATE);
+          vo.setNamedWhereClauseParam("P217_DA_NO", LV_DA_NO);
+          
+         
+          vo.executeQuery();
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      
+      }
+      }
     
+    }
     
 }
 
