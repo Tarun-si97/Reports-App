@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="DispatchAdviceDetaiPageDef"
+                Package="SalePage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="DispatchAdviceDetailVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="DispatchAdviceDetailVO1Iterator"/>
+    <searchRegion Binds="DispatchAdviceDetailVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="DispatchAdviceDetailVO1Query"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="DispatchAdviceDetailVO1Iterator" id="DispatchAdviceDetailVO1">
+      <nodeDefinition DefName="model.sale.views.DispatchAdviceDetailVO" Name="DispatchAdviceDetailVO10">
+        <AttrNames>
+          <Item Value="DaNo"/>
+          <Item Value="SapNo"/>
+          <Item Value="ProductCode"/>
+          <Item Value="Descripition"/>
+          <Item Value="HsnNo"/>
+          <Item Value="Mrp"/>
+          <Item Value="BatchNo"/>
+          <Item Value="MfgDt"/>
+          <Item Value="ExpDt"/>
+          <Item Value="Uom"/>
+          <Item Value="Qty"/>
+          <Item Value="Rate"/>
+          <Item Value="GstRate"/>
+          <Item Value="PackSize"/>
+          <Item Value="StandardSize"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="callDispatchAdviceDetail" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callDispatchAdviceDetail" IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_DA_NO" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+    </methodAction>
+    <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_DAFILTER" id="DAFILTER"/>
+  </bindings>
+</pageDefinition>

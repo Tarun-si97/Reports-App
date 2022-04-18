@@ -45,5 +45,9 @@ public interface AppModule extends ApplicationModule {
     void callStockStatus(String LV_UNIT, String LV_ITEM_CD, String LV_FIN_YEAR);
 
     void callPendingGateEntryForSRV(String LV_UNIT);
+
+    void callDispatchAdviceDetail(String LV_DA_NO, Date FRDATE, Date TODATE);
+
+    void callFGExpiredStock(String LV_UNIT);
 }
 

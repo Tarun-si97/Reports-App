@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Dispatch Advice Detail" id="ph1">
+    <af:spacer width="10" height="10" id="s2"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:inputComboboxListOfValues id="dAFILTERId" popupTitle="Search and Select: #{bindings.DAFILTER.hints.label}"
+                                        value="#{bindings.DAFILTER.inputValue}" label="DA No"
+                                        model="#{bindings.DAFILTER.listOfValuesModel}"
+                                        required="#{bindings.DAFILTER.hints.mandatory}"
+                                        columns="#{bindings.DAFILTER.hints.displayWidth}"
+                                        shortDesc="#{bindings.DAFILTER.hints.tooltip}" contentStyle="width:180px;" labelStyle="width:100px" >
+            <f:validator binding="#{bindings.DAFILTER.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2"/>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3"/>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
+                        required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id1" contentStyle="width:193px;" labelStyle="width:100px" >
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date"
+                        required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id2">
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b1" actionListener="#{DispatchAdviceDetailBean.onClickButton}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s3"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth" >
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t1">
+        <af:button text="Export to Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t2"
+                                             filename="Dispatch Advice Detail.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.DispatchAdviceDetailVO1.collectionModel}" var="row"
+              rows="#{bindings.DispatchAdviceDetailVO1.rangeSize}"
+              emptyText="#{bindings.DispatchAdviceDetailVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.DispatchAdviceDetailVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.DispatchAdviceDetailVO1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.DispatchAdviceDetailVO1.rangeSize}"
+              filterModel="#{bindings.DispatchAdviceDetailVO1Query.queryDescriptor}" filterVisible="false"
+              queryListener="#{bindings.DispatchAdviceDetailVO1Query.processQuery}" varStatus="vs" id="t2">
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.DaNo.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.DaNo.label}" id="c1">
+        <af:outputText value="#{row.DaNo}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.DaNo.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.SapNo.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.SapNo.label}" id="c2">
+        <af:outputText value="#{row.SapNo}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.SapNo.tooltip}"
+                       id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.ProductCode.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.DispatchAdviceDetailVO1.hints.ProductCode.label}" id="c3">
+        <af:outputText value="#{row.ProductCode}"
+                       shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.ProductCode.tooltip}" id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.Descripition.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.DispatchAdviceDetailVO1.hints.Descripition.label}" id="c4">
+        <af:outputText value="#{row.Descripition}"
+                       shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.Descripition.tooltip}" id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.HsnNo.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.HsnNo.label}" id="c5">
+        <af:outputText value="#{row.HsnNo}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.HsnNo.tooltip}"
+                       id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.Mrp.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.Mrp.label}" id="c6">
+        <af:outputText value="#{row.Mrp}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.Mrp.tooltip}" id="ot6">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DispatchAdviceDetailVO1.hints.Mrp.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.BatchNo.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.BatchNo.label}" id="c7">
+        <af:outputText value="#{row.BatchNo}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.BatchNo.tooltip}"
+                       id="ot7"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.MfgDt.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.MfgDt.label}" id="c8">
+        <af:outputText value="#{row.MfgDt}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.MfgDt.tooltip}"
+                       id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.ExpDt.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.ExpDt.label}" id="c9">
+        <af:outputText value="#{row.ExpDt}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.ExpDt.tooltip}"
+                       id="ot9"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.Uom.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.Uom.label}" id="c10">
+        <af:outputText value="#{row.Uom}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.Uom.tooltip}" id="ot10"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.Qty.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.Qty.label}" id="c11">
+        <af:outputText value="#{row.Qty}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.Qty.tooltip}" id="ot11">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DispatchAdviceDetailVO1.hints.Qty.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.Rate.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.Rate.label}" id="c12">
+        <af:outputText value="#{row.Rate}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.Rate.tooltip}" id="ot12">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DispatchAdviceDetailVO1.hints.Rate.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.GstRate.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DispatchAdviceDetailVO1.hints.GstRate.label}" id="c13">
+        <af:outputText value="#{row.GstRate}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.GstRate.tooltip}"
+                       id="ot13">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DispatchAdviceDetailVO1.hints.GstRate.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.PackSize.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.DispatchAdviceDetailVO1.hints.PackSize.label}" id="c14">
+        <af:outputText value="#{row.PackSize}" shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.PackSize.tooltip}"
+                       id="ot14">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DispatchAdviceDetailVO1.hints.PackSize.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DispatchAdviceDetailVO1.hints.StandardSize.name}" filterable="true"
+                 sortable="true" headerText="#{bindings.DispatchAdviceDetailVO1.hints.StandardSize.label}" id="c15">
+        <af:outputText value="#{row.StandardSize}"
+                       shortDesc="#{bindings.DispatchAdviceDetailVO1.hints.StandardSize.tooltip}" id="ot15">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.DispatchAdviceDetailVO1.hints.StandardSize.format}"/>
+        </af:outputText>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+  <af:spacer width="10" height="10" id="s1"/>
+</jsp:root>

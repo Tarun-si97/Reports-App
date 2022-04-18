@@ -29,6 +29,7 @@
     <page path="/InventoryPage/GatePassChallan.jsff" usageId="bspl_reportfactory_view_GatePassChallanPageDef"/>
     <page path="/InventoryPage/PendingGateEntryForSRV.jsff"
           usageId="bspl_reportfactory_view_PendingGateEntryForSRVPageDef"/>
+    <page path="/SalePage/DispatchAdviceDetai.jsff" usageId="bspl_reportfactory_view_DispatchAdviceDetaiPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="bspl_reportfactory_view_PartyBalancePageDef" path="FinancePage.PartyBalancePageDef"/>
@@ -53,6 +54,7 @@
           path="bspl.reportfactory.view.pageDefs.GatePassChallanPageDef"/>
     <page id="bspl_reportfactory_view_PendingGateEntryForSRVPageDef"
           path="InventoryPage.PendingGateEntryForSRVPageDef"/>
+    <page id="bspl_reportfactory_view_DispatchAdviceDetaiPageDef" path="SalePage.DispatchAdviceDetaiPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="AppModuleDataControl" Package="model.service"

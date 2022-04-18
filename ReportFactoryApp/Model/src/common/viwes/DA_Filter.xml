@@ -37,6 +37,12 @@ ORDER by O]]></SQLQuery>
     <DesignTime>
       <Attr Name="_DisplaySize" Value="25"/>
     </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <DISPLAYWIDTH
+          Value="20"/>
+      </SchemaBasedProperties>
+    </Properties>
   </ViewAttribute>
   <ViewAttribute
     Name="R"

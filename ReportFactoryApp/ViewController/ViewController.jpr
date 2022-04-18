@@ -245,6 +245,9 @@
             <hash>
                <url n="content-folder-url" path="adfmsrc/bspl/reportfactory/view/"/>
                <list n="pattern-filters">
+                  <string v="+bspl/reportfactory/view/DispatchAdviceDetailBean.java"/>
+                  <string v="+bspl/reportfactory/view/DispatchAdviceDetaillBean.java"/>
+                  <string v="+bspl/reportfactory/view/DispatchAdviceDetaiBean.java"/>
                   <string v="+bspl/reportfactory/view/PendingGateEntryForSRVBean.java"/>
                   <string v="+bspl/reportfactory/view/GatePassChallanBean.java"/>
                   <string v="+bspl/reportfactory/view/AssemblyProductionSummaryBean.java"/>

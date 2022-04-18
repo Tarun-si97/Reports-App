@@ -724,7 +724,39 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
       }
     
     }
+
+
+    public void callFGExpiredStock(String LV_UNIT){
+          ViewObjectImpl vo = this.getFGExpiredStockVO1();
+          System.out.println( LV_UNIT + "--"  );
+          
+      if (LV_UNIT != null  ) {
+          System.out.println("Inside condition!");
+      try {
+
+          
+         
+         
+          vo.setNamedWhereClauseParam("p262_unit_code", LV_UNIT);
+          
+         
+          vo.executeQuery();
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      
+      }
+      }
     
+    }
+
+    /**
+     * Container's getter for FGExpiredStockVO1.
+     * @return FGExpiredStockVO1
+     */
+    public ViewObjectImpl getFGExpiredStockVO1() {
+        return (ViewObjectImpl) findViewObject("FGExpiredStockVO1");
+    }
 }
 
 

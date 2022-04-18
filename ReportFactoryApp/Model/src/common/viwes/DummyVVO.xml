@@ -115,6 +115,10 @@
     Name="DocTypeStaticvalueVVO1"
     ViewObjectName="common.viwes.DocTypeStaticvalueVVO"
     RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="DA_Filter1"
+    ViewObjectName="common.viwes.DA_Filter"
+    RowLevelBinds="true"/>
   <ListBinding
     Name="LOV_UnitCode"
     ListVOName="UnitVVO1"
@@ -335,6 +339,25 @@
     </AttrArray>
     <AttrArray Name="ListDisplayAttrNames">
       <Item Value="Display"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_DAFILTER"
+    ListVOName="DA_Filter1"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    MRUCount="0"
+    ComboRowCountHint="10">
+    <AttrArray Name="AttrNames">
+      <Item Value="DAFILTER"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="R"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="D"/>
     </AttrArray>
     <DisplayCriteria/>
   </ListBinding>
@@ -618,6 +641,24 @@
       <SchemaBasedProperties>
         <CONTROLTYPE
           Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DAFILTER"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    LOVName="LOV_DAFILTER">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>

@@ -80,6 +80,9 @@
   <ViewUsage
     Name="DispatchAdviceDetailVO1"
     ViewObjectName="model.sale.views.DispatchAdviceDetailVO"/>
+  <ViewUsage
+    Name="FGExpiredStockVO1"
+    ViewObjectName="model.sale.views.FGExpiredStockVO"/>
   <ClientInterface
     Name="__clientInterface">
     <Method
@@ -683,6 +686,32 @@
     <Method
       Name="callPendingGateEntryForSRV"
       MethodName="callPendingGateEntryForSRV">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="callDispatchAdviceDetail"
+      MethodName="callDispatchAdviceDetail">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_DA_NO"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
+    </Method>
+    <Method
+      Name="callFGExpiredStock"
+      MethodName="callFGExpiredStock">
       <Return
         Name="_return_type_"
         Type="void"/>
