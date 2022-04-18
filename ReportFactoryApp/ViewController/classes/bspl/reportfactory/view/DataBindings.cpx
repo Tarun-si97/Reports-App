@@ -26,6 +26,11 @@
     <page path="/ProductionPage/ProcessProduction.jsff" usageId="bspl_reportfactory_view_ProcessProductionPageDef"/>
     <page path="/ProductionPage/AssemblyProductionSummary.jsff"
           usageId="bspl_reportfactory_view_AssemblyProductionSummaryPageDef"/>
+    <page path="/InventoryPage/GatePassChallan.jsff" usageId="bspl_reportfactory_view_GatePassChallanPageDef"/>
+    <page path="/InventoryPage/PendingGateEntryForSRV.jsff"
+          usageId="bspl_reportfactory_view_PendingGateEntryForSRVPageDef"/>
+    <page path="/SalePage/DispatchAdviceDetai.jsff" usageId="bspl_reportfactory_view_DispatchAdviceDetaiPageDef"/>
+    <page path="/SalePage/FGExpiredStockReport.jsff" usageId="bspl_reportfactory_view_FGExpiredStockReportPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="bspl_reportfactory_view_PartyBalancePageDef" path="FinancePage.PartyBalancePageDef"/>
@@ -46,6 +51,12 @@
     <page id="bspl_reportfactory_view_ProcessProductionPageDef" path="ProductionPage.ProcessProductionPageDef"/>
     <page id="bspl_reportfactory_view_AssemblyProductionSummaryPageDef"
           path="ProductionPage.AssemblyProductionSummaryPageDef"/>
+    <page id="bspl_reportfactory_view_GatePassChallanPageDef"
+          path="bspl.reportfactory.view.pageDefs.GatePassChallanPageDef"/>
+    <page id="bspl_reportfactory_view_PendingGateEntryForSRVPageDef"
+          path="InventoryPage.PendingGateEntryForSRVPageDef"/>
+    <page id="bspl_reportfactory_view_DispatchAdviceDetaiPageDef" path="SalePage.DispatchAdviceDetaiPageDef"/>
+    <page id="bspl_reportfactory_view_FGExpiredStockReportPageDef" path="SalePage.FGExpiredStockReportPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="AppModuleDataControl" Package="model.service"

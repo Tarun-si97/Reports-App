@@ -245,6 +245,7 @@
             <hash>
                <url n="content-folder-url" path="adfmsrc/bspl/reportfactory/view/"/>
                <list n="pattern-filters">
+                  <string v="+bspl/reportfactory/view/FGExpiredStockReportBean.java"/>
                   <string v="+bspl/reportfactory/view/DispatchAdviceDetailBean.java"/>
                   <string v="+bspl/reportfactory/view/DispatchAdviceDetaillBean.java"/>
                   <string v="+bspl/reportfactory/view/DispatchAdviceDetaiBean.java"/>
