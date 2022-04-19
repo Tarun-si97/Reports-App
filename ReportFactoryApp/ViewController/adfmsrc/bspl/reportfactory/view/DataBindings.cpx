@@ -30,6 +30,10 @@
     <page path="/InventoryPage/PendingGateEntryForSRV.jsff"
           usageId="bspl_reportfactory_view_PendingGateEntryForSRVPageDef"/>
     <page path="/SalePage/DispatchAdviceDetai.jsff" usageId="bspl_reportfactory_view_DispatchAdviceDetaiPageDef"/>
+    <page path="/SalePage/FGExpiredStockReport.jsff" usageId="bspl_reportfactory_view_FGExpiredStockReportPageDef"/>
+    <page path="/WEB-INF/SaleTaskFlow/FGExpiredStockReportTF.xml#FGExpiredStockReportTF@getFGdata"
+          usageId="bspl_reportfactory_view_FGExpiredStockReportTF_FGExpiredStockReportTF_getFGdataPageDef"/>
+    <page path="/SalePage/SaleOrderDetail.jsff" usageId="bspl_reportfactory_view_SaleOrderDetailPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="bspl_reportfactory_view_PartyBalancePageDef" path="FinancePage.PartyBalancePageDef"/>
@@ -55,6 +59,10 @@
     <page id="bspl_reportfactory_view_PendingGateEntryForSRVPageDef"
           path="InventoryPage.PendingGateEntryForSRVPageDef"/>
     <page id="bspl_reportfactory_view_DispatchAdviceDetaiPageDef" path="SalePage.DispatchAdviceDetaiPageDef"/>
+    <page id="bspl_reportfactory_view_FGExpiredStockReportPageDef" path="SalePage.FGExpiredStockReportPageDef"/>
+    <page id="bspl_reportfactory_view_FGExpiredStockReportTF_FGExpiredStockReportTF_getFGdataPageDef"
+          path="SaleTaskFlow.FGExpiredStockReportTF_FGExpiredStockReportTF_getFGdataPageDef"/>
+    <page id="bspl_reportfactory_view_SaleOrderDetailPageDef" path="SalePage.SaleOrderDetailPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="AppModuleDataControl" Package="model.service"

@@ -726,8 +726,18 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
     }
 
 
+    
+
+    /**
+     * Container's getter for FGExpiredStockVO1.
+     * @return FGExpiredStockVO1
+     */
+    public ViewObjectImpl getFGExpiredStockVO1() {
+        return (ViewObjectImpl) findViewObject("FGExpiredStockVO1");
+    }
+    
     public void callFGExpiredStock(String LV_UNIT){
-          ViewObjectImpl vo = this.getFGExpiredStockVO1();
+          ViewObjectImpl vo =this.getFGExpiredStockVO1();
           System.out.println( LV_UNIT + "--"  );
           
       if (LV_UNIT != null  ) {
@@ -749,14 +759,51 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
       }
     
     }
+    
+    public void getFGdata(){
+        
+        ViewObjectImpl vo=this.getFGExpiredStockVO1();
+        vo.setNamedWhereClauseParam("p262_unit_code", 2);
+        vo.executeQuery();
+        
+        }
 
     /**
-     * Container's getter for FGExpiredStockVO1.
-     * @return FGExpiredStockVO1
+     * Container's getter for SaleOrderDetailVO1.
+     * @return SaleOrderDetailVO1
      */
-    public ViewObjectImpl getFGExpiredStockVO1() {
-        return (ViewObjectImpl) findViewObject("FGExpiredStockVO1");
+    public ViewObjectImpl getSaleOrderDetailVO1() {
+        return (ViewObjectImpl) findViewObject("SaleOrderDetailVO1");
     }
+    
+    public void callSaleOrderDetail(String LV_UNIT,Date FRDATE,Date TODATE, String LV_PoNo){
+          ViewObjectImpl vo = this.getSaleOrderDetailVO1();
+          System.out.println( LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--" + LV_PoNo + "--");
+          
+      if (LV_UNIT != null &&  FRDATE != null && TODATE != null && LV_PoNo !=null) {
+          System.out.println("Inside condition!");
+      try {
+
+          
+         
+          vo.setNamedWhereClauseParam("P182_FROM_DATE", FRDATE);
+      
+          vo.setNamedWhereClauseParam("P182_TO_DATE", TODATE);
+          vo.setNamedWhereClauseParam("P182_UNIT_CODE", LV_UNIT);
+          vo.setNamedWhereClauseParam("P182_PO_NO", LV_PoNo);
+         
+          vo.executeQuery();
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      
+      }
+      }
+    
+    }
+
+    
+    
 }
 
 

@@ -119,6 +119,10 @@
     Name="DA_Filter1"
     ViewObjectName="common.viwes.DA_Filter"
     RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="PONoFILTERVVO1"
+    ViewObjectName="common.viwes.PONoFILTERVVO"
+    RowLevelBinds="true"/>
   <ListBinding
     Name="LOV_UnitCode"
     ListVOName="UnitVVO1"
@@ -358,6 +362,25 @@
     </AttrArray>
     <AttrArray Name="ListDisplayAttrNames">
       <Item Value="D"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_PoNo"
+    ListVOName="PONoFILTERVVO1"
+    ListRangeSize="-1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="PoNo"/>
+    </AttrArray>
+    <AttrArray Name="AttrExpressions"/>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Code"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Code"/>
     </AttrArray>
     <DisplayCriteria/>
   </ListBinding>
@@ -655,6 +678,24 @@
     AliasName="VIEW_ATTR"
     SQLType="VARCHAR"
     LOVName="LOV_DAFILTER">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PoNo"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    LOVName="LOV_PoNo">
     <Properties>
       <SchemaBasedProperties>
         <CONTROLTYPE

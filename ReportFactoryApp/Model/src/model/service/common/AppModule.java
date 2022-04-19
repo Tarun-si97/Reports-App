@@ -49,5 +49,9 @@ public interface AppModule extends ApplicationModule {
     void callDispatchAdviceDetail(String LV_DA_NO, Date FRDATE, Date TODATE);
 
     void callFGExpiredStock(String LV_UNIT);
+
+    void getFGdata();
+
+    void callSaleOrderDetail(String LV_UNIT, Date FRDATE, Date TODATE, String LV_PoNo);
 }
 

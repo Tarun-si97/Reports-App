@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Sale Order Detail" id="ph1">
+    <af:spacer width="10" height="10" id="s2"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:180px;" labelStyle="width:100px">
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2">
+          <af:inputComboboxListOfValues id="poNoId" popupTitle="Search and Select: #{bindings.PoNo.hints.label}"
+                                        value="#{bindings.PoNo.inputValue}" label="PO No."
+                                        model="#{bindings.PoNo.listOfValuesModel}"
+                                        required="#{bindings.PoNo.hints.mandatory}"
+                                        columns="#{bindings.PoNo.hints.displayWidth}"
+                                        shortDesc="#{bindings.PoNo.hints.tooltip}" contentStyle="width:180px;" labelStyle="width:100px" >
+            <f:validator binding="#{bindings.PoNo.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3"/>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
+                        required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id1" contentStyle="width:180px;" labelStyle="width:100px">
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date"
+                        required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id2" contentStyle="width:180px;" labelStyle="width:100px" >
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b1" actionListener="#{SaleOrderDetailBean.onClickButton}"
+                     disabled="#{!bindings.callSaleOrderDetail.enabled}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s3"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth" >
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t1">
+        <af:button text="Export To Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t2" filename="Sale Order Detail.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.SaleOrderDetailVO1.collectionModel}" var="row"
+              rows="#{bindings.SaleOrderDetailVO1.rangeSize}"
+              emptyText="#{bindings.SaleOrderDetailVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.SaleOrderDetailVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.SaleOrderDetailVO1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.SaleOrderDetailVO1.rangeSize}"
+              filterModel="#{bindings.SaleOrderDetailVO1Query.queryDescriptor}" filterVisible="false"
+              queryListener="#{bindings.SaleOrderDetailVO1Query.processQuery}" varStatus="vs" id="t2">
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.UnitCode.name}" filterable="true" sortable="true"
+                 headerText="Unit Code" id="c1">
+        <af:outputText value="#{row.UnitCode}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.UnitCode.tooltip}"
+                       id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.PoNo.name}" filterable="true" sortable="true"
+                 headerText="PO No." id="c2">
+        <af:outputText value="#{row.PoNo}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.PoNo.tooltip}" id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.PoDate.name}" filterable="true" sortable="true"
+                 headerText="PO Date" id="c3">
+        <af:outputText value="#{row.PoDate}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.PoDate.tooltip}" id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.CustPoNumber.name}" filterable="true" sortable="true"
+                 headerText="Customer PO No" id="c4">
+        <af:outputText value="#{row.CustPoNumber}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.CustPoNumber.tooltip}"
+                       id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.CustPoDate.name}" filterable="true" sortable="true"
+                 headerText="Customer PO Date" id="c5">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.SaleOrderDetailVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.CustPoDate.value}"
+                        id="id3">
+            <af:convertDateTime pattern="#{bindings.SaleOrderDetailVO1.hints.CustPoDate.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.CustPoDate}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.CustPoDate.tooltip}"
+                       id="ot5">
+          <af:convertDateTime pattern="#{bindings.SaleOrderDetailVO1.hints.CustPoDate.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.ValidUpto.name}" filterable="true" sortable="true"
+                 headerText="Valid Upto" id="c6">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.SaleOrderDetailVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.ValidUpto.value}"
+                        id="id4">
+            <af:convertDateTime pattern="#{bindings.SaleOrderDetailVO1.hints.ValidUpto.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.ValidUpto}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.ValidUpto.tooltip}"
+                       id="ot6">
+          <af:convertDateTime pattern="#{bindings.SaleOrderDetailVO1.hints.ValidUpto.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.ProdCode.name}" filterable="true" sortable="true"
+                 headerText="Product Code" id="c7">
+        <af:outputText value="#{row.ProdCode}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.ProdCode.tooltip}"
+                       id="ot7"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.Quantity.name}" filterable="true" sortable="true"
+                 headerText="SO Qty" id="c8">
+        <af:outputText value="#{row.Quantity}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.Quantity.tooltip}"
+                       id="ot8">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.Quantity.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.Price.name}" filterable="true" sortable="true"
+                 headerText="Price" id="c9">
+        <af:outputText value="#{row.Price}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.Price.tooltip}" id="ot9">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.Price.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.DisPer.name}" filterable="true" sortable="true"
+                 headerText="Discount %" id="c10">
+        <af:outputText value="#{row.DisPer}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.DisPer.tooltip}" id="ot10">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.DisPer.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.Discount.name}" filterable="true" sortable="true"
+                 headerText="Discount Amount" id="c11">
+        <af:outputText value="#{row.Discount}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.Discount.tooltip}"
+                       id="ot11">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.Discount.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.TaxableAmount.name}" filterable="true"
+                 sortable="true" headerText="Taxable Amount" id="c12">
+        <af:outputText value="#{row.TaxableAmount}"
+                       shortDesc="#{bindings.SaleOrderDetailVO1.hints.TaxableAmount.tooltip}" id="ot12">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.TaxableAmount.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.GstCode.name}" filterable="true" sortable="true"
+                 headerText="GST Code" id="c13">
+        <af:outputText value="#{row.GstCode}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.GstCode.tooltip}"
+                       id="ot13"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.SgstRate.name}" filterable="true" sortable="true"
+                 headerText="SGST Rate" id="c14">
+        <af:outputText value="#{row.SgstRate}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.SgstRate.tooltip}"
+                       id="ot14">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.SgstRate.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.Sgst.name}" filterable="true" sortable="true"
+                 headerText="SGST" id="c15">
+        <af:outputText value="#{row.Sgst}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.Sgst.tooltip}" id="ot15">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.Sgst.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.CgstRate.name}" filterable="true" sortable="true"
+                 headerText="CGST Rate" id="c16">
+        <af:outputText value="#{row.CgstRate}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.CgstRate.tooltip}"
+                       id="ot16">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.CgstRate.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.Cgst.name}" filterable="true" sortable="true"
+                 headerText="CGST" id="c17">
+        <af:outputText value="#{row.Cgst}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.Cgst.tooltip}" id="ot17">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.Cgst.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.IgstRate.name}" filterable="true" sortable="true"
+                 headerText="IGST Rate" id="c18">
+        <af:outputText value="#{row.IgstRate}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.IgstRate.tooltip}"
+                       id="ot18">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.IgstRate.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.Igst.name}" filterable="true" sortable="true"
+                 headerText="IGST" id="c19">
+        <af:outputText value="#{row.Igst}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.Igst.tooltip}" id="ot19">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.Igst.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.Ordervalue.name}" filterable="true" sortable="true"
+                 headerText="Order Value" id="c20">
+        <af:outputText value="#{row.Ordervalue}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.Ordervalue.tooltip}"
+                       id="ot20">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.Ordervalue.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.SaleOrderDetailVO1.hints.Qty.name}" filterable="true" sortable="true"
+                 headerText="Dispatch Quantity" id="c21">
+        <af:outputText value="#{row.Qty}" shortDesc="#{bindings.SaleOrderDetailVO1.hints.Qty.tooltip}" id="ot21">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.SaleOrderDetailVO1.hints.Qty.format}"/>
+        </af:outputText>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+  <af:spacer width="10" height="10" id="s1"/>
+</jsp:root>
