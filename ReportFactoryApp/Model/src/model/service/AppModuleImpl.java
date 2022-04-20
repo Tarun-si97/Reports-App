@@ -802,6 +802,76 @@ public class AppModuleImpl extends ApplicationModuleImpl implements AppModule {
     
     }
 
+
+    /**
+     * Container's getter for FGTransferVO1.
+     * @return FGTransferVO1
+     */
+    public ViewObjectImpl getFGTransferVO1() {
+        return (ViewObjectImpl) findViewObject("FGTransferVO1");
+    }
+    
+    public void callFGTransfer(String LV_UNIT,Date FRDATE,Date TODATE, String LV_ChallanType){
+          ViewObjectImpl vo = this.getFGTransferVO1();
+          System.out.println( LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--" + LV_ChallanType + "--");
+          
+      if (LV_UNIT != null &&  FRDATE != null && TODATE != null && LV_ChallanType !=null) {
+          System.out.println("Inside condition!");
+      try {
+
+          
+         
+          vo.setNamedWhereClauseParam("P183_FROM", FRDATE);
+      
+          vo.setNamedWhereClauseParam("P183_TO", TODATE);
+          vo.setNamedWhereClauseParam("P183_UNIT", LV_UNIT);
+          vo.setNamedWhereClauseParam("P183_CHALLAN_TYPE", LV_ChallanType);
+         
+          vo.executeQuery();
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      
+      }
+      }
+    
+    }
+
+
+    /**
+     * Container's getter for CollectionReportVVO1.
+     * @return CollectionReportVVO1
+     */
+    public ViewObjectImpl getCollectionReportVVO1() {
+        return (ViewObjectImpl) findViewObject("CollectionReportVVO1");
+    }
+    
+    public void callCollectionReport(String LV_UNIT,Date FRDATE,Date TODATE, String LV_CollectionCust){
+          ViewObjectImpl vo = this.getCollectionReportVVO1();
+          System.out.println( LV_UNIT + "--"  + "--" + FRDATE + "--" + TODATE+"--" + LV_CollectionCust + "--");
+          
+      if (LV_UNIT != null &&  FRDATE != null && TODATE != null && LV_CollectionCust !=null) {
+          System.out.println("Inside condition!");
+      try {
+
+          
+         
+          vo.setNamedWhereClauseParam("P41_FR_DT", FRDATE);
+      
+          vo.setNamedWhereClauseParam("P41_TO_DT", TODATE);
+          vo.setNamedWhereClauseParam("P41_UNIT_CD", LV_UNIT);
+          vo.setNamedWhereClauseParam("P41_CUST_CD", LV_CollectionCust);
+         
+          vo.executeQuery();
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+      
+      }
+      }
+    
+    }
+    
     
     
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.11.57" id="CollectionPageDef"
+                Package="FinancePage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="CollectionReportVVO1" RangeSize="25" DataControl="AppModuleDataControl"
+              id="CollectionReportVVO1Iterator"/>
+    <searchRegion Binds="CollectionReportVVO1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer" id="CollectionReportVVO1Query"/>
+    <iterator Binds="DummyVVO1" RangeSize="25" DataControl="AppModuleDataControl" id="DummyVVO1Iterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="CollectionReportVVO1Iterator" id="CollectionReportVVO1">
+      <nodeDefinition DefName="model.finance.views.CollectionReportVVO" Name="CollectionReportVVO10">
+        <AttrNames>
+          <Item Value="Unit"/>
+          <Item Value="Stname"/>
+          <Item Value="Ctname"/>
+          <Item Value="CtAddress"/>
+          <Item Value="CollectionNumber"/>
+          <Item Value="CollectionDate"/>
+          <Item Value="Journal"/>
+          <Item Value="Bank"/>
+          <Item Value="InvNo"/>
+          <Item Value="InvoiceDate"/>
+          <Item Value="AdjAmount"/>
+          <Item Value="DeductionAmount"/>
+          <Item Value="NetAmount"/>
+          <Item Value="Remarks"/>
+          <Item Value="ChequeDdNo"/>
+          <Item Value="Dt1"/>
+          <Item Value="ChequeAmount"/>
+          <Item Value="ApprovedBy"/>
+          <Item Value="ApprovalDate"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <list IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_UnitCode" id="UnitCode" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <listOfValues IterBinding="DummyVVO1Iterator" StaticList="false" Uses="LOV_CollectionCust" id="CollectionCust"/>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="fromDate">
+      <AttrNames>
+        <Item Value="fromDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DummyVVO1Iterator" id="toDate">
+      <AttrNames>
+        <Item Value="toDate"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="callCollectionReport" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="callCollectionReport" IsViewObjectMethod="false" DataControl="AppModuleDataControl"
+                  InstanceName="data.AppModuleDataControl.dataProvider">
+      <NamedData NDName="LV_UNIT" NDType="java.lang.String"/>
+      <NamedData NDName="FRDATE" NDType="java.util.Date"/>
+      <NamedData NDName="TODATE" NDType="java.util.Date"/>
+      <NamedData NDName="LV_CollectionCust" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

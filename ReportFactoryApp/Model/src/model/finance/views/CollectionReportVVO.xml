@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="CollectionReportVVO"
+  Version="12.2.1.11.57"
+  InheritPersonalization="merge"
+  BindingStyle="OracleName"
+  CustomQuery="true"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="model.finance.views.CollectionReportVVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="P41_UNIT_CD"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P41_CUST_CD"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="P41_FR_DT"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <Variable
+    Name="P41_TO_DT"
+    Kind="where"
+    Type="oracle.jbo.domain.Date"/>
+  <SQLQuery><![CDATA[SELECT C.UNIT, ST.NAME "STNAME", CT.NAME "CTNAME", (CT.ADDRESS||' '||CT.PIN ) CT_ADDRESS, C.CA_NO "Collection Number", TO_CHAR(C.CA_DATE, 'DD-MM-RR')"Collection Date",  
+C.VOU_NO "Journal", C.VOU_NO1 "Bank", CA.INV_NO, TO_CHAR(CA.INV_DATE, 'DD-MM-RR') "Invoice Date",  
+CA.ADJ_AMOUNT "ADJ AMOUNT", CA.AMT_DEDUCTED "Deduction AMount", (CA.ADJ_AMOUNT-CA.AMT_DEDUCTED) "Net Amount", CA.REMARKS "Remarks",  
+C.CHEQUE_DD_NO, TO_CHAR(C.CHEQUE_DD_DATE, 'DD-MM-RR') "DT1",  
+C.CHEQUE_AMOUNT "Cheque Amount", EM.ENAME "Approved By", TO_CHAR(C.APPROVAL_DATE, 'DD-MM-RR') "Approval Date"  
+FROM COLLECTION_ADVICE_HEADER C, COLLECTION_ADVICE_DETAIL CA, CUSTOMER CT, 
+CITY CY, STATE ST, EMP_VIEW EM 
+WHERE C.CUST_CITY_CODE=CY.CODE 
+AND CY.STAT_CODE=ST.CODE 
+AND CY.CODE=CT.CITY_CODE 
+AND C.CUST_CODE=CT.CODE 
+AND C.UNIT=CT.UNIT_CODE 
+AND C.CA_NO=CA.CA_HEAD_CA_NO 
+AND C.CA_DATE=CA.CA_HEAD_CA_DATE 
+AND C.UNIT=CA.CA_HEAD_UNIT 
+AND C.AUTH_CODE=EM.ENO 
+AND ( C.UNIT = :P41_UNIT_CD or 'ALL' = :P41_UNIT_CD ) 
+AND ( CT.NAME = :P41_CUST_CD OR 'ALL' = :P41_CUST_CD ) 
+AND C.CA_DATE between :P41_FR_DT AND :P41_TO_DT]]></SQLQuery>
+  <ViewAttribute
+    Name="Unit"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="UNIT"
+    Expression="UNIT"
+    SQLType="CHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Stname"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="STNAME"
+    Expression="STNAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Ctname"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CTNAME"
+    Expression="CTNAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CtAddress"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="328"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CT_ADDRESS"
+    Expression="CT_ADDRESS"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="328"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CollectionNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"Collection Number"'
+    Expression='"Collection Number"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CollectionDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"Collection Date"'
+    Expression='"Collection Date"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Journal"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"Journal"'
+    Expression='"Journal"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Bank"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"Bank"'
+    Expression='"Bank"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="50"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="INV_NO"
+    Expression="INV_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="50"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="InvoiceDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"Invoice Date"'
+    Expression='"Invoice Date"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="AdjAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"ADJ AMOUNT"'
+    Expression='"ADJ AMOUNT"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="DeductionAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"Deduction AMount"'
+    Expression='"Deduction AMount"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="NetAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"Net Amount"'
+    Expression='"Net Amount"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="Remarks"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="25"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"Remarks"'
+    Expression='"Remarks"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="25"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ChequeDdNo"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="100"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CHEQUE_DD_NO"
+    Expression="CHEQUE_DD_NO"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Dt1"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="DT1"
+    Expression="DT1"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ChequeAmount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="12"
+    Scale="2"
+    Type="java.math.BigDecimal"
+    ColumnType="NUMBER"
+    AliasName='"Cheque Amount"'
+    Expression='"Cheque Amount"'
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="ApprovedBy"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="61"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"Approved By"'
+    Expression='"Approved By"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="61"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ApprovalDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="8"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName='"Approval Date"'
+    Expression='"Approval Date"'
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="8"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

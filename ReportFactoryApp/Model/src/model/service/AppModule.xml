@@ -86,6 +86,12 @@
   <ViewUsage
     Name="SaleOrderDetailVO1"
     ViewObjectName="model.sale.views.SaleOrderDetailVO"/>
+  <ViewUsage
+    Name="FGTransferVO1"
+    ViewObjectName="model.sale.views.FGTransferVO"/>
+  <ViewUsage
+    Name="CollectionReportVVO1"
+    ViewObjectName="model.finance.views.CollectionReportVVO"/>
   <ClientInterface
     Name="__clientInterface">
     <Method
@@ -746,6 +752,44 @@
         Type="java.util.Date"/>
       <Parameter
         Name="LV_PoNo"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="callFGTransfer"
+      MethodName="callFGTransfer">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="LV_ChallanType"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="callCollectionReport"
+      MethodName="callCollectionReport">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="LV_UNIT"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="FRDATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="TODATE"
+        Type="java.util.Date"/>
+      <Parameter
+        Name="LV_CollectionCust"
         Type="java.lang.String"/>
     </Method>
   </ClientInterface>

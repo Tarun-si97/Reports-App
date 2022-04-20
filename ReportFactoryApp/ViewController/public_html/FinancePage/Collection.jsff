@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Collection Report" id="ph1">
+    <af:spacer width="10" height="10" id="s2"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="#{bindings.UnitCode.label}"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="width:188px;" labelStyle="width:100px" >
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2">
+          <af:inputComboboxListOfValues id="collectionCustId"
+                                        popupTitle="Search and Select: #{bindings.CollectionCust.hints.label}"
+                                        value="#{bindings.CollectionCust.inputValue}"
+                                        label="#{bindings.CollectionCust.hints.label}"
+                                        model="#{bindings.CollectionCust.listOfValuesModel}"
+                                        required="#{bindings.CollectionCust.hints.mandatory}"
+                                        columns="#{bindings.CollectionCust.hints.displayWidth}"
+                                        shortDesc="#{bindings.CollectionCust.hints.tooltip}" contentStyle="width:180px;" labelStyle="width:100px">
+            <f:validator binding="#{bindings.CollectionCust.validator}"/>
+          </af:inputComboboxListOfValues>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3"/>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="#{bindings.fromDate.hints.label}"
+                        required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id1" contentStyle="width:180px;" labelStyle="width:100px" >
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="#{bindings.toDate.hints.label}"
+                        required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id2" contentStyle="width:192px;" labelStyle="width:100px">
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b1" actionListener="#{CollectionReportBean.onClickButton}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s1"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth" >
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t1">
+        <af:button text="Export to Excel" id="b2">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t2" filename="Collection Report.xls"
+                                             title="Export to Excel"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.CollectionReportVVO1.collectionModel}" var="row"
+              rows="#{bindings.CollectionReportVVO1.rangeSize}"
+              emptyText="#{bindings.CollectionReportVVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.CollectionReportVVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.CollectionReportVVO1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.CollectionReportVVO1.rangeSize}"
+              filterModel="#{bindings.CollectionReportVVO1Query.queryDescriptor}" filterVisible="false"
+              queryListener="#{bindings.CollectionReportVVO1Query.processQuery}" varStatus="vs" id="t2">
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.Unit.name}" filterable="true" sortable="true"
+                 headerText="Unit Code" id="c1">
+        <af:outputText value="#{row.Unit}" shortDesc="#{bindings.CollectionReportVVO1.hints.Unit.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.Stname.name}" filterable="true" sortable="true"
+                 headerText="State" id="c2">
+        <af:outputText value="#{row.Stname}" shortDesc="#{bindings.CollectionReportVVO1.hints.Stname.tooltip}"
+                       id="ot2"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.Ctname.name}" filterable="true" sortable="true"
+                 headerText="Customer Name" id="c3">
+        <af:outputText value="#{row.Ctname}" shortDesc="#{bindings.CollectionReportVVO1.hints.Ctname.tooltip}"
+                       id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.CtAddress.name}" filterable="true" sortable="true"
+                 headerText="Customer Address" id="c4">
+        <af:outputText value="#{row.CtAddress}" shortDesc="#{bindings.CollectionReportVVO1.hints.CtAddress.tooltip}"
+                       id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.CollectionNumber.name}" filterable="true"
+                 sortable="true" headerText="Collection Number" id="c5">
+        <af:outputText value="#{row.CollectionNumber}"
+                       shortDesc="#{bindings.CollectionReportVVO1.hints.CollectionNumber.tooltip}" id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.CollectionDate.name}" filterable="true"
+                 sortable="true" headerText="Date" id="c6">
+        <af:outputText value="#{row.CollectionDate}"
+                       shortDesc="#{bindings.CollectionReportVVO1.hints.CollectionDate.tooltip}" id="ot6"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.Journal.name}" filterable="true" sortable="true"
+                 headerText="Journal Voucher" id="c7">
+        <af:outputText value="#{row.Journal}" shortDesc="#{bindings.CollectionReportVVO1.hints.Journal.tooltip}"
+                       id="ot7"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.Bank.name}" filterable="true" sortable="true"
+                 headerText="Bank Voucher" id="c8">
+        <af:outputText value="#{row.Bank}" shortDesc="#{bindings.CollectionReportVVO1.hints.Bank.tooltip}" id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.InvNo.name}" filterable="true" sortable="true"
+                 headerText="Invoice Number" id="c9">
+        <af:outputText value="#{row.InvNo}" shortDesc="#{bindings.CollectionReportVVO1.hints.InvNo.tooltip}" id="ot9"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.InvoiceDate.name}" filterable="true"
+                 sortable="true" headerText="Invoice Date" id="c10">
+        <af:outputText value="#{row.InvoiceDate}" shortDesc="#{bindings.CollectionReportVVO1.hints.InvoiceDate.tooltip}"
+                       id="ot10"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.Remarks.name}" filterable="true" sortable="true"
+                 headerText="Remarks" id="c14">
+        <af:outputText value="#{row.Remarks}" shortDesc="#{bindings.CollectionReportVVO1.hints.Remarks.tooltip}"
+                       id="ot14"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.ChequeDdNo.name}" filterable="true" sortable="true"
+                 headerText="Cheque No" id="c15">
+        <af:outputText value="#{row.ChequeDdNo}" shortDesc="#{bindings.CollectionReportVVO1.hints.ChequeDdNo.tooltip}"
+                       id="ot15"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.Dt1.name}" filterable="true" sortable="true"
+                 headerText="Cheque Date" id="c16">
+        <af:outputText value="#{row.Dt1}" shortDesc="#{bindings.CollectionReportVVO1.hints.Dt1.tooltip}" id="ot16"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.ChequeAmount.name}" filterable="true"
+                 sortable="true" headerText="Cheque Amount" id="c17">
+        <af:outputText value="#{row.ChequeAmount}"
+                       shortDesc="#{bindings.CollectionReportVVO1.hints.ChequeAmount.tooltip}" id="ot17">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.CollectionReportVVO1.hints.ChequeAmount.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.ApprovedBy.name}" filterable="true" sortable="true"
+                 headerText="Approved By" id="c18">
+        <af:outputText value="#{row.ApprovedBy}" shortDesc="#{bindings.CollectionReportVVO1.hints.ApprovedBy.tooltip}"
+                       id="ot18"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.ApprovalDate.name}" filterable="true"
+                 sortable="true" headerText="Approved Date" id="c19">
+        <af:outputText value="#{row.ApprovalDate}"
+                       shortDesc="#{bindings.CollectionReportVVO1.hints.ApprovalDate.tooltip}" id="ot19"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.AdjAmount.name}" filterable="true" sortable="true"
+                 headerText="Amount" id="c11">
+        <af:outputText value="#{row.AdjAmount}" shortDesc="#{bindings.CollectionReportVVO1.hints.AdjAmount.tooltip}"
+                       id="ot11">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.CollectionReportVVO1.hints.AdjAmount.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.DeductionAmount.name}" filterable="true"
+                 sortable="true" headerText="Deduction Amount" id="c12">
+        <af:outputText value="#{row.DeductionAmount}"
+                       shortDesc="#{bindings.CollectionReportVVO1.hints.DeductionAmount.tooltip}" id="ot12">
+          <af:convertNumber groupingUsed="false"
+                            pattern="#{bindings.CollectionReportVVO1.hints.DeductionAmount.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.CollectionReportVVO1.hints.NetAmount.name}" filterable="true" sortable="true"
+                 headerText="Net Amount" id="c13">
+        <af:outputText value="#{row.NetAmount}" shortDesc="#{bindings.CollectionReportVVO1.hints.NetAmount.tooltip}"
+                       id="ot13">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.CollectionReportVVO1.hints.NetAmount.format}"/>
+        </af:outputText>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</jsp:root>

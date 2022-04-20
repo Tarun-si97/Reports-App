@@ -53,5 +53,9 @@ public interface AppModule extends ApplicationModule {
     void getFGdata();
 
     void callSaleOrderDetail(String LV_UNIT, Date FRDATE, Date TODATE, String LV_PoNo);
+
+    void callFGTransfer(String LV_UNIT, Date FRDATE, Date TODATE, String LV_ChallanType);
+
+    void callCollectionReport(String LV_UNIT, Date FRDATE, Date TODATE, String LV_CollectionCust);
 }
 
