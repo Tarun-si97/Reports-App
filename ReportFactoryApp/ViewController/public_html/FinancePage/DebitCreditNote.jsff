@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelHeader text="Debit Credit Note" id="ph1">
+    <af:spacer width="10" height="10" id="s1"/>
+    <af:panelGridLayout id="pgl1">
+      <af:gridRow marginTop="5px" height="auto" id="gr1">
+        <af:gridCell marginStart="5px" width="34%" id="gc1">
+          <af:selectOneChoice value="#{bindings.UnitCode.inputValue}" label="Unit Name"
+                              required="#{bindings.UnitCode.hints.mandatory}"
+                              shortDesc="#{bindings.UnitCode.hints.tooltip}" id="soc1" contentStyle="Width:175px;" labelStyle="Width:100px">
+            <f:selectItems value="#{bindings.UnitCode.items}" id="si1"/>
+            <f:validator binding="#{bindings.UnitCode.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc2">
+          <af:selectOneChoice value="#{bindings.Debit_Credit_note_Type.inputValue}"
+                              label="Type"
+                              required="#{bindings.Debit_Credit_note_Type.hints.mandatory}"
+                              shortDesc="#{bindings.Debit_Credit_note_Type.hints.tooltip}" id="soc2" contentStyle="width :175px;"
+                              labelStyle="width:70px">
+            <f:selectItems value="#{bindings.Debit_Credit_note_Type.items}" id="si2"/>
+            <f:validator binding="#{bindings.Debit_Credit_note_Type.validator}"/>
+          </af:selectOneChoice>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc3"/>
+      </af:gridRow>
+      <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr2">
+        <af:gridCell marginStart="5px" width="34%" id="gc4">
+          <af:inputDate value="#{bindings.fromDate.inputValue}" label="From Date"
+                        required="#{bindings.fromDate.hints.mandatory}"
+                        columns="#{bindings.fromDate.hints.displayWidth}" shortDesc="#{bindings.fromDate.hints.tooltip}"
+                        id="id4" contentStyle="width :130px;"
+                              labelStyle="width:100px">
+            <f:validator binding="#{bindings.fromDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.fromDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" id="gc5">
+          <af:inputDate value="#{bindings.toDate.inputValue}" label="To Date"
+                        required="#{bindings.toDate.hints.mandatory}" columns="#{bindings.toDate.hints.displayWidth}"
+                        shortDesc="#{bindings.toDate.hints.tooltip}" id="id3" contentStyle="width :170px;"
+                              labelStyle="width:70px">
+            <f:validator binding="#{bindings.toDate.validator}"/>
+            <af:convertDateTime pattern="#{bindings.toDate.format}"/>
+          </af:inputDate>
+        </af:gridCell>
+        <af:gridCell marginStart="5px" width="33%" marginEnd="5px" id="gc6">
+          <af:button text="Execute" id="b2" actionListener="#{DebitCreditNoteBean.onClickMethod}"
+                     disabled="#{!bindings.callDebitCreditNote.enabled}"/>
+        </af:gridCell>
+      </af:gridRow>
+    </af:panelGridLayout>
+    <af:spacer width="10" height="10" id="s2"/>
+  </af:panelHeader>
+  <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+    <f:facet name="menus"/>
+    <f:facet name="toolbar">
+      <af:toolbar id="t2">
+        <af:button text="Export To Excel" id="b1">
+          <af:exportCollectionActionListener type="excelHTML" exportedId="t1" filename="Debit Credit Note.xls"/>
+        </af:button>
+      </af:toolbar>
+    </f:facet>
+    <f:facet name="statusbar"/>
+    <af:table value="#{bindings.DebitCreditNoteVO1.collectionModel}" var="row"
+              rows="#{bindings.DebitCreditNoteVO1.rangeSize}"
+              emptyText="#{bindings.DebitCreditNoteVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+              rowBandingInterval="0" selectedRowKeys="#{bindings.DebitCreditNoteVO1.collectionModel.selectedRow}"
+              selectionListener="#{bindings.DebitCreditNoteVO1.collectionModel.makeCurrent}" rowSelection="single"
+              fetchSize="#{bindings.DebitCreditNoteVO1.rangeSize}"
+              filterModel="#{bindings.DebitCreditNoteVO1Query.queryDescriptor}" filterVisible="false"
+              queryListener="#{bindings.DebitCreditNoteVO1Query.processQuery}" varStatus="vs" id="t1">
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.FinTvouchUnitCode.name}" filterable="true"
+                 sortable="true" headerText="Unit Code" id="c3">
+        <af:outputText value="#{row.FinTvouchUnitCode}"
+                       shortDesc="#{bindings.DebitCreditNoteVO1.hints.FinTvouchUnitCode.tooltip}" id="ot3"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.DrCrNoteDnCnNo.name}" filterable="true"
+                 sortable="true" headerText="Debit Credit Note No" id="c1">
+        <af:outputText value="#{row.DrCrNoteDnCnNo}"
+                       shortDesc="#{bindings.DebitCreditNoteVO1.hints.DrCrNoteDnCnNo.tooltip}" id="ot1"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.Dt.name}" filterable="true" sortable="true"
+                 headerText="Debit Credit Note Date" id="c2">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.DebitCreditNoteVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.Dt.value}"
+                        id="id1">
+            <af:convertDateTime pattern="#{bindings.DebitCreditNoteVO1.hints.Dt.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.Dt}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.Dt.tooltip}" id="ot2">
+          <af:convertDateTime pattern="#{bindings.DebitCreditNoteVO1.hints.Dt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.Typ.name}" filterable="true" sortable="true"
+                 headerText="Type" id="c4">
+        <af:outputText value="#{row.Typ}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.Typ.tooltip}" id="ot4"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.PartyName.name}" filterable="true" sortable="true"
+                 headerText="Party Name" id="c5">
+        <af:outputText value="#{row.PartyName}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.PartyName.tooltip}"
+                       id="ot5"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.VendorBillNo.name}" filterable="true" sortable="true"
+                 headerText="Vendor Bil No" id="c6">
+        <af:outputText value="#{row.VendorBillNo}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.VendorBillNo.tooltip}"
+                       id="ot6"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.VendorBillDate.name}" filterable="true"
+                 sortable="true" headerText="Vendor Bil Date" id="c7">
+        <f:facet name="filter">
+          <af:inputDate value="#{bindings.DebitCreditNoteVO1Query.queryDescriptor.filterConjunctionCriterion.criterionMap.VendorBillDate.value}"
+                        id="id2">
+            <af:convertDateTime pattern="#{bindings.DebitCreditNoteVO1.hints.VendorBillDate.format}"/>
+          </af:inputDate>
+        </f:facet>
+        <af:outputText value="#{row.VendorBillDate}"
+                       shortDesc="#{bindings.DebitCreditNoteVO1.hints.VendorBillDate.tooltip}" id="ot7">
+          <af:convertDateTime pattern="#{bindings.DebitCreditNoteVO1.hints.VendorBillDate.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.Remarks.name}" filterable="true" sortable="true"
+                 headerText="#{bindings.DebitCreditNoteVO1.hints.Remarks.label}" id="c8">
+        <af:outputText value="#{row.Remarks}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.Remarks.tooltip}"
+                       id="ot8"/>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.Igst.name}" filterable="true" sortable="true"
+                 headerText="IGST" id="c9">
+        <af:outputText value="#{row.Igst}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.Igst.tooltip}" id="ot9">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DebitCreditNoteVO1.hints.Igst.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.Cgst.name}" filterable="true" sortable="true"
+                 headerText="CGST" id="c10">
+        <af:outputText value="#{row.Cgst}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.Cgst.tooltip}" id="ot10">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DebitCreditNoteVO1.hints.Cgst.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.Sgst.name}" filterable="true" sortable="true"
+                 headerText="SGST" id="c11">
+        <af:outputText value="#{row.Sgst}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.Sgst.tooltip}" id="ot11">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DebitCreditNoteVO1.hints.Sgst.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.Amt.name}" filterable="true" sortable="true"
+                 headerText="Taxable Amount" id="c13">
+        <af:outputText value="#{row.Amt}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.Amt.tooltip}" id="ot13">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DebitCreditNoteVO1.hints.Amt.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.RoundOff.name}" filterable="true" sortable="true"
+                 headerText="Round Off" id="c12">
+        <af:outputText value="#{row.RoundOff}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.RoundOff.tooltip}"
+                       id="ot12">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DebitCreditNoteVO1.hints.RoundOff.format}"/>
+        </af:outputText>
+      </af:column>
+      <af:column sortProperty="#{bindings.DebitCreditNoteVO1.hints.TotalAmt.name}" filterable="true" sortable="true"
+                 headerText="Total Amount" id="c14">
+        <af:outputText value="#{row.TotalAmt}" shortDesc="#{bindings.DebitCreditNoteVO1.hints.TotalAmt.tooltip}"
+                       id="ot14">
+          <af:convertNumber groupingUsed="false" pattern="#{bindings.DebitCreditNoteVO1.hints.TotalAmt.format}"/>
+        </af:outputText>
+      </af:column>
+    </af:table>
+  </af:panelCollection>
+</jsp:root>
